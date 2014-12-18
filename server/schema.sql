@@ -4,7 +4,6 @@ CREATE DATABASE sliceDatabase;
 
 USE sliceDatabase;
 
-
 -- ---
 -- Globals
 -- ---
