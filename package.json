@@ -1,14 +1,23 @@
 {
   "name": "Slice-Reactor",
   "version": "0.0.0",
+  "description" : "Thesis",
+  "main" : "index.js",
   "private": true,
-  "scripts": {
-    "start": "node index.js"
-  },
   "dependencies": {
     "body-parser": "~1.8.1",
     "cookie-parser": "~1.3.3",
     "express": "~4.9.0",
+    "grunt": "^0.4.5",
+    "grunt-contrib-concat": "^0.5.0",
+    "grunt-contrib-cssmin": "^0.10.0",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-contrib-uglify": "^0.6.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-mocha-test": "^0.12.4",
+    "grunt-nodemon": "^0.3.0",
+    "grunt-shell": "^1.1.1",
+    "mocha": "^2.0.1",
     "passport": "^0.2.1"
   }
 }
