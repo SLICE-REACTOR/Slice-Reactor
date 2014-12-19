@@ -1,1 +1,1 @@
-Donut.react.js
+var React = require('react');
