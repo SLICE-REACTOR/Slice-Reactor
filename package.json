@@ -30,6 +30,7 @@
     "watchify": "^2.2.1"
   },
   "scripts": {
+    "start": "watchify -o js/bundle.js -v -d .",
     "test": "./node_modules/mocha/bin/mocha jest"
   },
 }
