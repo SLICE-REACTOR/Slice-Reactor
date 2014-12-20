@@ -1,5 +1,4 @@
-createTimeCR
-EATE DATABASE slice;
+CREATE DATABASE slice;
 
 USE slice,
 
