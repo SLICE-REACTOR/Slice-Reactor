@@ -1,5 +1,4 @@
 var express = require('express');
-var mongoose = require('mongoose');
 
 require('dotenv').load();
 
@@ -17,7 +16,7 @@ passport.use('slice', new OAuth2Strategy({
     tokenURL: 'https://api.slice.com/oauth/token',
     clientID: process.env.SLICE_CLIENT_ID,
     clientSecret: process.env.SLICE_CLIENT_SECRET,
-    callbackURL: 'https://www.slicereactor.com/auth/provider/callback'
+    callbackURL: 'https://www.slicereactor.com/auth/slice/callback'
   },
   function(accessToken, refreshToken, profile, done) {
     User.findOrCreate(..., function(err, user) {
