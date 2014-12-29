@@ -5,6 +5,7 @@ module.exports = {
   getAllOrders: function() {
     // simulate retrieving data from a database
     var rawOrderData = JSON.parse(localStorage.getItem('orders'));
+    console.log('rawOrderData: ', rawOrderData);
     // var rawItemData = JSON.prase(localStorage.getItem('items'));
 
     // simulate success callback
