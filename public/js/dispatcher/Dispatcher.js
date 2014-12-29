@@ -7,10 +7,12 @@ var PayloadSources = Constants.PayloadSources;
 var AppDispatcher = assign(new Dispatcher(), {
 
   handleServerAction: function(action) {
+    console.log('in handleServerAction');
     var payload = {
       source: PayloadSources.SERVER_ACTION,
       action: action
     };
+    console.log('payload: ', payload);
     this.dispatch(payload);
   },
 

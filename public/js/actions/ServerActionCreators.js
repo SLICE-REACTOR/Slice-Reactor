@@ -13,6 +13,7 @@ module.exports = {
   },
 
   receiveAllOrders: function(allOrders) {
+    console.log('in receiveAllOrders');
     AppDispatcher.handleServerAction({
       type: ActionTypes.RECEIVE_ORDERS,
       allOrders: allOrders
