@@ -1,10 +1,10 @@
-var ChatConstants = require('../constants/ChatConstants');
+var Constants = require('../constants/Constants');
 var Dispatcher = require('flux').Dispatcher;
 var assign = require('object-assign');
 
-var PayloadSources = ChatConstants.PayloadSources;
+var PayloadSources = Constants.PayloadSources;
 
-var Dispatcher = assign(new Dispatcher(), {
+var AppDispatcher = assign(new Dispatcher(), {
 
   handleServerAction: function(action) {
     var payload = {
@@ -24,4 +24,4 @@ var Dispatcher = assign(new Dispatcher(), {
 
 });
 
-module.exports = Dispatcher;
+module.exports = AppDispatcher;
