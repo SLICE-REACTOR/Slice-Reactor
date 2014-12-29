@@ -1,5 +1,5 @@
 var React = require('react');
-var Donut = React.createClass({
+var Header = React.createClass({
 
   // getInitialState: function() {
   // },
@@ -13,7 +13,9 @@ var Donut = React.createClass({
   render: function() {
     return (
       <div>
-        <h1>Donut</h1>
+        <h1>Header</h1>
+        <div>Slice Logo</div>
+        <div>Header Icons</div>
       </div>
     );
   }
@@ -23,6 +25,6 @@ var Donut = React.createClass({
 });
 
 
-module.exports = Donut;
+module.exports = Header;
 
 
