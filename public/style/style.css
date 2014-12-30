@@ -14,8 +14,23 @@ header, footer, nav, span, aside, p, h1, h2, h3, h4, h5, h6 {
 }
 
 #logo {
+  box-sizing: border-box;
+  display: inline-block;
+  margin: 5px 10px 10px 10px;
   float: left;
+  width: 200px;
+  height: 40px;
+  background-color:red;
+  background: url('../img/slice-logo.jpg');
+  background-size: contain;
+  background-repeat: no-repeat;
 }
+
+/*#logo {
+  height: 50px;
+  width: 100px;
+  background-color: red;
+}*/
 
 .header-icons {
   float: right;
@@ -26,7 +41,7 @@ header, footer, nav, span, aside, p, h1, h2, h3, h4, h5, h6 {
 }
 
 header {
-  height: 50px;
+  height: 60px;
 }
 
 nav {
@@ -37,6 +52,7 @@ header, footer, #donut, #bar-graph, #date-input {
   background-color: white;
 }
 
+
 nav, #line-graph {
   background-color: gray;
 }
@@ -44,8 +60,8 @@ nav, #line-graph {
 #nav-links > div {
   display: inline-block;
   text-align: center;
-  line-height: 30px;
   vertical-align: middle;
+  line-height: 30px;
   height: 30px;
   width: 100px;
 }
