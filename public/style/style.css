@@ -1,0 +1,35 @@
+header, footer, nav, span, aside, p, h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+#background {
+  background-color: lightblue;
+}
+
+#wrapper {
+  width: 85%;
+  margin: 0 auto 0 auto;
+}
+
+header {
+  height: 50px;
+}
+
+nav {
+  height: 30px;
+}
+
+header, footer, #donut, #bar-graph, #date-input {
+  background-color: white;
+}
+
+nav, #line-graph {
+  background-color: gray;
+}
+
+nav > span, header > span {
+  margin-left: 10px;
+}
+

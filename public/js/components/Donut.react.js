@@ -3,7 +3,7 @@ var Donut = React.createClass({
 
   render: function() {
     return (
-      <div>
+      <div id="donut">
         <h1>Donut</h1>
       </div>
     );

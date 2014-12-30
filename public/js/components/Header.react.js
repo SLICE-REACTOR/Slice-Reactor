@@ -2,11 +2,10 @@ var React = require('react');
 var Header = React.createClass({
   render: function() {
     return (
-      <div>
-        <h1>Header</h1>
-        <div>Slice Logo</div>
-        <div>Header Icons</div>
-      </div>
+      <header>
+        <span>Slice Logo</span>
+        <span>Header Icons</span>
+      </header>
     );
   }
 });
