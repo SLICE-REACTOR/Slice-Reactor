@@ -66,6 +66,11 @@ nav, #line-graph {
   width: 100px;
 }
 
+#nav-links > div:hover {
+  background-color:black;
+  color: white;
+}
+
 header > span {
   margin-left: 10px;
 }
