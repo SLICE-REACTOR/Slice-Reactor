@@ -20,6 +20,7 @@ header, footer, nav, span, aside, p, h1, h2, h3, h4, h5, h6 {
 #wrapper {
   width: 85%;
   margin: 0 auto 0 auto;
+  box-shadow: 2px 0px 15px #888888;
 }
 
 #logo {
