@@ -7,16 +7,6 @@ var BarGraph = require('./BarGraph.react');
 var Footer = require('./Footer.react');
 
 var App = React.createClass({
-
-  // getInitialState: function() {
-  // },
-
-  // componentDidMount: function() {
-  // },
-
-  // componentWillUnmount: function() {
-  // },
-
   render: function() {
     return (
       <div>
@@ -29,11 +19,6 @@ var App = React.createClass({
       </div>
     );
   }
-  // },
-  // _onChange: function() {
-  // }
 });
 
-
 module.exports = App;
-
