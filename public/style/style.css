@@ -5,12 +5,22 @@ header, footer, nav, span, aside, p, h1, h2, h3, h4, h5, h6 {
 }
 
 #background {
-  background-color: lightblue;
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 1;
+
+  display: block;
+  height: 100%;
+  widows: 100%;
+  /*background-color: #52BECC;*/
+  background: radial-gradient(farthest-corner at 100% 100%, #BFE5C2, #52BECC);
 }
 
 #wrapper {
   width: 85%;
   margin: 0 auto 0 auto;
+  box-shadow: 2px 0px 15px #888888;
 }
 
 #logo {
@@ -20,17 +30,10 @@ header, footer, nav, span, aside, p, h1, h2, h3, h4, h5, h6 {
   float: left;
   width: 200px;
   height: 40px;
-  background-color:red;
   background: url('../img/slice-logo.jpg');
   background-size: contain;
   background-repeat: no-repeat;
 }
-
-/*#logo {
-  height: 50px;
-  width: 100px;
-  background-color: red;
-}*/
 
 .header-icons {
   float: right;
@@ -42,19 +45,23 @@ header, footer, nav, span, aside, p, h1, h2, h3, h4, h5, h6 {
 
 header {
   height: 60px;
+  background-color: white;
 }
 
 nav {
   height: 30px;
+  background-color: #5F5F60;
+  color: white;
 }
 
-header, footer, #donut, #bar-graph, #date-input {
+footer, #donut, #bar-graph, #date-input {
   background-color: white;
+  padding: 15px 30px;
 }
 
-
-nav, #line-graph {
-  background-color: gray;
+#line-graph {
+  background-color: #F5F5F5;
+  padding: 15px 30px;
 }
 
 #nav-links > div {
@@ -66,7 +73,28 @@ nav, #line-graph {
   width: 100px;
 }
 
+#nav-links > div:hover {
+  background-color: #8F8F90;
+}
+
 header > span {
   margin-left: 10px;
 }
 
+#date-input > span {
+  display: inline-block;
+}
+
+.category-merchant-button {
+  cursor: pointer;
+  border: 1px solid gray;
+  color: gray;
+  border-radius: 5px;
+  padding: 10px 20px;
+}
+
+.category-merchant-button:hover {
+  background-color: #24ACBF;
+  border: 1px solid #24ACBF;
+  color: white;
+}
