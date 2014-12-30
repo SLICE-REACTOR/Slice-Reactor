@@ -24,24 +24,9 @@ var GraphDataStore = assign({}, EventEmitter.prototype, {
     this.emit(CHANGE_EVENT);
   },
 
-  // /**
-  //  * @param {function} callback
-  //  */
-  // addChangeListener: function(callback) {
-  //   this.on(CHANGE_EVENT, callback);
-  // },
-
-  // removeChangeListener: function(callback) {
-  //   this.removeListener(CHANGE_EVENT, callback);
-  // },
-
-  // get: function(id) {
-  //   return _messages[id];
-  // },
-
-  // getAll: function() {
-  //   return _messages;
-  // }
+  addChangeListener: function(callback) {
+    this.on(CHANGE_EVENT, callback);
+  }
 });
 
 GraphDataStore.dispatchToken = AppDispatcher.register(function(payload) {
@@ -54,7 +39,6 @@ GraphDataStore.dispatchToken = AppDispatcher.register(function(payload) {
     case ActionTypes.RECEIVE_ORDERS:
       console.log('in RECEIVE_ORDERS');
       _addOrders(action.allOrders);
-      // AppDispatcher.waitFor([ThreadStore.dispatchToken]);
       GraphDataStore.emitChange();
       break;
 

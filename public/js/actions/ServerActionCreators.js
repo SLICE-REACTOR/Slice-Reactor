@@ -5,25 +5,11 @@ var ActionTypes = Constants.ActionTypes;
 
 module.exports = {
 
-  receiveAllGraphData: function(graphData) {
-    AppDispatcher.handleServerAction({
-      type: ActionTypes.RECEIVE_GRAPH_DATA,
-      graphData: graphData
-    });
-  },
-
   receiveAllOrders: function(allOrders) {
     console.log('in receiveAllOrders');
     AppDispatcher.handleServerAction({
       type: ActionTypes.RECEIVE_ORDERS,
       allOrders: allOrders
-    });
-  },
-
-  receiveAllItems: function(allItems) {
-    AppDispatcher.handleServerAction({
-      type: ActionTypes.RECEIVE_ITEMS,
-      allItems: allItems
     });
   }
 

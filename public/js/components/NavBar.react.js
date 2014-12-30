@@ -3,15 +3,6 @@ var React = require('react');
 
 var NavBar = React.createClass({
 
-  // getInitialState: function() {
-  // },
-
-  // componentDidMount: function() {
-  // },
-
-  // componentWillUnmount: function() {
-  // },
-
   render: function() {
     return (
       <div>
@@ -23,9 +14,6 @@ var NavBar = React.createClass({
       </div>
     );
   }
-  // },
-  // _onChange: function() {
-  // }
 });
 
 

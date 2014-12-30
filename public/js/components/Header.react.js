@@ -1,15 +1,5 @@
 var React = require('react');
 var Header = React.createClass({
-
-  // getInitialState: function() {
-  // },
-
-  // componentDidMount: function() {
-  // },
-
-  // componentWillUnmount: function() {
-  // },
-
   render: function() {
     return (
       <div>
@@ -19,9 +9,6 @@ var Header = React.createClass({
       </div>
     );
   }
-  // },
-  // _onChange: function() {
-  // }
 });
 
 
