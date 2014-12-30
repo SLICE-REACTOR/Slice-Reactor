@@ -30,7 +30,6 @@ header, footer, nav, span, aside, p, h1, h2, h3, h4, h5, h6 {
   float: left;
   width: 200px;
   height: 40px;
-  background-color:red;
   background: url('../img/slice-logo.jpg');
   background-size: contain;
   background-repeat: no-repeat;
@@ -88,3 +87,21 @@ header > span {
   margin-left: 10px;
 }
 
+#date-input > span {
+  /*background-color: red;*/
+  display: inline-block;
+}
+
+.category-merchant-button {
+  cursor: pointer;
+  border: 1px solid gray;
+  color: gray;
+  border-radius: 5px;
+  padding: 10px 20px;
+}
+
+.category-merchant-button:hover {
+  background-color: #24ACBF;
+  border: 1px solid #24ACBF;
+  color: white;
+}

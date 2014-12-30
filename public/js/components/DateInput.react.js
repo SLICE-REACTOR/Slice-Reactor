@@ -5,7 +5,10 @@ var BarGraph = React.createClass({
   render: function() {
     return (
       <div id="date-input">
-        <h1>Date Range</h1>
+        <span>Date Range</span>
+        <span>Filter</span>
+        <span className="category-merchant-button">By Category</span>
+        <span className="category-merchant-button">By Merchant</span>
       </div>
     );
   }
