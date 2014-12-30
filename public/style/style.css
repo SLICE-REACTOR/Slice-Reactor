@@ -35,12 +35,6 @@ header, footer, nav, span, aside, p, h1, h2, h3, h4, h5, h6 {
   background-repeat: no-repeat;
 }
 
-/*#logo {
-  height: 50px;
-  width: 100px;
-  background-color: red;
-}*/
-
 .header-icons {
   float: right;
 }
@@ -51,23 +45,23 @@ header, footer, nav, span, aside, p, h1, h2, h3, h4, h5, h6 {
 
 header {
   height: 60px;
-}
-
-nav {
-  height: 30px;
-}
-
-header, footer, #donut, #bar-graph, #date-input {
   background-color: white;
 }
 
 nav {
+  height: 30px;
   background-color: #5F5F60;
   color: white;
 }
 
+footer, #donut, #bar-graph, #date-input {
+  background-color: white;
+  padding: 15px 30px;
+}
+
 #line-graph {
   background-color: #F5F5F5;
+  padding: 15px 30px;
 }
 
 #nav-links > div {
@@ -88,7 +82,6 @@ header > span {
 }
 
 #date-input > span {
-  /*background-color: red;*/
   display: inline-block;
 }
 
