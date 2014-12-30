@@ -99,6 +99,9 @@ header > span {
 
 .category-merchant-button {
   cursor: pointer;
+  text-align: center;
+  width: 130px;
+  height: 40px;
 }
 
 .category-merchant-button:hover {
@@ -109,6 +112,9 @@ header > span {
 
 .date-input {
   display: inline-block;
+  text-align: center;
+  width: 150px;
+  height: 40px;
 }
 
 #filter-wrapper {
@@ -119,4 +125,8 @@ header > span {
 .divider {
   margin-top: 15px;
   border-bottom: 1px solid #D3D3D3;
+}
+
+.date-filter-label {
+  margin-right: 20px;
 }
