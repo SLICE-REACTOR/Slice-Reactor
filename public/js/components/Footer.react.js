@@ -1,15 +1,6 @@
 var React = require('react');
 var Footer = React.createClass({
 
-  // getInitialState: function() {
-  // },
-
-  // componentDidMount: function() {
-  // },
-
-  // componentWillUnmount: function() {
-  // },
-
   render: function() {
     return (
       <div>
@@ -17,9 +8,6 @@ var Footer = React.createClass({
       </div>
     );
   }
-  // },
-  // _onChange: function() {
-  // }
 });
 
 
