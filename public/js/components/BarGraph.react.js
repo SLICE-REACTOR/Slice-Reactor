@@ -5,7 +5,7 @@ var BarGraph = React.createClass({
 
   render: function() {
     return (
-      <div>
+      <div id="bar-graph">
         <h1>Bar Graph</h1>
       </div>
     );

@@ -1,0 +1,72 @@
+header, footer, nav, span, aside, p, h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+#background {
+  background-color: lightblue;
+}
+
+#wrapper {
+  width: 85%;
+  margin: 0 auto 0 auto;
+}
+
+#logo {
+  box-sizing: border-box;
+  display: inline-block;
+  margin: 5px 10px 10px 10px;
+  float: left;
+  width: 200px;
+  height: 40px;
+  background-color:red;
+  background: url('../img/slice-logo.jpg');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+/*#logo {
+  height: 50px;
+  width: 100px;
+  background-color: red;
+}*/
+
+.header-icons {
+  float: right;
+}
+
+#nav-links {
+  margin-left: 7.5%;
+}
+
+header {
+  height: 60px;
+}
+
+nav {
+  height: 30px;
+}
+
+header, footer, #donut, #bar-graph, #date-input {
+  background-color: white;
+}
+
+
+nav, #line-graph {
+  background-color: gray;
+}
+
+#nav-links > div {
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 30px;
+  height: 30px;
+  width: 100px;
+}
+
+header > span {
+  margin-left: 10px;
+}
+

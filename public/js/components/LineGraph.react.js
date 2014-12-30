@@ -3,7 +3,7 @@ var LineGraph = React.createClass({
 
   render: function() {
     return (
-      <div>
+      <div id="line-graph">
         <h1>Line Graph</h1>
       </div>
     );
