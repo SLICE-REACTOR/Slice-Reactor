@@ -5,9 +5,9 @@ CREATE DATABASE sliceDatabase;
 USE sliceDatabase;
 
 CREATE TABLE users (
-  userId int NOT NULL AUTO_INCREMENT,
-  currentTime int,
-  createTime int,
+  userId int(10) NOT NULL AUTO_INCREMENT,
+  currentTime bigint,
+  createTime bigint,
   firstName varchar(50) NOT NULL,
   lastName varchar(50) NOT NULL,
   href varchar(400),
@@ -18,8 +18,9 @@ CREATE TABLE users (
 );
 
 CREATE TABLE orders (
-  orderId int NOT NULL AUTO_INCREMENT,
-  currentTime int,
+  orderId int(10) NOT NULL AUTO_INCREMENT,
+  userId bigint,
+  currentTime bigint,
   createTime int,
   updateTime int,
   merchant int,
@@ -34,37 +35,35 @@ CREATE TABLE orders (
   orderShipments int,
   purchaseType int,
   PRIMARY KEY (orderId)
-);
+  );
 
 CREATE TABLE items (
-  itemsId int NOT NULL AUTO_INCREMENT,
-  currentTime int,
+  itemsId int(10) NOT NULL AUTO_INCREMENT,
   href varchar(400),
-  createTime int,
-  updateTime int,
-  order int,
-  FOREIGN KEY (order) REFERENCES orders(orderId),
+  updateTime bigint,
+  orderId int,
   purchaseDate varchar(50), 
   price int, 
   priceHistory varchar(300),
   productUrl varchar(300),
-  returnByDate null, 
-  shipmentEmails varchar(100), 
+  returnByDate int,
   imageUrl varchar(400),
   quantity int,
-  PRIMARY KEY (itemsId)
+  PRIMARY KEY (itemsId),
+  FOREIGN KEY (orderId)
+  REFERENCES orders(orderId)
 );
 
 CREATE TABLE merchants (
-  merchantId int NOT NULL AUTO_INCREMENT,
-  updateTime int,
+  merchantId int(10) NOT NULL AUTO_INCREMENT,
+  updateTime bigint,
   href varchar(400),
   name varchar(100),
-  createTime int,
+  createTime bigint,
   logoUrl varchar(400),
   serviceFormUrl varchar(400),
   serviceEmail varchar(100),
-  servicePhoneNumber varchar(30),
+  servicePhoneNumber varchar(55),
   priceDropPolicyUrl varchar(400),
   returnPolicyUrl varchar(400),
   websiteUrl varchar(400),
@@ -73,13 +72,15 @@ CREATE TABLE merchants (
   );
 
 CREATE TABLE categories (
-  categoriesId int NOT NULL AUTO_INCREMENT,
+  categoriesId int(10) unsigned NOT NULL AUTO_INCREMENT,
+  href varchar(400),
   name varchar(100),
   PRIMARY KEY (categoriesId)
   );
 
 CREATE TABLE productTypes (
-  productId int NOT NULL AUTO_INCREMENT,
+  productId int(10) NOT NULL AUTO_INCREMENT,
+  href varchar(400),
   name varchar(100),
   PRIMARY KEY (productId)
   );
