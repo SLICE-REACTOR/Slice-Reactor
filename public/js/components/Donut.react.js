@@ -1,4 +1,5 @@
 var React = require('react');
+var GraphData = require('../stores/GraphDataStore');
 var Donut = React.createClass({
 
   render: function() {

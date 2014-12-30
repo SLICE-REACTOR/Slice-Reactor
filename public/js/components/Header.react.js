@@ -3,8 +3,8 @@ var Header = React.createClass({
   render: function() {
     return (
       <header>
-        <span>Slice Logo</span>
-        <span>Header Icons</span>
+        <span id="logo">Slice Logo</span>
+        <span className="header-icons">Header Icons</span>
       </header>
     );
   }

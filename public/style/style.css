@@ -13,6 +13,18 @@ header, footer, nav, span, aside, p, h1, h2, h3, h4, h5, h6 {
   margin: 0 auto 0 auto;
 }
 
+#logo {
+  float: left;
+}
+
+.header-icons {
+  float: right;
+}
+
+#nav-links {
+  margin-left: 7.5%;
+}
+
 header {
   height: 50px;
 }
@@ -29,7 +41,16 @@ nav, #line-graph {
   background-color: gray;
 }
 
-nav > span, header > span {
+#nav-links > div {
+  display: inline-block;
+  text-align: center;
+  line-height: 30px;
+  vertical-align: middle;
+  height: 30px;
+  width: 100px;
+}
+
+header > span {
   margin-left: 10px;
 }
 
