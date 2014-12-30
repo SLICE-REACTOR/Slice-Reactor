@@ -37,7 +37,6 @@
     "test": "./node_modules/mocha/bin/mocha jest",
     "start": "npm run watch & nodemon server.js"
   },
-  "author": "Bill Fisher",
   "browserify": {
     "transform": [
       "reactify",
