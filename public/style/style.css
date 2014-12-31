@@ -12,15 +12,23 @@ body {
 /****** Multiple files ******/
 
 #donut, #line-graph, #bar-graph, footer {
-  /*padding: 15px 30px;*/
-  padding: 40px 40px;
+  padding: 20px 40px 30px 40px;
 }
 
-#background, header, nav {
+#background {
   position: fixed;
   left: 0;
   right: 0;
   z-index: 1;
+}
+
+h2 {
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.graph-header {
+  margin-bottom: 30px;
 }
 
 /****** App.react.js ******/
@@ -34,7 +42,7 @@ body {
 }
 
 #wrapper {
-  margin: 90px auto 0 auto;
+  margin: 0 auto 0 auto;
   width: 85%;
   box-shadow: 2px 0px 15px #888888;
   background-color: white;
@@ -43,7 +51,6 @@ body {
 /****** Header.react.js ******/
 
 header {
-  top: 0px;
   height: 60px;
   background-color: white;
   /*background-color: red;*/
@@ -56,7 +63,7 @@ header > span {
 #logo {
   box-sizing: border-box;
   display: inline-block;
-  margin: 5px 10px 10px 10px;
+  margin: 10px;
   float: left;
   width: 200px;
   height: 40px;
@@ -72,8 +79,7 @@ header > span {
 /****** NavBar.react.js ******/
 
 nav {
-  top: 60px;
-  height: 30px;
+  height: 35px;
   background-color: #5F5F60;
   color: white;
 }
@@ -83,13 +89,14 @@ nav {
 }
 
 #nav-links > div {
-  font-size: 11px;
+  cursor: pointer;
+  font-size: 12px;
   display: inline-block;
   text-align: center;
   vertical-align: middle;
-  line-height: 30px;
-  height: 30px;
-  width: 100px;
+  line-height: 35px;
+  height: 35px;
+  width: 125px;
 }
 
 #nav-links > div:hover {
@@ -99,7 +106,7 @@ nav {
 /****** DateInput.react.js ******/
 
 #date-filter-input {
-  padding: 15px 30px 0px 30px;
+  padding: 15px 40px 0px 40px;
   font-size: 14px;
 }
 

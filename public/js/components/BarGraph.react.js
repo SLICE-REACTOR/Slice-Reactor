@@ -43,6 +43,9 @@ var BarGraph = React.createClass({
   render: function() {
     return (
       <div id="bar-graph">
+        <div className="graph-header">
+          <h2>Top Merchants</h2>
+        </div>
         <div id="chart_3"></div>
       </div>
     );

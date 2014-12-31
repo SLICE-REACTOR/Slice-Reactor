@@ -44,6 +44,9 @@ var Donut = React.createClass({
   render: function() {
     return (
       <div id="donut">
+        <div className="graph-header">
+          <h2>Spending by Category</h2>
+        </div>
         <div id="chart_1"></div>
       </div>
     );
