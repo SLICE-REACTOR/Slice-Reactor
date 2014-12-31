@@ -97,6 +97,8 @@ nav {
   line-height: 35px;
   height: 35px;
   width: 125px;
+  -webkit-transition: background-color .25s;
+  transition: background-color .25s;
 }
 
 #nav-links > div:hover {
@@ -142,6 +144,8 @@ nav {
   cursor: pointer;
   margin-left: 10px;
   color: #D3D3D3;
+  -webkit-transition: color .25s;
+  transition: color .25s;
 }
 
 #reset:hover {
@@ -158,6 +162,8 @@ nav {
   text-align: center;
   width: 130px;
   height: 40px;
+  -webkit-transition: background-color .25s, border .25s, color .25s;
+  transition: background-color .25s, border .25s, color .25s;
 }
 
 .category-merchant-button:hover {
