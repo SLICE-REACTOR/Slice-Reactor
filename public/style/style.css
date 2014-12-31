@@ -21,6 +21,8 @@ header, footer, nav, span, aside, p, h1, h2, h3, h4, h5, h6 {
   width: 85%;
   margin: 0 auto 0 auto;
   box-shadow: 2px 0px 15px #888888;
+  height: 100%;
+  background-color: white;
 }
 
 #logo {
@@ -54,8 +56,7 @@ nav {
   color: white;
 }
 
-footer, #donut, #bar-graph, #date-input {
-  background-color: white;
+footer, #donut, #bar-graph, #date-filter-input {
   padding: 15px 30px;
 }
 
@@ -81,20 +82,41 @@ header > span {
   margin-left: 10px;
 }
 
-#date-input > span {
+#date-filter-input > span {
   display: inline-block;
+}
+
+.date-input, .category-merchant-button {
+  box-sizing: border-box;
+  display: inline-block;
+  margin-left: 10px;
+  border: 1px solid #D3D3D3;
+  padding: 10px 20px;
+  border-radius: 3px;
+
+  color: gray;
 }
 
 .category-merchant-button {
   cursor: pointer;
-  border: 1px solid gray;
-  color: gray;
-  border-radius: 5px;
-  padding: 10px 20px;
 }
 
 .category-merchant-button:hover {
   background-color: #24ACBF;
   border: 1px solid #24ACBF;
   color: white;
+}
+
+.date-input {
+  display: inline-block;
+}
+
+#filter-wrapper {
+  display: inline-block;
+  float: right;
+}
+
+.divider {
+  margin-top: 15px;
+  border-bottom: 1px solid #D3D3D3;
 }
