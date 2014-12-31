@@ -199,6 +199,7 @@ nav {
 /****** LineGraph.react.js ******/
 
 footer {
+  background-color: #F5F5F5;
   text-align: center;
   font-size: 12px;
 }
