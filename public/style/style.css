@@ -1,7 +1,13 @@
-header, footer, nav, span, aside, p, h1, h2, h3, h4, h5, h6 {
+header, footer, nav, span, aside, h1, h2, h3, h4, h5, h6 {
   margin: 0;
   padding: 0;
   border: 0;
+}
+
+div, span, p, th, td, li, dd, dt, ul, ol, blockquote, q, acronym, abbr, a, input, select, textarea, img {
+  margin: 0;
+  padding: 0;
+  font: normal normal normal 1em/1.25 Arial, Helvetica, sans-serif;
 }
 
 #background {
@@ -66,6 +72,7 @@ footer, #donut, #bar-graph, #date-filter-input {
 }
 
 #nav-links > div {
+  font-size: 11px;
   display: inline-block;
   text-align: center;
   vertical-align: middle;
@@ -88,10 +95,12 @@ header > span {
 
 .date-input, .category-merchant-button {
   box-sizing: border-box;
+  vertical-align: middle;
+  line-height: 40px;
   display: inline-block;
+
   margin-left: 10px;
   border: 1px solid #D3D3D3;
-  padding: 10px 20px;
   border-radius: 3px;
 
   color: gray;
