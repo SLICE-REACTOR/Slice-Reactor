@@ -36,8 +36,17 @@ var Donut = React.createClass({
       legend: {
         position: 'right'
       },
-        donut: {
-          title: "Spending Trends"
+      donut: {
+        label: {
+          show: false
+        },
+        width: 90,
+        title: {
+          value: ''
+        }
+      },
+      color: {
+        pattern: ['#AFD136' , '#923F96' , '#F06B50' , '#796BAE' , '#2FACBE' , '#D74667' , '#3B5E9F' , '#C678AF' , '#F8ED6B' , '#148493' , '#FAB44A' , '#3E784B']
       }
     })
   },
