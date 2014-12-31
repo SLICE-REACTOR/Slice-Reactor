@@ -42,7 +42,7 @@ var BarGraph = React.createClass({
   },
   render: function() {
     return (
-      <div>
+      <div id="bar-graph">
         <div id="chart_3"></div>
       </div>
     );

@@ -1,25 +1,32 @@
-header, footer, nav, span, aside, h1, h2, h3, h4, h5, h6 {
+body, header, footer, h1, h2, h3, h4, h5, h6, aside, nav, div, span, p, th, td, li, dd, dt, ul, ol, blockquote, q, acronym, abbr, a, input, select, textarea, img {
   margin: 0;
   padding: 0;
   border: 0;
-}
-
-div, span, p, th, td, li, dd, dt, ul, ol, blockquote, q, acronym, abbr, a, input, select, textarea, img {
-  margin: 0;
-  padding: 0;
   font: normal normal normal 1em/1.25 Arial, Helvetica, sans-serif;
 }
 
-/*html, body {
-  height: 100%;
-}*/
+body {
+  overflow: scroll;
+}
 
-#background {
+/****** Multiple files ******/
+
+#donut, #line-graph, #bar-graph, footer {
+  /*padding: 15px 30px;*/
+  padding: 40px 40px;
+}
+
+#background, header, nav {
   position: fixed;
   left: 0;
   right: 0;
   z-index: 1;
+}
 
+/****** App.react.js ******/
+
+#background {
+  overflow: scroll;
   display: block;
   height: 100%;
   widows: 100%;
@@ -27,16 +34,23 @@ div, span, p, th, td, li, dd, dt, ul, ol, blockquote, q, acronym, abbr, a, input
 }
 
 #wrapper {
-  position: absolute;
-  /*width: 85%;*/
-  margin: 0 auto 0 auto;
+  margin: 90px auto 0 auto;
+  width: 85%;
   box-shadow: 2px 0px 15px #888888;
-  top: 90px;
-  bottom: 0px;
-  left: 7.5%;
-  right: 7.5%;
   background-color: white;
-  overflow: scroll;
+}
+
+/****** Header.react.js ******/
+
+header {
+  top: 0px;
+  height: 60px;
+  background-color: white;
+  /*background-color: red;*/
+}
+
+header > span {
+  margin-left: 10px;
 }
 
 #logo {
@@ -55,28 +69,17 @@ div, span, p, th, td, li, dd, dt, ul, ol, blockquote, q, acronym, abbr, a, input
   float: right;
 }
 
-#nav-links {
-  margin-left: 7.5%;
-}
-
-header {
-  height: 60px;
-  background-color: white;
-}
+/****** NavBar.react.js ******/
 
 nav {
+  top: 60px;
   height: 30px;
   background-color: #5F5F60;
   color: white;
 }
 
-footer, #donut, #bar-graph, #date-filter-input {
-  padding: 15px 30px;
-}
-
-#line-graph {
-  background-color: #F5F5F5;
-  padding: 15px 30px;
+#nav-links {
+  margin-left: 7.5%;
 }
 
 #nav-links > div {
@@ -93,11 +96,10 @@ footer, #donut, #bar-graph, #date-filter-input {
   background-color: #8F8F90;
 }
 
-header > span {
-  margin-left: 10px;
-}
+/****** DateInput.react.js ******/
 
 #date-filter-input {
+  padding: 15px 30px 0px 30px;
   font-size: 14px;
 }
 
@@ -151,3 +153,10 @@ header > span {
 .date-filter-label {
   margin-right: 20px;
 }
+
+/****** LineGraph.react.js ******/
+
+#line-graph {
+  background-color: #F5F5F5;
+}
+

@@ -45,7 +45,7 @@ var LineGraph = React.createClass({
   },
   render: function() {
     return (
-      <div>
+      <div id="line-graph">
         <div id="chart_2"></div>
       </div>
     );
