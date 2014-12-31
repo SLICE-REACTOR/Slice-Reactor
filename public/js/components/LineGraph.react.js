@@ -24,22 +24,41 @@ var LineGraph = React.createClass({
   _renderChart: function(dataset){
     var data = categoryPrice(dataset);
     var key = Object.keys(data[0]);
-    console.log(dataset);
 
     var lineChart = c3.generate({
       bindto: '#chart_2',
       data: {
         columns: [
-            ['data1', 30, 200, 100, 400, 150, 250],
-            ['data2', 50, 20, 10, 40, 15, 25]
+            ['data1', 400, 10, 20, 90, 120, 30, 40, 50, 200, 100, 70, 150, 100],
         ],
         regions: {
             'data1': [{'start':1, 'end':2, 'style':'dashed'},{'start':3}],
-            'data2': [{'end':3}]
+        }
+      },
+      color: {
+        pattern: ['#24ACBF']
+      },
+      point: {
+        r: 6
+      },
+      axis: {
+        y : {
+          label: {
+            text: 'Dollars Spent',
+            position: 'outer-middle'
+          }
+        },
+        x: {
+          tick: {
+            rotate: 90
+          }
         }
       },
       legend: {
           show: false
+      },
+      tooltip: {
+        show: false
       }
     });
   },
