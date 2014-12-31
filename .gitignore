@@ -28,8 +28,13 @@ results
 
 npm-debug.log
 node_modules
-./public/js/bundle.js
-./public/js/bundle.min.js
 
+public/js/bundle.js
+public/js/bundle.min.js
+public/lib
+
+.idea
 .brfs
 brfs
+
+.env

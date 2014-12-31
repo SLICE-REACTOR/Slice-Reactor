@@ -14,8 +14,6 @@ var _graphData = {};
 
 function _addOrders(allOrders) {
   _graphData = allOrders;
-  console.log('in _addOrders function');
-  console.log('allOrders: ', allOrders);
 };
 
 var GraphDataStore = assign({}, EventEmitter.prototype, {
@@ -26,18 +24,18 @@ var GraphDataStore = assign({}, EventEmitter.prototype, {
 
   addChangeListener: function(callback) {
     this.on(CHANGE_EVENT, callback);
+  },
+  getData: function(){
+    return _graphData;
   }
 });
 
 GraphDataStore.dispatchToken = AppDispatcher.register(function(payload) {
-  console.log('in GraphDataStore dispatcher register');
   var action = payload.action;
-  console.log('action: ', action);
 
   switch(action.type) {
 
     case ActionTypes.RECEIVE_ORDERS:
-      console.log('in RECEIVE_ORDERS');
       _addOrders(action.allOrders);
       GraphDataStore.emitChange();
       break;
