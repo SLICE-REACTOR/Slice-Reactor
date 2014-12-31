@@ -10,6 +10,10 @@ div, span, p, th, td, li, dd, dt, ul, ol, blockquote, q, acronym, abbr, a, input
   font: normal normal normal 1em/1.25 Arial, Helvetica, sans-serif;
 }
 
+/*html, body {
+  height: 100%;
+}*/
+
 #background {
   position: fixed;
   left: 0;
@@ -19,16 +23,20 @@ div, span, p, th, td, li, dd, dt, ul, ol, blockquote, q, acronym, abbr, a, input
   display: block;
   height: 100%;
   widows: 100%;
-  /*background-color: #52BECC;*/
   background: radial-gradient(farthest-corner at 100% 100%, #BFE5C2, #52BECC);
 }
 
 #wrapper {
-  width: 85%;
+  position: absolute;
+  /*width: 85%;*/
   margin: 0 auto 0 auto;
   box-shadow: 2px 0px 15px #888888;
-  height: 100%;
+  top: 90px;
+  bottom: 0px;
+  left: 7.5%;
+  right: 7.5%;
   background-color: white;
+  overflow: scroll;
 }
 
 #logo {
@@ -87,6 +95,10 @@ footer, #donut, #bar-graph, #date-filter-input {
 
 header > span {
   margin-left: 10px;
+}
+
+#date-filter-input {
+  font-size: 14px;
 }
 
 #date-filter-input > span {
