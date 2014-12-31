@@ -90,7 +90,7 @@ nav {
 
 #nav-links > div {
   cursor: pointer;
-  font-size: 12px;
+  font-size: 14px;
   display: inline-block;
   text-align: center;
   vertical-align: middle;
@@ -114,17 +114,43 @@ nav {
   display: inline-block;
 }
 
+.date-filter-label {
+  margin-right: 20px;
+}
+
+.date-input {
+  display: inline-block;
+  text-align: center;
+  width: 150px;
+  height: 40px;
+}
+
 .date-input, .category-merchant-button {
   box-sizing: border-box;
   vertical-align: middle;
   line-height: 40px;
   display: inline-block;
 
-  margin-left: 10px;
+  margin-left: 5px;
   border: 1px solid #D3D3D3;
   border-radius: 3px;
 
   color: gray;
+}
+
+#reset {
+  cursor: pointer;
+  margin-left: 10px;
+  color: #D3D3D3;
+}
+
+#reset:hover {
+  color: gray;
+}
+
+#filter-wrapper {
+  display: inline-block;
+  float: right;
 }
 
 .category-merchant-button {
@@ -140,25 +166,15 @@ nav {
   color: white;
 }
 
-.date-input {
-  display: inline-block;
-  text-align: center;
-  width: 150px;
-  height: 40px;
-}
-
-#filter-wrapper {
-  display: inline-block;
-  float: right;
-}
-
 .divider {
   margin-top: 15px;
   border-bottom: 1px solid #D3D3D3;
 }
 
-.date-filter-label {
-  margin-right: 20px;
+/****** Donut.react.js ******/
+
+#donut {
+  margin-bottom: 50px;
 }
 
 /****** LineGraph.react.js ******/
