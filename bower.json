@@ -1,0 +1,11 @@
+{
+  "name": "Slice-Reactor",
+  "version": "0.0.0",
+  "description": "Thesis",
+  "main": "public/js/app.js",
+  "authors": "",
+  "private": true,
+  "dependencies": {
+    "c3": "~0.4.8"
+  }
+}
