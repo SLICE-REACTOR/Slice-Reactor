@@ -4,7 +4,10 @@ var Header = React.createClass({
     return (
       <header>
         <div id="logo"></div>
-        <span className="header-icons">Header Icons</span>
+        <span className="header-icons">
+          <span id="menu">MENU</span>
+          <i id="content-icon" className="fa fa-bars fa-lg"></i>
+        </span>
       </header>
     );
   }

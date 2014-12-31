@@ -6,6 +6,7 @@
   "authors": "",
   "private": true,
   "dependencies": {
-    "c3": "~0.4.8"
+    "c3": "~0.4.8",
+    "fontawesome": "~4.2.0"
   }
 }
