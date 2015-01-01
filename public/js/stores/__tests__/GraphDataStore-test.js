@@ -6,11 +6,11 @@ describe('GraphDataStore', function() {
   var Constants = require('../../constants/Constants');
 
   // mock actions inside dispatch payloads
-  var actionOrdersCreate = {
+  var ordersPayload = {
     source: 'SERVER_ACTION',
     action: {
-      actionType: Constants.RECEIVE_ORDERS,
-      allOrders: 'foo'
+      type: Constants.ActionTypes.RECEIVE_ORDERS,
+      allOrders: [{foo: 'foo'}]
     }
   };
 
@@ -41,12 +41,12 @@ describe('GraphDataStore', function() {
     expect(graphData).toEqual({});
   });
 
-  // it('receives orders', function() {
-  //   callback(actionOrdersCreate);
-  //   var orders = GraphDataStore.getData();
-  //   console.log('orders: ', orders);
-  //   expect(orders).toEqual('foo');
-  // });
+  it('receives orders', function() {
+    callback(ordersPayload);
+    var orders = GraphDataStore.getData();
+    console.log('orders: ', orders);
+    expect(orders[0]).toEqual({foo: 'foo'});
+  });
 
   // ***** EXAMPLES ***** //
 
