@@ -104,8 +104,8 @@ nav {
   line-height: 35px;
   height: 35px;
   width: 125px;
-  -webkit-transition: background-color .25s;
-  transition: background-color .25s;
+  -webkit-transition: background-color .15s;
+  transition: background-color .15s;
 }
 
 #nav-links > div:hover {
@@ -128,13 +128,63 @@ nav {
 }
 
 .date-input {
-  display: inline-block;
-  text-align: center;
-  width: 150px;
-  height: 40px;
+  /*display: inline-block;*/
+  margin-left: 5px;
 }
 
-.date-input, .category-merchant-button {
+#date-form {
+  display: inline-block;
+}
+
+input::-webkit-calendar-picker-indicator,
+input::-webkit-inner-spin-button,
+input::-webkit-clear-button {
+  -webkit-appearance: none;
+  display: none;
+  /*background-color:blue;*/
+}
+
+input[type="date"]:active,
+input[type="date"]:selected,
+input[type="date"]:visited
+input[type="date"]:focus
+{
+    border: none;
+    outline: none;
+}
+
+input[type="date"] {
+    -webkit-align-items: center;
+    display: -webkit-inline-flex;
+    text-align: center;
+    display: inline-block;
+    overflow: hidden;
+
+    color: gray;
+    border: 1px solid #D3D3D3;
+    border-radius: 3px;
+    height: 40px;
+    width: 130px;
+    -webkit-padding-start: 5px;
+    /*background-color: orange;*/
+}
+
+input::-webkit-datetime-edit {
+    -webkit-flex: 1;
+    -webkit-user-modify: read-only !important;
+    display: inline-block;
+    min-width: 0;
+    overflow: hidden;
+}
+input::-webkit-datetime-edit-fields-wrapper {
+    -webkit-user-modify: read-only !important;
+    display: inline-block;
+    padding: 1px 0;
+    white-space: pre;
+    /*background-color:red;*/
+}
+
+.category-merchant-button {
   box-sizing: border-box;
   vertical-align: middle;
   line-height: 40px;
@@ -147,15 +197,22 @@ nav {
   color: gray;
 }
 
-#reset {
+input[type="reset"] {
   cursor: pointer;
   margin-left: 10px;
   color: #D3D3D3;
-  -webkit-transition: color .25s;
-  transition: color .25s;
+  font-weight: bold;
+  background: none;
+  -webkit-transition: color .15s;
+  transition: color .15s;
 }
 
-#reset:hover {
+input[type="reset"]:focus {
+  border: none;
+  outline: none;
+}
+
+input[type="reset"]:hover {
   color: gray;
 }
 
@@ -169,8 +226,8 @@ nav {
   text-align: center;
   width: 130px;
   height: 40px;
-  -webkit-transition: background-color .25s, border .25s, color .25s;
-  transition: background-color .25s, border .25s, color .25s;
+  -webkit-transition: background-color .15s, border .15s, color .15s;
+  transition: background-color .15s, border .15s, color .15s;
 }
 
 .category-merchant-button:hover {

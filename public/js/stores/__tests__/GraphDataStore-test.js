@@ -50,7 +50,6 @@ describe('GraphDataStore', function() {
 
   // ***** EXAMPLES ***** //
 
-
   // it('initializes with no to-do items', function() {
   //   var all = TodoStore.getAll();
   //   expect(all).toEqual({});
