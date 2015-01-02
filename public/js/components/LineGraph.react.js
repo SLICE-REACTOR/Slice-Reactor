@@ -1,17 +1,6 @@
 var React = require('react');
 var GraphData = require('../stores/GraphDataStore');
 
-var pullData = function(array){
-  var categoryNames= {};
-  var JSONobj = [];
-  array.forEach(function(item){
-    var key = item.merchant.href;
-    var value = item.orderTotal/100;
-    categoryNames[key] = value;
-  })
-  JSONobj.push(categoryNames);
-  return JSONobj;
-};  
 var LineGraph = React.createClass({
   getInitialState: function(){
     var data = GraphData.getData();
@@ -21,8 +10,6 @@ var LineGraph = React.createClass({
     this._renderChart(this.state.data);
   },
   _renderChart: function(dataset){
-    console.log(dataset)
-
     var lineChart = c3.generate({
       bindto: '#chart_2',
       padding: {
@@ -37,6 +24,7 @@ var LineGraph = React.createClass({
           ['data', 39, 2, 6, 11, 5, 4]
         ],
         regions: {
+          //set region to remove excess fill from chart
           data: [[{'start':1, 'end':2, 'style':'dashed'}]]
         }
       },
@@ -44,6 +32,7 @@ var LineGraph = React.createClass({
         pattern: ['#24ACBF']
       },
       point: {
+        //increases size of point
         r: 6
       },
       axis: {
