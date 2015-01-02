@@ -10,6 +10,7 @@ var morgan = require('morgan');
 var methodOverride = require('method-override');
 var crypto = require('crypto');
 var https = require('https');
+var db = require('./server/db/sequelize');
 
 require('dotenv').load();
 
