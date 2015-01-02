@@ -1,7 +1,8 @@
 var React = require('react');
 var GraphData = require('../stores/GraphDataStore');
 
-var categoryPrice = function(array){
+var pullData = function(array){
+  //gets data from json and extracts what is needed for chart
   var categoryNames= {};
   var JSONobj = [];
   array.forEach(function(item){
@@ -16,7 +17,7 @@ var categoryPrice = function(array){
 var Donut = React.createClass({
   getInitialState: function(){
     var graphData = GraphData.getData();
-    var data = categoryPrice(graphData);
+    var data = pullData(graphData);
     return {data: data}
   },
   componentDidMount: function(){
@@ -40,10 +41,7 @@ var Donut = React.createClass({
         label: {
           show: false
         },
-        width: 90,
-        title: {
-          value: ''
-        }
+        width: 90
       },
       color: {
         pattern: ['#AFD136' , '#923F96' , '#F06B50' , '#796BAE' , '#2FACBE' , '#D74667' , '#3B5E9F' , '#C678AF' , '#F8ED6B' , '#148493' , '#FAB44A' , '#3E784B']
