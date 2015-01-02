@@ -1,7 +1,7 @@
 var React = require('react');
 var GraphData = require('../stores/GraphDataStore');
 
-var categoryPrice = function(array){
+var pullData = function(array){
   var categoryNames= {};
   var JSONobj = [];
   array.forEach(function(item){
@@ -11,8 +11,7 @@ var categoryPrice = function(array){
   })
   JSONobj.push(categoryNames);
   return JSONobj;
-};
-
+};  
 var LineGraph = React.createClass({
   getInitialState: function(){
     var data = GraphData.getData();
@@ -22,17 +21,23 @@ var LineGraph = React.createClass({
     this._renderChart(this.state.data);
   },
   _renderChart: function(dataset){
-    var data = categoryPrice(dataset);
-    var key = Object.keys(data[0]);
+    console.log(dataset)
 
     var lineChart = c3.generate({
       bindto: '#chart_2',
+      padding: {
+        right: 100,
+        bottom: 40,
+        left: 90,
+      },
       data: {
+        x: 'x',
         columns: [
-            ['data1', 400, 10, 20, 90, 120, 30, 40, 50, 200, 100, 70, 150, 100],
+          ['x', '2013-01-01', '2013-02-01', '2013-03-01', '2013-04-01', '2013-05-01', '2013-06-01'],  
+          ['data', 39, 2, 6, 11, 5, 4]
         ],
         regions: {
-            'data1': [{'start':1, 'end':2, 'style':'dashed'},{'start':3}],
+          data: [[{'start':1, 'end':2, 'style':'dashed'}]]
         }
       },
       color: {
@@ -42,15 +47,17 @@ var LineGraph = React.createClass({
         r: 6
       },
       axis: {
+        x: {
+          type: 'timeseries',
+          tick: {
+            rotate: 75,
+            format: '%m-%Y'
+          }
+        },
         y : {
           label: {
             text: 'Dollars Spent',
             position: 'outer-middle'
-          }
-        },
-        x: {
-          tick: {
-            rotate: 90
           }
         }
       },
