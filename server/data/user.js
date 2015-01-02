@@ -22,3 +22,12 @@ var insertSqlUser = function (users) {
   sqlQuery += '(' + users.result.createTime + ', "' + users.result.firstName + '" , "' + users.result.lastName + '", "' + users.result.userEmail + '", "' + users.result.userName + '");';
   return sqlQuery;
 };
+
+Users.create({
+    "userName": "",
+    "updateTime": 1419985113000,
+    "firstName": "Test",
+    "lastName": "Testofferson",
+    "userEmail": "testemail@gmail.com",
+    "createTime": 1418548075000
+  });
