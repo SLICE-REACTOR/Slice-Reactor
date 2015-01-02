@@ -141,17 +141,17 @@ input::-webkit-inner-spin-button,
 input::-webkit-clear-button {
   -webkit-appearance: none;
   display: none;
-  /*background-color:blue;*/
 }
 
-input[type="date"]:active,
+/*input[type="date"]:active,
 input[type="date"]:selected,
 input[type="date"]:visited
 input[type="date"]:focus
 {
+    display: none;
     border: none;
     outline: none;
-}
+}*/
 
 input[type="date"] {
     -webkit-align-items: center;
@@ -166,7 +166,6 @@ input[type="date"] {
     height: 40px;
     width: 130px;
     -webkit-padding-start: 5px;
-    /*background-color: orange;*/
 }
 
 input::-webkit-datetime-edit {
