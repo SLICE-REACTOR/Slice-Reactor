@@ -219,6 +219,16 @@ var insertSqlItems = function (items) {
   return sqlQuery;
 };
 
+var insertSequelizeItems = function (items) {
+  var userId = 1;
+  var sequelizeInsert = [];
+  for (var i = 0; i < items.result.length; i++) {
+    sequelizeInsert.push({"UserId": userId, "updateTime": items.result[i].updateTime, "href": items.result[i].href, "OrderHref": items.result[i].order.href, "purchaseDate": items.result[i].purchaseDate, "price": items.result[i].price, "productUrl": items.result[i].productUrl, "returnByDate": items.result[i].returnByDate, "imageUrl": items.result[i].imageUrl, "quantity": items.result[i].quantity, "description": items.result[i].description, "categoryName": items.result[i].category.name, "CategoryHref": items.result[i].category.href});
+  }
+  return JSON.stringify(sequelizeInsert);
+};
+
+Items.bulkCreate([{"UserId":1,"updateTime":1419055731000,"href":"https://api.slice.com/api/v1/items/8674780105733211752","OrderHref":"https://api.slice.com/api/v1/orders/5051274551019469175","purchaseDate":"2014-12-19","price":426,"productUrl":null,"returnByDate":null,"imageUrl":"http://g-ecx.images-amazon.com/images/G/01/hpc/detail-page/B0009F3MUG-1-lg.jpg","quantity":1,"description":"Nutravina","categoryName":"Health & Beauty","CategoryHref":"https://api.slice.com/api/v1/categories/6"},{"UserId":1,"updateTime":1418800340000,"href":"https://api.slice.com/api/v1/items/-8362453347954386879","OrderHref":"https://api.slice.com/api/v1/orders/-3131168482588221108","purchaseDate":"2014-12-16","price":0,"productUrl":null,"returnByDate":null,"imageUrl":"https://djcgg0wrlysb3.cloudfront.net/37768/images/logos/280px/logoGooglePlay.png","quantity":1,"description":"Lord of the Rings: The Fellowship of the Ring","categoryName":"Movies & TV","CategoryHref":"https://api.slice.com/api/v1/categories/12"},{"UserId":1,"updateTime":1418777139000,"href":"https://api.slice.com/api/v1/items/4001567979749634394","OrderHref":"https://api.slice.com/api/v1/orders/-7576377809600471663","purchaseDate":"2014-12-14","price":4440,"productUrl":null,"returnByDate":null,"imageUrl":"http://ecx.images-amazon.com/images/I/71Dz5R3zZqL._SL500_.jpg","quantity":1,"description":"Tretorn Men's Nylite Canvas","categoryName":"Shoes","CategoryHref":"https://api.slice.com/api/v1/categories/17"},{"UserId":1,"updateTime":1418774216000,"href":"https://api.slice.com/api/v1/items/-1260966360750490493","OrderHref":"https://api.slice.com/api/v1/orders/-8834523132772419736","purchaseDate":"2014-12-07","price":4900,"productUrl":null,"returnByDate":null,"imageUrl":"http://cdn5.giltcdn.com/images/share/uploads/0000/0004/0259/402590584/674x898.jpg?oq=85","quantity":1,"description":"Size: s Coat Color: charcoal","categoryName":"Apparel & Accessories","CategoryHref":"https://api.slice.com/api/v1/categories/5"},{"UserId":1,"updateTime":1418548588000,"href":"https://api.slice.com/api/v1/items/7635039360592776403","OrderHref":"https://api.slice.com/api/v1/orders/5194875886277759264","purchaseDate":"2006-12-16","price":199,"productUrl":null,"returnByDate":null,"imageUrl":"http://www.buyincoins.com/gallery/pc/ps2-usb-adapter-01.jpg","quantity":1,"description":"Playstation USB to PC Adapter PS2 PSX PS1 DDR Converter","categoryName":"Electronics & Accessories","CategoryHref":"https://api.slice.com/api/v1/categories/21"}]);
 
 var insertSqlOrders = function (orders) {
   var userId = 1;
@@ -234,6 +244,16 @@ var insertSqlOrders = function (orders) {
   return sqlQuery;
 };
 
+var insertSequelizeOrders = function (orders) {
+  var userId = 1;
+  var sequelizeInsert = [];
+  for (var i = 0; i < orders.result.length; i++) {
+    sequelizeInsert.push({"UserId": userId, "updateTime": orders.result[i].updateTime, "href": orders.result[i].href, "orderNumber": orders.result[i].orderNumber, "orderDate": orders.result[i].orderDate, "orderTitle": orders.result[i].orderTitle, "orderTotal": orders.result[i].orderTotal, "shippingCost": orders.result[i].shippingCost, "orderTax": orders.result[i].orderTax, "PurchaseTypeHref": orders.result[i].purchaseType.href, "MerchantHref": orders.result[i].merchant.href});
+  }
+  return JSON.stringify(sequelizeInsert);
+};
+
+Orders.bulkCreate([{"UserId":1,"updateTime":1419055731000,"href":"https://api.slice.com/api/v1/orders/5051274551019469175","orderNumber":"114-1885852-2002602","orderDate":"2014-12-19","orderTitle":"","orderTotal":426,"shippingCost":0,"orderTax":36,"PurchaseTypeHref":"https://api.slice.com/api/v1/purchasetypes/2","MerchantHref":"https://api.slice.com/api/v1/merchants/1"},{"UserId":1,"updateTime":1418800340000,"href":"https://api.slice.com/api/v1/orders/-3131168482588221108","orderNumber":"YGP.KUY3-X9DN-QELL-LQ6Q","orderDate":"2014-12-16","orderTitle":"","orderTotal":0,"shippingCost":0,"orderTax":0,"PurchaseTypeHref":"https://api.slice.com/api/v1/purchasetypes/4","MerchantHref":"https://api.slice.com/api/v1/merchants/1493"},{"UserId":1,"updateTime":1418612929000,"href":"https://api.slice.com/api/v1/orders/-7576377809600471663","orderNumber":"103-0699496-5453011","orderDate":"2014-12-14","orderTitle":"","orderTotal":4440,"shippingCost":0,"orderTax":545,"PurchaseTypeHref":"https://api.slice.com/api/v1/purchasetypes/2","MerchantHref":"https://api.slice.com/api/v1/merchants/1"},{"UserId":1,"updateTime":1418548092000,"href":"https://api.slice.com/api/v1/orders/-8834523132772419736","orderNumber":"66353935","orderDate":"2014-12-07","orderTitle":"","orderTotal":4900,"shippingCost":795,"orderTax":0,"PurchaseTypeHref":"https://api.slice.com/api/v1/purchasetypes/2","MerchantHref":"https://api.slice.com/api/v1/merchants/57"},{"UserId":1,"updateTime":1418548588000,"href":"https://api.slice.com/api/v1/orders/5194875886277759264","orderNumber":"330060754108","orderDate":"2006-12-16","orderTitle":"","orderTotal":0,"shippingCost":0,"orderTax":0,"PurchaseTypeHref":"https://api.slice.com/api/v1/purchasetypes/2","MerchantHref":"https://api.slice.com/api/v1/merchants/2"}]);
 
 var jsonOrders = {
   "result": [{

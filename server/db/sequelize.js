@@ -129,3 +129,15 @@ exports.Items = Items;
 exports.Categories = Categories;
 exports.Merchants = Merchants;
 exports.PurchaseTypes = PurchaseTypes;
+
+// Items.findAll({
+//   attributes: ['purchaseDate', 'categoryName', 'price', 'quantity'],
+//   where: {UserId: 1},
+//   include: [
+//     {model: Orders, include: [
+//       {model: Merchants, attributes: ['name']}
+//     ], attributes: ['orderTotal']}
+//   ]
+// }).then(function(items) {
+//   console.log(JSON.stringify(items));
+// });
