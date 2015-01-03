@@ -1,5 +1,5 @@
 var React = require('react');
-var GraphData = require('../stores/GraphDataStore');
+var GraphDataStore = require('../stores/GraphDataStore');
 var BarGraph = React.createClass({
 
   render: function() {

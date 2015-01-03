@@ -1,9 +1,9 @@
 var React = require('react');
-var GraphData = require('../stores/GraphDataStore');
+var GraphDataStore = require('../stores/GraphDataStore');
 
 var LineGraph = React.createClass({
   getInitialState: function(){
-    var data = GraphData.getData();
+    var data = GraphDataStore.getData();
     return {data: data}
   },
   componentDidMount: function(){
@@ -20,7 +20,7 @@ var LineGraph = React.createClass({
       data: {
         x: 'x',
         columns: [
-          ['x', '2013-01-01', '2013-02-01', '2013-03-01', '2013-04-01', '2013-05-01', '2013-06-01'],  
+          ['x', '2013-01-01', '2013-02-01', '2013-03-01', '2013-04-01', '2013-05-01', '2013-06-01'],
           ['data', 39, 2, 6, 11, 5, 4]
         ],
         regions: {
