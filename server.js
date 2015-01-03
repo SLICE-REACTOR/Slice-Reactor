@@ -168,6 +168,24 @@ var ensureAuthenticated = function (req, res, next) {
   res.redirect('/login');
 };
 
+//handles get request from client
+app.get('/userdata', function(req, res){
+  var user = req.session.UserId;
+  // query database for user info
+  db.Items.findAll({
+  attributes: ['purchaseDate', 'categoryName', 'price', 'quantity'],
+  where: {UserId: user},
+  include: [
+    {model: db.Orders, include: [
+      {model: db.Merchants, attributes: ['name']}
+    ], attributes: ['orderTotal']}
+  ]
+  }).then(function(items) {
+  // return user data to client
+    res.send(JSON.stringify(items))
+  });
+})
+
 app.get('/account', ensureAuthenticated, getUserData, function(req, res) {
   res.send('Congrats on logging in with Slice! Check the server log for your latest item.');
 });
