@@ -5,7 +5,7 @@ var Footer = React.createClass({
     return (
       <footer>
         <span><i className="fa fa-copyright"></i></span>
-        <span> 2014, Slice Reactor</span>
+        <span> 2014 Slice Reactor</span>
       </footer>
     );
   }

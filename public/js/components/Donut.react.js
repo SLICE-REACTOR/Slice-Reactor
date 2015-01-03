@@ -1,27 +1,33 @@
 var React = require('react');
-var GraphData = require('../stores/GraphDataStore');
+var GraphDataStore = require('../stores/GraphDataStore');
 
-var pullData = function(array){
-  //gets data from json and extracts what is needed for chart
-  var categoryNames= {};
+var getStateFromStores = function() {
+  var array = GraphDataStore.getData();
+  var categoryNames = {};
   var JSONobj = [];
-  array.forEach(function(item){
-    var key = item.merchant.href;
-    var value = item.orderTotal/100;
+  array.forEach(function(item) {
+    var key = item.Order.Merchant.name;
+    var value = 0;
+
+    if (item.price > 0)
+      value = item.price / 100;
+
     categoryNames[key] = value;
-  })
+  });
   JSONobj.push(categoryNames);
-  return JSONobj;
+  return {data: JSONobj};
 };
 
 var Donut = React.createClass({
   getInitialState: function(){
-    var graphData = GraphData.getData();
-    var data = pullData(graphData);
-    return {data: data}
+    return getStateFromStores();
   },
   componentDidMount: function(){
+    GraphDataStore.addChangeListener(this._onChange);
     this._renderChart(this.state.data);
+  },
+  componentWillUnmount: function() {
+    GraphDataStore.removeChangeListener(this._onChange);
   },
   _renderChart: function(dataset){
     var key = Object.keys(dataset[0]);
@@ -49,6 +55,7 @@ var Donut = React.createClass({
     })
   },
   render: function() {
+    this._renderChart(this.state.data);
     return (
       <div id="donut">
         <div className="graph-header">
@@ -57,6 +64,9 @@ var Donut = React.createClass({
         <div id="chart_1"></div>
       </div>
     );
+  },
+  _onChange: function() {
+    this.setState(getStateFromStores());
   }
 });
 

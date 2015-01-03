@@ -14,14 +14,6 @@ describe('GraphDataStore', function() {
     }
   };
 
-  // var actionTodoCreate = {
-  //   source: 'VIEW_ACTION',
-  //   action: {
-  //     actionType: TodoConstants.TODO_CREATE,
-  //     text: 'foo'
-  //   }
-  // };
-
   var AppDispatcher;
   var GraphDataStore;
   var callback;
@@ -36,6 +28,22 @@ describe('GraphDataStore', function() {
     expect(AppDispatcher.register.mock.calls.length).toBe(1);
   });
 
+  it('contains emitChange function', function() {
+    expect(typeof GraphDataStore.emitChange).toEqual('function');
+  });
+
+  it('contains addChangeListener function', function() {
+    expect(typeof GraphDataStore.addChangeListener).toEqual('function');
+  });
+
+  it('contains removeChangeListener function', function() {
+    expect(typeof GraphDataStore.removeChangeListener).toEqual('function');
+  });
+
+  it('contains getData function', function() {
+    expect(typeof GraphDataStore.getData).toEqual('function');
+  });
+
   it('intializes with no graph data', function() {
     var graphData = GraphDataStore.getData();
     expect(graphData).toEqual({});
@@ -44,17 +52,11 @@ describe('GraphDataStore', function() {
   it('receives orders', function() {
     callback(ordersPayload);
     var orders = GraphDataStore.getData();
-    console.log('orders: ', orders);
     expect(orders[0]).toEqual({foo: 'foo'});
   });
 
+
   // ***** EXAMPLES ***** //
-
-
-  // it('initializes with no to-do items', function() {
-  //   var all = TodoStore.getAll();
-  //   expect(all).toEqual({});
-  // });
 
   // it('creates a to-do item', function() {
   //   callback(actionTodoCreate);
@@ -75,3 +77,5 @@ describe('GraphDataStore', function() {
   // });
 
 });
+
+

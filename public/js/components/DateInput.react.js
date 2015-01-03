@@ -1,16 +1,22 @@
 var React = require('react');
-var GraphData = require('../stores/GraphDataStore');
+var GraphDataStore = require('../stores/GraphDataStore');
 var BarGraph = React.createClass({
 
   render: function() {
     return (
       <div id="date-filter-input">
-        <span id="date-range-wrapper">
-          <span className="date-filter-label"><b>Date Range</b></span>
-          <div className="date-input">May 1, 2012</div>
-          <div className="date-input">Sep 1, 2014</div>
-          <span id="reset"><b>RESET</b></span>
-        </span>
+
+        <form id="date-form">
+          <label className="date-filter-label"><b>Date Range</b></label>
+          <span className="date-input">
+            <input type="date" id="minDate" />
+          </span>
+          <span className="date-input">
+            <input type="date" id="maxDate" />
+          </span>
+          <input type="reset" id="reset" value="RESET" />
+        </form>
+
         <div id="filter-wrapper">
           <span className="date-filter-label"><b>Filter</b></span>
           <div className="category-merchant-button">By Category</div>
@@ -21,7 +27,6 @@ var BarGraph = React.createClass({
     );
   }
 });
-
 
 module.exports = BarGraph;
 
