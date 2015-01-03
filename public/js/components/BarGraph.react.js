@@ -23,15 +23,15 @@ var BarGraph = React.createClass({
       data: {
         json: dataset,
         keys: {
-          x : 'merchant',
-          value: ['orderTotal']
+          x : 'categoryName',
+          value: ['price']
         },
           type: 'bar'
         },
         axis: {
           rotated: true,
           x: {
-            type: 'category' // this needed to load string x value
+            type: 'categoryName' // this needed to load string x value
           }
         },
       color: {
@@ -40,6 +40,7 @@ var BarGraph = React.createClass({
     })
   },
   render: function() {
+    console.log('state data: ', this.state.data);
     this._renderChart(this.state.data);
     return (
       <div id="bar-graph">
