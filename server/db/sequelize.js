@@ -84,8 +84,8 @@ var Items = sequelize.define('Items', {
   // },
   purchaseDate: Sequelize.STRING(500),
   price: Sequelize.INTEGER,
-  productUrl: Sequelize.STRING(400),
-  returnByDate: Sequelize.BIGINT,
+  productUrl: Sequelize.STRING(700),
+  returnByDate: Sequelize.STRING,
   imageUrl: Sequelize.STRING(400),
   quantity: Sequelize.INTEGER,
   categoryName: Sequelize.STRING(100),
@@ -129,6 +129,18 @@ exports.Items = Items;
 exports.Categories = Categories;
 exports.Merchants = Merchants;
 exports.PurchaseTypes = PurchaseTypes;
+
+// Orders.bulkCreate([ { UserId: 4,
+//     updateTime: 0000000000000,
+//     href: 'https://api.slice.com/api/v1/orders/2722454015268662560',
+//     orderNumber: '108-4772922-1997038',
+//     orderDate: '2014-12-28',
+//     orderTitle: '',
+//     orderTotal: 1682,
+//     shippingCost: 0,
+//     orderTax: 143,
+//     PurchaseTypeHref: 'https://api.slice.com/api/v1/purchasetypes/2',
+//     MerchantHref: 'https://api.slice.com/api/v1/merchants/1' } ], { validate: true }).catch(function(errors) {console.log(errors);});
 
 // Items.findAll({
 //   attributes: ['purchaseDate', 'categoryName', 'price', 'quantity'],
