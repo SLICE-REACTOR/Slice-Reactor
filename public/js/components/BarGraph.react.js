@@ -40,7 +40,6 @@ var BarGraph = React.createClass({
     })
   },
   render: function() {
-    console.log('state data: ', this.state.data);
     this._renderChart(this.state.data);
     return (
       <div id="bar-graph">
