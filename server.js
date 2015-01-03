@@ -41,7 +41,8 @@ app.get('/logout', function(req, res){
 
 //handles get request from client
 app.get('/userdata', function(req, res){
-  var user = req.session.UserId;
+  // var user = req.session.UserId;
+  var user = 1;
   // query database for user info
   db.Items.findAll({
   attributes: ['purchaseDate', 'categoryName', 'price', 'quantity'],
@@ -53,6 +54,7 @@ app.get('/userdata', function(req, res){
   ]
   }).then(function(items) {
   // return user data to client
+    console.log('items: ', items);
     res.send(JSON.stringify(items))
   });
 })

@@ -6,8 +6,12 @@ var getStateFromStores = function() {
   var categoryNames = {};
   var JSONobj = [];
   array.forEach(function(item) {
-    var key = item.merchant.href
-    var value = item.orderTotal / 100;
+    var key = item.Order.Merchant.name;
+    var value = 0;
+
+    if (item.price > 0)
+      value = item.price / 100;
+
     categoryNames[key] = value;
   });
   JSONobj.push(categoryNames);
