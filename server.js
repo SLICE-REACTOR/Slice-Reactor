@@ -53,7 +53,6 @@ app.get('/userdata', function(req, res){
   ]
   }).then(function(items) {
   // return user data to client
-    console.log('items: ', items);
     res.send(JSON.stringify(items))
   });
 })
