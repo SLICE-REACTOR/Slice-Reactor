@@ -13,7 +13,6 @@ var _graphData = [];
 // };
 
 function _addOrders(allOrders) {
-  console.log('adding all orders to graphdata');
   _graphData = allOrders;
 };
 
@@ -32,7 +31,6 @@ var GraphDataStore = assign({}, EventEmitter.prototype, {
   },
 
   getData: function(){
-    console.log('getting graphData');
     return _graphData;
   }
 });
@@ -43,7 +41,6 @@ GraphDataStore.dispatchToken = AppDispatcher.register(function(payload) {
   switch(action.type) {
 
     case ActionTypes.RECEIVE_ORDERS:
-      console.log('in dispatch register');
       _addOrders(action.allOrders);
       GraphDataStore.emitChange();
       break;

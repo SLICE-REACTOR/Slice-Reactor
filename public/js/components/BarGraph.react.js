@@ -10,7 +10,6 @@ var BarGraph = React.createClass({
     return getStateFromStores();
   },
   componentDidMount: function(){
-    //invokes function to render chart to view
     GraphDataStore.addChangeListener(this._onChange);
     this._renderChart(this.state.data);
   },

@@ -11,7 +11,6 @@ var getStateFromStores = function() {
     categoryNames[key] = value;
   });
   JSONobj.push(categoryNames);
-  console.log('state from stores: ', JSONobj);
   return {data: JSONobj};
 };
 
@@ -20,7 +19,6 @@ var Donut = React.createClass({
     return getStateFromStores();
   },
   componentDidMount: function(){
-    console.log('in componentDidMount data', GraphDataStore.getData());
     GraphDataStore.addChangeListener(this._onChange);
     this._renderChart(this.state.data);
   },
