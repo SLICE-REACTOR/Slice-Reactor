@@ -1,15 +1,21 @@
 var React = require('react');
-var GraphData = require('../stores/GraphDataStore');
+var GraphDataStore = require('../stores/GraphDataStore');
+
+var getStateFromStores = function() {
+  return {data: GraphDataStore.getData()}
+};
 
 var BarGraph = React.createClass({
-  getInitialState: function(){
-    //receives data and sets to state in order to render chart
-    var data = GraphData.getData();
-    return {data: data}
+  getInitialState: function() {
+    return getStateFromStores();
   },
   componentDidMount: function(){
     //invokes function to render chart to view
+    GraphDataStore.addChangeListener(this._onChange);
     this._renderChart(this.state.data);
+  },
+  componentWillMount: function() {
+    GraphDataStore.removeChangeListener(this._onChange);
   },
   _renderChart: function(dataset){
     //creates chart
@@ -35,6 +41,7 @@ var BarGraph = React.createClass({
     })
   },
   render: function() {
+    this._renderChart(this.state.data);
     return (
       <div id="bar-graph">
         <div className="graph-header">
@@ -43,10 +50,10 @@ var BarGraph = React.createClass({
         <div id="chart_3"></div>
       </div>
     );
+  },
+  _onChange: function() {
+    this.setState(getStateFromStores());
   }
 });
 
-
 module.exports = BarGraph;
-
-

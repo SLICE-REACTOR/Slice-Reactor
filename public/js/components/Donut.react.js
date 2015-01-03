@@ -7,7 +7,7 @@ var getStateFromStores = function() {
   var JSONobj = [];
   array.forEach(function(item) {
     var key = item.merchant.href
-    var value = item.orderTotal/100;
+    var value = item.orderTotal / 100;
     categoryNames[key] = value;
   });
   JSONobj.push(categoryNames);
@@ -53,6 +53,7 @@ var Donut = React.createClass({
     })
   },
   render: function() {
+    this._renderChart(this.state.data);
     return (
       <div id="donut">
         <div className="graph-header">
