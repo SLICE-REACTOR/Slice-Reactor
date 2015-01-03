@@ -32,8 +32,8 @@ node_modules
 public/js/bundle.js
 public/js/bundle.min.js
 public/lib
-public/ExampleData.js
-public/ExampleData2.js
+public/js/ExampleData.js
+public/js/ExampleData2.js
 
 .idea
 .brfs
