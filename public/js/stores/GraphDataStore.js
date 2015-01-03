@@ -27,7 +27,7 @@ var GraphDataStore = assign({}, EventEmitter.prototype, {
   removeChangeListener: function(callback) {
     this.removeListener(CHANGE_EVENT, callback);
   },
-  getData: function(){
+  getData: function() {
     return _graphData;
   }
 });
