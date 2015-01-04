@@ -71,13 +71,38 @@ var ordersHandler = function(orders, userId){
   });
 };
 
+var merchantsHandler = function(merchants, userId){
+  var sequelizeInsert = merchants.result;
+  var merchantHrefs = {};
+  var newMerchants = [];
+  db.Merchants.findAll().complete(function(err, existingMerchants) {
+    if (existingMerchants) {
+      for (var i = 0; i < existingMerchants.length; i++) {
+        merchantHrefs[existingMerchants[i].href] = true;
+      }
+      for (var i = 0; i < sequelizeInsert.length; i++) {
+        if (!merchantHrefs[sequelizeInsert[i].href]) {
+          newMerchants.push(sequelizeInsert[i]);
+        }
+      }
+      if (newMerchants.length > 0) {
+        db.Merchants.bulkCreate(newMerchants);
+      }
+    } else {
+      db.Merchants.bulkCreate(sequelizeInsert);
+    }
+  });
+};
+
 // decrypt access token and call function to make GET request of Slice API
 var getUserData = function(req, res, next) {
   var decipher = crypto.createDecipher(process.env.CIPHER_ALGORITHM, process.env.CIPHER_KEY);
   var decryptedAccessToken = decipher.update(req.session.accessToken, 'hex', 'utf8') + decipher.final('utf8');
-
+  
+  // last argument {limit: 1}
+  sliceGetRequest('merchants', decryptedAccessToken, merchantsHandler, req.session.UserId);
   sliceGetRequest('orders', decryptedAccessToken, ordersHandler, req.session.UserId);
-  sliceGetRequest('items', decryptedAccessToken, itemsHandler, req.session.UserId, {limit: 1});
+  sliceGetRequest('items', decryptedAccessToken, itemsHandler, req.session.UserId);
 
   return next();
 };
