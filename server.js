@@ -1,9 +1,7 @@
 var express = require('express');
-var fs = require('fs');
 var passport = require('passport');
 var helper = require('./server/utils/helper');
 var session = require('express-session');
-var https = require('https');
 var db = require('./server/db/sequelize');
 
 require('dotenv').load();
