@@ -24,7 +24,7 @@ var BarGraph = React.createClass({
         json: dataset,
         keys: {
           x : 'categoryName',
-          value: ['price']
+          value: ['price' / 100]
         },
           type: 'bar'
         },
