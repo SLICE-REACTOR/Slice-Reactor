@@ -1,13 +1,20 @@
 var React = require('react');
 var GraphDataStore = require('../stores/GraphDataStore');
 
+var getStateFromStores = function() {
+  return {data: GraphDataStore.getData()}
+};
+
 var LineGraph = React.createClass({
   getInitialState: function(){
-    var data = GraphDataStore.getData();
-    return {data: data}
+    return getStateFromStores();
   },
   componentDidMount: function(){
+    GraphDataStore.addChangeListener(this._onChange);
     this._renderChart(this.state.data);
+  },
+  componentWillMount: function() {
+    GraphDataStore.removeChangeListener(this._onChange);
   },
   _renderChart: function(dataset){
     var lineChart = c3.generate({
@@ -18,16 +25,13 @@ var LineGraph = React.createClass({
         left: 90,
       },
       data: {
-        x: 'x',
-        columns: [
-          ['x', '2013-01-01', '2013-02-01', '2013-03-01', '2013-04-01', '2013-05-01', '2013-06-01'],
-          ['data', 39, 2, 6, 11, 5, 4]
-        ],
-        regions: {
-          //set region to remove excess fill from chart
-          data: [[{'start':1, 'end':2, 'style':'dashed'}]]
+        x: 'purchaseDate',
+        json: dataset,
+        keys: {
+            x: 'purchaseDate',
+            value: [ "quantity"]
         }
-      },
+      },  
       color: {
         pattern: ['#24ACBF']
       },
@@ -44,6 +48,9 @@ var LineGraph = React.createClass({
           }
         },
         y : {
+          tick: {
+            values: [0, 1, 2, 3, 4]
+          },
           label: {
             text: 'Dollars Spent',
             position: 'outer-middle'
@@ -52,13 +59,11 @@ var LineGraph = React.createClass({
       },
       legend: {
           show: false
-      },
-      tooltip: {
-        show: false
       }
     });
   },
   render: function() {
+    this._renderChart(this.state.data);
     return (
       <div id="line-graph">
         <div className="graph-header">
@@ -67,10 +72,12 @@ var LineGraph = React.createClass({
         <div id="chart_2"></div>
       </div>
     );
+  },
+  _onChange: function() {
+    this.setState(getStateFromStores());
   }
 });
 
 
 module.exports = LineGraph;
-
 
