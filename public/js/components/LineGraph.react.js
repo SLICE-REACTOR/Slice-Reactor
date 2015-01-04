@@ -33,7 +33,7 @@ var LineGraph = React.createClass({
       },
       point: {
         //increases size of point
-        r: 6
+        r: 5
       },
       axis: {
         x: {
