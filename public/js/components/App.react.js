@@ -7,6 +7,8 @@ var LineChart = require('./LineChart.react');
 var BarChart = require('./BarChart.react');
 var Footer = require('./Footer.react');
 
+console.log('app.react');
+
 var App = React.createClass({
   render: function() {
     return (
