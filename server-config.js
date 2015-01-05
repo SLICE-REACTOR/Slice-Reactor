@@ -3,13 +3,10 @@ var passport = require('passport');
 var helper = require('./server/utils/helper');
 var session = require('express-session');
 var db = require('./server/db/sequelize');
-// var auth = require('./server/routes/auth');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var methodOverride = require('method-override');
-// var fs = require('fs');
-// var https = require('https');
 
 require('dotenv').load();
 
@@ -27,8 +24,11 @@ app.use(express.static(__dirname + '/public'));
 
 require('./server/routes/routes')(app, helper, db);
 
-// Use auth file for routes to /auth
-require('./server/routes/auth')(app, passport, db, helper);
+// Use auth file for passport authentication
+require('./server/auth')(passport, db);
+
+// Use auth routes file for routes to /auth
+require('./server/routes/auth')(app, passport);
 
 // export our app; required by server.js
 module.exports = app;
