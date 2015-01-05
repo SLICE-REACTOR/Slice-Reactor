@@ -1,16 +1,16 @@
-// var keyMirror = require('../../../node_modules//keymirror');
+var keyMirror = require('react/lib/keymirror');
 
-// module.exports = {
+module.exports = {
 
-//   ActionTypes: keyMirror({
-//     RECEIVE_GRAPH_DATA: null,
-//     RECEIVE_ORDERS: null,
-//     RECEIVE_ITEMS: null
-//   }),
+  ActionTypes: keyMirror({
+    RECEIVE_GRAPH_DATA: null,
+    RECEIVE_ORDERS: null,
+    RECEIVE_ITEMS: null
+  }),
 
-//   PayloadSources: keyMirror({
-//     SERVER_ACTION: null,
-//     VIEW_ACTION: null
-//   })
+  PayloadSources: keyMirror({
+    SERVER_ACTION: null,
+    VIEW_ACTION: null
+  })
 
-// };
+};
