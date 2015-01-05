@@ -2,8 +2,6 @@ var React = require('react');
 var LineChartStore = require('../stores/LineChartStore');
 var FilteredDataStore = require('../stores/FilteredDataStore');
 
-console.log('line.react');
-
 var getStateFromStores = function() {
   return {data: LineChartStore.getData()}
 };

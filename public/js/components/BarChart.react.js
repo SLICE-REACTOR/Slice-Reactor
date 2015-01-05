@@ -2,9 +2,6 @@ var React = require('react');
 var BarChartStore = require('../stores/BarChartStore');
 var FilteredDataStore = require('../stores/FilteredDataStore');
 
-console.log('barGraph.react');
-
-
 var getStateFromStores = function() {
   return {data: BarChartStore.getData()}
 };

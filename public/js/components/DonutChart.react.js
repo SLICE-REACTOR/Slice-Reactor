@@ -2,9 +2,6 @@ var React = require('react');
 var DonutChartStore = require('../stores/DonutChartStore');
 var FilteredDataStore = require('../stores/FilteredDataStore');
 
-console.log('donut.react');
-
-
 var getStateFromStores = function() {
   var array = DonutChartStore.getData();
   console.log('donut chart data: ', DonutChartStore.getData());
