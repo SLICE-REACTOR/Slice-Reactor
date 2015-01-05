@@ -29,7 +29,7 @@ passport.use(new SliceStrategy({
     //    user[0].dataValues.updateTime = profile._json.result.updateTime;
     //    user[0].dataValues.userName = profile._json.result.userName;
     //    user[0].save();
-       
+
     //    // store userid in the session
     //   // req.session.UserId = user[0].dataValues.id;
     //    return done(null, user[0].dataValues.id);
