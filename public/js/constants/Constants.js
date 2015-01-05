@@ -1,4 +1,4 @@
-var keyMirror = require('./../../../node_modules/react/lib/keymirror');
+var keyMirror = require('../../../node_modules/react/lib/keymirror');
 
 module.exports = {
 
