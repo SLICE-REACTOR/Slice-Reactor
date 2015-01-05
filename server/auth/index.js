@@ -36,6 +36,7 @@ passport.use(new SliceStrategy({
       return done(null, user[0].dataValues.id);
 
      });
+
   }
 ));
 
