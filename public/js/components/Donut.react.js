@@ -1,9 +1,6 @@
 var React = require('react');
 var GraphDataStore = require('../stores/GraphDataStore');
 
-console.log('donut.react');
-
-
 var getStateFromStores = function() {
   var array = GraphDataStore.getData();
   var categoryNames = {};

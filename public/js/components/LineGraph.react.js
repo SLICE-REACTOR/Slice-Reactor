@@ -1,8 +1,6 @@
 var React = require('react');
 var GraphDataStore = require('../stores/GraphDataStore');
 
-console.log('line.react');
-
 var getStateFromStores = function() {
   return {data: GraphDataStore.getLineChart()}
 };
