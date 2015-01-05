@@ -18,6 +18,7 @@ var BarGraph = React.createClass({
   },
   _renderChart: function(dataset){
     //creates chart
+    console.log(dataset);
     var barChart = c3.generate({
       bindto: '#chart_3',
       data: {
