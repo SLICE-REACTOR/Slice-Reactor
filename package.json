@@ -41,7 +41,7 @@
     "watch": "watchify public/js/app.js -o public/js/bundle.js -v -d .",
     "build": "NODE_ENV=production browserify . | uglifyjs -cm > public/js/bundle.min.js",
     "postinstall": "bower cache clean && bower install",
-    "start": "npm run watch & nodemon server.js"
+    "start": "npm run watch & node server.js"
   },
   "browserify": {
     "transform": [
