@@ -1,6 +1,6 @@
 require('dotenv').load();
 var Sequelize = require('sequelize');
-var sequelize = new Sequelize(process.env.DATABASE_NAME, process.env.DATABASE_USERNAME, process.env.DATABASE_PASSWORD);
+var sequelize = new Sequelize(process.env.DATABASE_URL);
 
 var Users = sequelize.define('Users', {
   createTime: Sequelize.BIGINT,
