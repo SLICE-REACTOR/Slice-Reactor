@@ -30,6 +30,7 @@
     "sequelize": "^2.0.0-rc4"
   },
   "devDependencies": {
+    "bower": "^1.3.12",
     "browserify": "^7.0.3",
     "envify": "^3.2.0",
     "jest-cli": "^0.2.1",
