@@ -1,6 +1,6 @@
 {
   "name": "Slice-Reactor",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Thesis",
   "main": "public/js/app.js",
   "private": true,
@@ -41,7 +41,7 @@
   "scripts": {
     "watch": "watchify public/js/app.js -o public/js/bundle.js -v -d .",
     "build": "NODE_ENV=production browserify . | uglifyjs -cm > public/js/bundle.min.js",
-    "test": "jest",
+    "postinstall": "bower cache clean && bower install",
     "start": "npm run watch & nodemon server.js"
   },
   "browserify": {
