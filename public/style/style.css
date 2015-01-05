@@ -1,0 +1,261 @@
+body, header, footer, h1, h2, h3, h4, h5, h6, aside, nav, div, span, p, th, td, li, dd, dt, ul, ol, blockquote, q, acronym, abbr, a, input, select, textarea, img {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: normal normal normal 1em/1.25 Arial, Helvetica, sans-serif;
+}
+
+body {
+  overflow: scroll;
+}
+
+/****** Multiple files ******/
+
+#background {
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 1;
+}
+
+#donut, #line-graph, #bar-graph, footer {
+  padding: 20px 40px 30px 40px;
+}
+
+.graph-header {
+  margin-bottom: 30px;
+}
+
+h2 {
+  font-weight: bold;
+  font-size: 24px;
+}
+
+/****** App.react.js ******/
+
+#background {
+  overflow: scroll;
+  display: block;
+  height: 100%;
+  widows: 100%;
+  background: radial-gradient(farthest-corner at 100% 100%, #BFE5C2, #52BECC);
+}
+
+#wrapper {
+  margin: 0 auto 0 auto;
+  width: 85%;
+  box-shadow: 2px 0px 15px #888888;
+  background-color: white;
+}
+
+/****** Header.react.js ******/
+
+header {
+  height: 60px;
+  background-color: white;
+}
+
+header > span {
+  margin-left: 10px;
+}
+
+#logo {
+  box-sizing: border-box;
+  display: inline-block;
+  margin: 10px;
+  float: left;
+  width: 200px;
+  height: 40px;
+  background: url('../img/slice-logo.jpg');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.header-icons {
+  cursor: pointer;
+  float: right;
+  line-height: 60px;
+  margin-right: 30px;
+  vertical-align: middle;
+}
+
+#menu {
+  margin-right: 10px;
+}
+
+/****** NavBar.react.js ******/
+
+nav {
+  height: 35px;
+  background-color: #5F5F60;
+  color: white;
+}
+
+#nav-links {
+  margin-left: 7.5%;
+}
+
+#nav-links > div {
+  cursor: pointer;
+  font-size: 14px;
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 35px;
+  height: 35px;
+  width: 125px;
+  -webkit-transition: background-color .15s;
+  transition: background-color .15s;
+}
+
+#nav-links > div:hover {
+  background-color: #8F8F90;
+}
+
+/****** DateInput.react.js ******/
+
+#date-filter-input {
+  padding: 15px 40px 0px 40px;
+  font-size: 14px;
+}
+
+#date-filter-input > span {
+  display: inline-block;
+}
+
+.date-filter-label {
+  margin-right: 20px;
+}
+
+.date-input {
+  /*display: inline-block;*/
+  margin-left: 5px;
+}
+
+#date-form {
+  display: inline-block;
+}
+
+input::-webkit-calendar-picker-indicator,
+input::-webkit-inner-spin-button,
+input::-webkit-clear-button {
+  -webkit-appearance: none;
+  display: none;
+}
+
+/*input[type="date"]:active,
+input[type="date"]:selected,
+input[type="date"]:visited
+input[type="date"]:focus
+{
+    display: none;
+    border: none;
+    outline: none;
+}*/
+
+input[type="date"] {
+    -webkit-align-items: center;
+    display: -webkit-inline-flex;
+    text-align: center;
+    display: inline-block;
+    overflow: hidden;
+
+    color: gray;
+    border: 1px solid #D3D3D3;
+    border-radius: 3px;
+    height: 40px;
+    width: 130px;
+    -webkit-padding-start: 5px;
+}
+
+input::-webkit-datetime-edit {
+    -webkit-flex: 1;
+    -webkit-user-modify: read-only !important;
+    display: inline-block;
+    min-width: 0;
+    overflow: hidden;
+}
+input::-webkit-datetime-edit-fields-wrapper {
+    -webkit-user-modify: read-only !important;
+    display: inline-block;
+    padding: 1px 0;
+    white-space: pre;
+    /*background-color:red;*/
+}
+
+.category-merchant-button {
+  box-sizing: border-box;
+  vertical-align: middle;
+  line-height: 40px;
+  display: inline-block;
+
+  margin-left: 5px;
+  border: 1px solid #D3D3D3;
+  border-radius: 3px;
+
+  color: gray;
+}
+
+input[type="reset"] {
+  cursor: pointer;
+  margin-left: 10px;
+  color: #D3D3D3;
+  font-weight: bold;
+  background: none;
+  -webkit-transition: color .15s;
+  transition: color .15s;
+}
+
+input[type="reset"]:focus {
+  border: none;
+  outline: none;
+}
+
+input[type="reset"]:hover {
+  color: gray;
+}
+
+#filter-wrapper {
+  display: inline-block;
+  float: right;
+}
+
+.category-merchant-button {
+  cursor: pointer;
+  text-align: center;
+  width: 130px;
+  height: 40px;
+  -webkit-transition: background-color .15s, border .15s, color .15s;
+  transition: background-color .15s, border .15s, color .15s;
+}
+
+.category-merchant-button:hover {
+  background-color: #24ACBF;
+  border: 1px solid #24ACBF;
+  color: white;
+}
+
+.divider {
+  margin-top: 15px;
+  border-bottom: 1px solid #D3D3D3;
+}
+
+/****** Donut.react.js ******/
+
+#donut {
+  margin-bottom: 50px;
+}
+
+/****** LineGraph.react.js ******/
+
+#line-graph {
+  background-color: #F5F5F5;
+}
+
+/****** LineGraph.react.js ******/
+
+footer {
+  background-color: #F5F5F5;
+  text-align: center;
+  font-size: 12px;
+}
