@@ -44,15 +44,40 @@ var sliceGetRequest = function(resourceType, accessToken, callback, userId, para
 };
 
 var itemsHandler = function(items, userId){
-  var sequelizeInsert = [];
-  for (var i = 0; i < items.result.length; i++) {
-    sequelizeInsert.push({"UserId": userId, "updateTime": items.result[i].updateTime, "href": items.result[i].href, "OrderHref": items.result[i].order.href, "purchaseDate": items.result[i].purchaseDate, "price": items.result[i].price, "productUrl": items.result[i].productUrl, "returnByDate": items.result[i].returnByDate, "imageUrl": items.result[i].imageUrl, "quantity": items.result[i].quantity, "description": items.result[i].description});
-    if (items.result[i].category) {
-      sequelizeInsert[i]["categoryName"] = items.result[i].category.name;
-      sequelizeInsert[i]["CategoryHref"] = items.result[i].category.href;
+  db.Orders.findAll({
+   attributes: ['href'],
+   where: {UserId: userId}
+   }).complete(function(err, userOrders) {
+    var orderHrefs = {};
+    var validItems = [];
+    var invalidItems = [];
+    if (userOrders) {
+      for (var i = 0; i < userOrders.length; i++) {
+        orderHrefs[userOrders[i].href] = true;
+      }
+      for (var i = 0; i < items.result.length; i++) {
+        if (!orderHrefs[items.result[i].order.href]) {
+          var invalidItem = {"UserId": userId, "updateTime": items.result[i].updateTime, "href": items.result[i].href, "OrderHref": items.result[i].order.href, "purchaseDate": items.result[i].purchaseDate, "price": items.result[i].price, "productUrl": items.result[i].productUrl, "returnByDate": items.result[i].returnByDate, "imageUrl": items.result[i].imageUrl, "quantity": items.result[i].quantity, "description": items.result[i].description};
+          if (items.result[i].category) {
+            invalidItem["categoryName"] = items.result[i].category.name;
+            invalidItem["CategoryHref"] = items.result[i].category.href;
+          }
+          invalidItems.push(invalidItem);
+        } else {
+          var validItem = {"UserId": userId, "updateTime": items.result[i].updateTime, "href": items.result[i].href, "OrderHref": items.result[i].order.href, "purchaseDate": items.result[i].purchaseDate, "price": items.result[i].price, "productUrl": items.result[i].productUrl, "returnByDate": items.result[i].returnByDate, "imageUrl": items.result[i].imageUrl, "quantity": items.result[i].quantity, "description": items.result[i].description};
+          if (items.result[i].category) {
+            validItem["categoryName"] = items.result[i].category.name;
+            validItem["CategoryHref"] = items.result[i].category.href;
+          }
+          validItems.push(validItem);
+        }
+      }
     }
-  }
-  db.Items.bulkCreate(sequelizeInsert, { validate: true }).catch(function(errors) {console.log(errors);});
+    if (validItems.length > 0) {
+      db.Items.bulkCreate(validItems);
+    }
+    console.log('INVALID ITEMS: (', invalidItems.length,') ', invalidItems);
+  });
   db.Users.find({where:{id: userId}}).then(function(user) {
     user.updateItems = items.currentTime;
     user.save();
