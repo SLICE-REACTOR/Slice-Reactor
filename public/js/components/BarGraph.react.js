@@ -2,7 +2,34 @@ var React = require('react');
 var GraphDataStore = require('../stores/GraphDataStore');
 
 var getStateFromStores = function() {
-  return {data: GraphDataStore.getData()}
+  var sliceData = GraphDataStore.getData();
+  var sliceDataByCategory = {};
+  for (var i = 0; i < sliceData.length; i++) {
+    if (sliceData[i].price > 0) {
+      var itemCategory = sliceData[i].categoryName;
+      if (itemCategory === null) {
+        itemCategory = 'Other';
+      }
+      if (!sliceDataByCategory[itemCategory]) {
+        sliceDataByCategory[itemCategory] = sliceData[i].price / 100;
+      } else {
+        sliceDataByCategory[itemCategory] += sliceData[i].price / 100;
+      }
+    }
+  }
+  sliceData = [];
+  for (var key in sliceDataByCategory) {
+    var barChartItem = {};
+    barChartItem['categoryName'] = key;
+    barChartItem['price'] = sliceDataByCategory[key].toFixed(2);
+    sliceData.push(barChartItem);
+  }
+  sliceData.sort(function(a, b) {
+    return b.price - a.price;
+  });
+  var sliceDataShortened = sliceData.slice(0,10);
+  console.log(sliceDataShortened);
+  return {data: sliceDataShortened}
 };
 
 var BarGraph = React.createClass({
