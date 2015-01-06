@@ -17,10 +17,10 @@ var getStateFromStores = function() {
   }
   sliceData = [];
   for (var key in sliceDataMonthly) {
-    var temp = {};
-    temp['purchaseDate'] = key;
-    temp['price'] = sliceDataMonthly[key].toFixed(2);
-    sliceData.push(temp);
+    var lineGraphItem = {};
+    lineGraphItem['purchaseDate'] = key;
+    lineGraphItem['price'] = sliceDataMonthly[key].toFixed(2);
+    sliceData.push(lineGraphItem);
   }
   
   return {data: sliceData}
