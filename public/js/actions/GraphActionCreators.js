@@ -5,5 +5,4 @@ var ActionTypes = Constants.ActionTypes;
 
 module.exports = {
 
-
 };

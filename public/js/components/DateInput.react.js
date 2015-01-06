@@ -2,6 +2,17 @@ var React = require('react');
 var GraphDataStore = require('../stores/GraphDataStore');
 var BarGraph = React.createClass({
 
+  _setCategoryOrMerchant: function(categoryOrMerchant) {
+
+  },
+
+  _filterByCategoryOrMerchant: function(categoryOrMerchant) {
+    // if category
+      // getcategorydata
+    // if merchant
+      // getmerchantdata
+  },
+
   render: function() {
     return (
       <div id="date-filter-input">
@@ -19,8 +30,8 @@ var BarGraph = React.createClass({
 
         <div id="filter-wrapper">
           <span className="date-filter-label"><b>Filter</b></span>
-          <div className="category-merchant-button">By Category</div>
-          <div className="category-merchant-button">By Merchant</div>
+          <div className="category-merchant-button" onClick={this._setCategoryOrMerchant("category")}>By Category</div>
+          <div className="category-merchant-button" onClick={this._setCategoryOrMerchant("merchant")}>By Merchant</div>
         </div>
         <div className="divider"></div>
       </div>

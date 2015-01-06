@@ -7,17 +7,28 @@ var ActionTypes = Constants.ActionTypes;
 var CHANGE_EVENT = 'change';
 
 var _graphData = [];
+var _filteredGraphData = [];
 
-// function _addGraphData(graphData) {
-//   _graphData = graphData;
+var _categoryGraphData = [];
+var _merchantGraphData = [];
+
+function _addGraphData(graphData) {
+  _graphData = graphData;
+};
+
+// function _addOrders(allOrders) {
+//   _graphData = allOrders;
 // };
 
-function _addOrders(allOrders) {
-  _graphData = allOrders;
+function _switchToCategoryOrMerchant(categoryOrMerchant) {
+  if (categoryOrMerchant === 'merchant') {
+    _filteredGraphData = _merchantGraphData;
+  } else {
+    _filteredGraphData = _categoryGraphData;
+  }
 };
 
 var GraphDataStore = assign({}, EventEmitter.prototype, {
-
   emitChange: function() {
     this.emit(CHANGE_EVENT);
   },
@@ -29,6 +40,9 @@ var GraphDataStore = assign({}, EventEmitter.prototype, {
   },
   getData: function() {
     return _graphData;
+  },
+  filterByCategoryOrMerchant: function(categoryOrMerchant) {
+    _switchToCategoryOrMerchant(categoryOrMerchant);
   }
 });
 
@@ -37,8 +51,13 @@ GraphDataStore.dispatchToken = AppDispatcher.register(function(payload) {
 
   switch(action.type) {
 
-    case ActionTypes.RECEIVE_ORDERS:
-      _addOrders(action.allOrders);
+    // case ActionTypes.RECEIVE_ORDERS:
+    //   _addOrders(action.allOrders);
+    //   GraphDataStore.emitChange();
+    //   break;
+
+    case ActionTypes.RECEIVE_GRAPH_DATA:
+      _addGraphData(action.allGraphData);
       GraphDataStore.emitChange();
       break;
 
