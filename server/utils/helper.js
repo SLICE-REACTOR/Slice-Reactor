@@ -125,8 +125,12 @@ var getUserData = function(req, res, next) {
   
   // last argument {limit: 1}
   sliceGetRequest('merchants', decryptedAccessToken, merchantsHandler, req.session.UserId);
-  setTimeout(sliceGetRequest('orders', decryptedAccessToken, ordersHandler, req.session.UserId), 5000);
-  setTimeout(sliceGetRequest('items', decryptedAccessToken, itemsHandler, req.session.UserId), 15000);
+  setTimeout(function(){
+    sliceGetRequest('orders', decryptedAccessToken, ordersHandler, req.session.UserId)
+  }, 5000);
+  setTimeout(function(){
+    sliceGetRequest('items', decryptedAccessToken, itemsHandler, req.session.UserId)
+  }, 15000);
 
   return next();
 };
