@@ -9,7 +9,7 @@ module.exports = {
   //   });
   // },
   getAllGraphData: function() {
-    $.get('/userdata', function() {
+    $.get('/userdata', function(data) {
       ServerActionCreators.receiveAllGraphData(JSON.parse(data));
     });
   }

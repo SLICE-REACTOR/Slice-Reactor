@@ -14,18 +14,30 @@ var _filteredGraphData = [];
 
 function _addGraphData(graphData) {
   _graphData = graphData;
-  _filterByCategory();
-  _filterByMerchant();
+  console.log(_graphData);
+  _filterByCategory(_graphData);
+  _filterByMerchant(_graphData);
 };
 
-function _filterByCategory() {
+function _filterByCategory(graphData) {
+  var categories = [];
+
+  // label = CATEGORY_NAME
+  // price =
+
   // filter logic goes here
   // _categoryGraphData = graphData.filter
+  return categories;
 };
 
-function _filterByMerchant() {
+function _filterByMerchant(graphData) {
+  var merchants = [];
+
+  // label = MERCHANT_NAME
+
   // filter logic goes here
   // _categoryGraphMerchant = graphData.filter
+  return merchants;
 };
 
 function _switchToCategoryOrMerchant(categoryOrMerchant) {
