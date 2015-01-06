@@ -33,6 +33,7 @@ passport.use(new SliceStrategy({
        // store userid in the session
       req.session.UserId = user[0].dataValues.id;
       return done(null, user[0].dataValues.id);
+      
      });
   }
 ));
