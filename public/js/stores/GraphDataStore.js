@@ -28,10 +28,6 @@ function _filterByMerchant() {
   // _categoryGraphMerchant = graphData.filter
 };
 
-// function _addOrders(allOrders) {
-//   _graphData = allOrders;
-// };
-
 function _switchToCategoryOrMerchant(categoryOrMerchant) {
   if (categoryOrMerchant === 'merchant') {
     _filteredGraphData = _merchantGraphData;
@@ -60,11 +56,6 @@ GraphDataStore.dispatchToken = AppDispatcher.register(function(payload) {
   var action = payload.action;
 
   switch(action.type) {
-
-    // case ActionTypes.RECEIVE_ORDERS:
-    //   _addOrders(action.allOrders);
-    //   GraphDataStore.emitChange();
-    //   break;
 
     case ActionTypes.RECEIVE_GRAPH_DATA:
       _addGraphData(action.allGraphData);
