@@ -84,7 +84,6 @@ var GraphDataStore = assign({}, EventEmitter.prototype, {
         barGraphData.push(barGraphAll[i]);
       } else {
         barChartOther.price += parseFloat(barGraphAll[i].price);
-        console.log(barChartOther.price, " & ", barGraphAll[i].categoryName);
       }
     }
     if (barChartOther.price > 0) {
