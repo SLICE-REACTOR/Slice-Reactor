@@ -19,7 +19,7 @@ var getStateFromStores = function() {
   for (var key in sliceDataMonthly) {
     var temp = {};
     temp['purchaseDate'] = key;
-    temp['price'] = sliceDataMonthly[key];
+    temp['price'] = sliceDataMonthly[key].toFixed(2);
     sliceData.push(temp);
   }
   

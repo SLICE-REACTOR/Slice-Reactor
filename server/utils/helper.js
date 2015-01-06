@@ -43,6 +43,15 @@ var sliceGetRequest = function(resourceType, accessToken, callback, userId, para
   });
 };
 
+var createItemObject = function(rawItem, userId) {
+  var processedItem = {"UserId": userId, "updateTime": rawItem.updateTime, "href": rawItem.href, "OrderHref": rawItem.order.href, "purchaseDate": rawItem.purchaseDate, "price": rawItem.price, "productUrl": rawItem.productUrl, "returnByDate": rawItem.returnByDate, "imageUrl": rawItem.imageUrl, "quantity": rawItem.quantity, "description": rawItem.description};
+  if (rawItem.category) {
+    processedItem["categoryName"] = rawItem.category.name;
+    processedItem["CategoryHref"] = rawItem.category.href;
+  }
+  return processedItem;
+};
+
 var itemsHandler = function(items, userId){
   db.Orders.findAll({
    attributes: ['href'],
@@ -57,19 +66,9 @@ var itemsHandler = function(items, userId){
       }
       for (var i = 0; i < items.result.length; i++) {
         if (!orderHrefs[items.result[i].order.href]) {
-          var invalidItem = {"UserId": userId, "updateTime": items.result[i].updateTime, "href": items.result[i].href, "OrderHref": items.result[i].order.href, "purchaseDate": items.result[i].purchaseDate, "price": items.result[i].price, "productUrl": items.result[i].productUrl, "returnByDate": items.result[i].returnByDate, "imageUrl": items.result[i].imageUrl, "quantity": items.result[i].quantity, "description": items.result[i].description};
-          if (items.result[i].category) {
-            invalidItem["categoryName"] = items.result[i].category.name;
-            invalidItem["CategoryHref"] = items.result[i].category.href;
-          }
-          invalidItems.push(invalidItem);
+          invalidItems.push(createItemObject(items.result[i], userId));
         } else {
-          var validItem = {"UserId": userId, "updateTime": items.result[i].updateTime, "href": items.result[i].href, "OrderHref": items.result[i].order.href, "purchaseDate": items.result[i].purchaseDate, "price": items.result[i].price, "productUrl": items.result[i].productUrl, "returnByDate": items.result[i].returnByDate, "imageUrl": items.result[i].imageUrl, "quantity": items.result[i].quantity, "description": items.result[i].description};
-          if (items.result[i].category) {
-            validItem["categoryName"] = items.result[i].category.name;
-            validItem["CategoryHref"] = items.result[i].category.href;
-          }
-          validItems.push(validItem);
+          validItems.push(createItemObject(items.result[i], userId));
         }
       }
     }
