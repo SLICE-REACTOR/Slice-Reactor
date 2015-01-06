@@ -106,7 +106,7 @@ var getUserData = function(req, res, next) {
   }, 5000);
   setTimeout(function(){
     sliceGetRequest('items', decryptedAccessToken, itemsHandler, req.session.UserId)
-  }, 15000);
+  }, 25000);
 
   return next();
 };
