@@ -1,9 +1,10 @@
 var React = require('react');
 var GraphDataStore = require('../stores/GraphDataStore');
+var GraphActionCreators = require('../actions/GraphActionCreators');
 var BarGraph = React.createClass({
 
   _setCategoryOrMerchant: function(categoryOrMerchant) {
-
+    GraphActionCreators.filterData(categoryOrMerchant);
   },
 
   _filterByCategoryOrMerchant: function(categoryOrMerchant) {
