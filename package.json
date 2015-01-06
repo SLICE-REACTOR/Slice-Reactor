@@ -44,11 +44,10 @@
     "watchify": "^2.2.1"
   },
   "scripts": {
-    "watch": "watchify public/js/app.js -o public/js/bundle.js -v -d .",
     "build": "browserify . | uglifyjs -cm > public/js/bundle.min.js",
     "test": "jest",
     "postinstall": "bower cache clean && bower install",
-    "start": "run watch && node server.js"
+    "start": "npm run watch && node server.js"
   },
   "browserify": {
     "transform": [
@@ -58,5 +57,8 @@
   },
   "jest": {
     "rootDir": "./public/js"
+  },
+  "watch": {
+    "watchify public/js/app.js -o public/js/bundle.js -v -d ."
   }
 }
