@@ -256,3 +256,13 @@ footer {
   text-align: center;
   font-size: 12px;
 }
+
+/****** loading.html ******/
+
+#loading {
+  text-align: center;
+}
+
+#loading img {
+  padding: 40px 0 40px 0;
+}
