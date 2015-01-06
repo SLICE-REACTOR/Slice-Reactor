@@ -39,10 +39,10 @@
     "watchify": "^2.2.1"
   },
   "scripts": {
-    "watch": "watchify public/js/app.js -o public/js/bundle.js -v -d .",
-    "build": "browserify . | uglifyjs -cm > public/js/bundle.min.js",
+    // "watch": "watchify public/js/app.js -o public/js/bundle.js -v -d .",
+    // "build": "browserify . | uglifyjs -cm > public/js/bundle.min.js",
     "postinstall": "bower cache clean && bower install",
-    "start": "npm run watch & node server.js"
+    "start": "node server.js"
   },
   "browserify": {
     "transform": [
