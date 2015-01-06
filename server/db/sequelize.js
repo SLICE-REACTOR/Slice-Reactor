@@ -1,6 +1,6 @@
 require('dotenv').load();
 var Sequelize = require('sequelize');
-var sequelize = new Sequelize(process.env.DATABASE_NAME, process.env.DATABASE_USERNAME, process.env.DATABASE_PASSWORD);
+var sequelize = new Sequelize(process.env.DATABASE_URL);
 
 var Users = sequelize.define('Users', {
   createTime: Sequelize.BIGINT,
@@ -59,16 +59,6 @@ var Orders = sequelize.define('Orders', {
   orderTotal: Sequelize.INTEGER,
   shippingCost: Sequelize.INTEGER,
   orderTax: Sequelize.INTEGER
-  // purchaseType: {
-  //   type: Sequelize.STRING,
-  //   references: PurchaseTypes,
-  //   referencesKey: "href"
-  // },
-  // merchant: {
-  //   type: Sequelize.STRING,
-  //   references: Merchants,
-  //   referencesKey: "href"
-  // }
 });
 
 var Items = sequelize.define('Items', {
@@ -77,11 +67,6 @@ var Items = sequelize.define('Items', {
     primaryKey: true
   },
   updateTime: Sequelize.BIGINT,
-  // orderUrl: {
-  //   type: Sequelize.STRING,
-  //   references: Orders,
-  //   referencesKey: "href"
-  // },
   purchaseDate: Sequelize.STRING(500),
   price: Sequelize.INTEGER,
   productUrl: Sequelize.STRING(700),
@@ -89,11 +74,6 @@ var Items = sequelize.define('Items', {
   imageUrl: Sequelize.STRING(400),
   quantity: Sequelize.INTEGER,
   categoryName: Sequelize.STRING(100),
-  // categoryUrl: {
-  //   type: Sequelize.STRING,
-  //   references: Categories,
-  //   referencesKey: "href"
-  // },
   description: Sequelize.STRING(400)
 });
 
@@ -116,12 +96,6 @@ Users.hasMany(Items);
 Items.belongsTo(Users);
 
 sequelize.sync();
-// Users.sync();
-// Categories.sync();
-// PurchaseTypes.sync();
-// Merchants.sync();
-// Items.sync();
-// Orders.sync();
 
 exports.Users = Users;
 exports.Orders = Orders;
@@ -129,28 +103,3 @@ exports.Items = Items;
 exports.Categories = Categories;
 exports.Merchants = Merchants;
 exports.PurchaseTypes = PurchaseTypes;
-
-// Orders.bulkCreate([ { UserId: 4,
-//     updateTime: 0000000000000,
-//     href: 'https://api.slice.com/api/v1/orders/2722454015268662560',
-//     orderNumber: '108-4772922-1997038',
-//     orderDate: '2014-12-28',
-//     orderTitle: '',
-//     orderTotal: 1682,
-//     shippingCost: 0,
-//     orderTax: 143,
-//     PurchaseTypeHref: 'https://api.slice.com/api/v1/purchasetypes/2',
-//     MerchantHref: 'https://api.slice.com/api/v1/merchants/1' } ], { validate: true }).catch(function(errors) {console.log(errors);});
-
-// Items.findAll({
-//   attributes: ['purchaseDate', 'categoryName', 'price', 'quantity'],
-//   where: {UserId: 1},
-//   include: [
-//     {model: Orders, include: [
-//       {model: Merchants, attributes: ['name']}
-//     ], attributes: ['orderTotal']}
-//   ]
-// }).then(function(items) {
-//   console.log(JSON.stringify(items));
-// });
-
