@@ -2,7 +2,34 @@ var React = require('react');
 var GraphDataStore = require('../stores/GraphDataStore');
 
 var getStateFromStores = function() {
-  return {data: GraphDataStore.getData()}
+  var sliceData = GraphDataStore.getData();
+  var sliceDataMonthly = {};
+  for (var i = 0; i < sliceData.length; i++) {
+    if (sliceData[i].price > 0) {
+      var purchaseDateArray = sliceData[i].purchaseDate.split('-');
+      var monthYear = purchaseDateArray[1] + '-' + purchaseDateArray[0];
+      if (!sliceDataMonthly[monthYear]) {
+        sliceDataMonthly[monthYear] = sliceData[i].price / 100;
+      } else {
+        sliceDataMonthly[monthYear] += sliceData[i].price / 100;
+      }
+    }
+  }
+  sliceData = [];
+  for (var key in sliceDataMonthly) {
+    var temp = {};
+    temp['purchaseDate'] = key;
+    temp['price'] = sliceDataMonthly[key];
+    sliceData.push(temp);
+  }
+  console.log(sliceData);
+  // for (var i = 0; i < sliceData.length; i++) {
+  //   if (sliceData[i].price > 0) {
+  //     sliceData[i].price = sliceData[i].price / 100;
+  //   }
+  // }
+  
+  return {data: sliceData}
 };
 
 var LineGraph = React.createClass({
@@ -29,7 +56,7 @@ var LineGraph = React.createClass({
         json: dataset,
         keys: {
             x: 'purchaseDate',
-            value: [ "quantity"]
+            value: [ "price"]
         }
       },  
       color: {
@@ -48,9 +75,9 @@ var LineGraph = React.createClass({
           }
         },
         y : {
-          tick: {
-            values: [0, 1, 2, 3, 4]
-          },
+          // tick: {
+          //   values: [0, 1, 2, 3, 4]
+          // },
           label: {
             text: 'Dollars Spent',
             position: 'outer-middle'
