@@ -7,7 +7,7 @@ var getStateFromStores = function() {
   for (var i = 0; i < sliceData.length; i++) {
     if (sliceData[i].price > 0) {
       var purchaseDateArray = sliceData[i].purchaseDate.split('-');
-      var monthYear = purchaseDateArray[1] + '-' + purchaseDateArray[0];
+      var monthYear = purchaseDateArray[0] + '-' + purchaseDateArray[1] + '-01';
       if (!sliceDataMonthly[monthYear]) {
         sliceDataMonthly[monthYear] = sliceData[i].price / 100;
       } else {
@@ -22,12 +22,6 @@ var getStateFromStores = function() {
     temp['price'] = sliceDataMonthly[key];
     sliceData.push(temp);
   }
-  console.log(sliceData);
-  // for (var i = 0; i < sliceData.length; i++) {
-  //   if (sliceData[i].price > 0) {
-  //     sliceData[i].price = sliceData[i].price / 100;
-  //   }
-  // }
   
   return {data: sliceData}
 };
