@@ -11,33 +11,41 @@ var _categoryGraphData = [];
 var _merchantGraphData = [];
 
 var _filteredGraphData = [];
+var _isFilteredByCategory = true;
 
 function _addGraphData(graphData) {
   _graphData = graphData;
-  console.log(_graphData);
-  _filterByCategory(_graphData);
-  _filterByMerchant(_graphData);
+  _filterByCategory(graphData);
+  _filterByMerchant(graphData);
+  _filteredGraphData = _categoryGraphData;
 };
 
 function _filterByCategory(graphData) {
-  var categories = [];
+  var categories = graphData.map(function(item) {
+    var categoryObj = {
+      primaryLabel: item.categoryName,
+      secondaryLabel: item.Order.Merchant.name,
+      price: item.price / 100,
+      date: item.purchaseDate
+    };
+    return categoryObj;
+  });
 
-  // label = CATEGORY_NAME
-  // price =
-
-  // filter logic goes here
-  // _categoryGraphData = graphData.filter
-  return categories;
+  _categoryGraphData = categories;
 };
 
 function _filterByMerchant(graphData) {
-  var merchants = [];
+  var merchants = graphData.map(function(item) {
+    var merchantObj = {
+      primaryLabel: item.Order.Merchant.name,
+      secondaryLabel: item.categoryName,
+      price: item.price / 100,
+      date: item.purchaseDate
+    };
+    return merchantObj;
+  });
 
-  // label = MERCHANT_NAME
-
-  // filter logic goes here
-  // _categoryGraphMerchant = graphData.filter
-  return merchants;
+  _merchantGraphData = merchants;
 };
 
 function _switchToCategoryOrMerchant(categoryOrMerchant) {
@@ -60,7 +68,7 @@ var GraphDataStore = assign({}, EventEmitter.prototype, {
   },
   getData: function() {
     // TODO change to filteredGraphData after filtering is complete
-    return _graphData;
+    return _filteredGraphData;
   }
 });
 

@@ -5,8 +5,10 @@ var getStateFromStores = function() {
   var array = GraphDataStore.getData();
   var categoryNames = {};
   var JSONobj = [];
+  console.log(array);
   array.forEach(function(item) {
-    var key = item.Order.Merchant.name;
+    console.log(item);
+    var key = item.primaryLabel;
     var value = 0;
 
     if (item.price > 0)
