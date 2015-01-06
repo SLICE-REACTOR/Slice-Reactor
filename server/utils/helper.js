@@ -158,6 +158,7 @@ var merchantsHandler = function(merchants, userId, getRequest){
 var getUserData = function(req, res) {
   var decipher = crypto.createDecipher(process.env.CIPHER_ALGORITHM, process.env.CIPHER_KEY);
   var decryptedAccessToken = decipher.update(req.session.accessToken, 'hex', 'utf8') + decipher.final('utf8');
+  
   var ordersGetRequestParameter = false;
   var itemsGetRequestParameter = false;
 
@@ -174,8 +175,6 @@ var getUserData = function(req, res) {
       var ordersGetRequest = sliceGetRequest.bind(null,'orders', decryptedAccessToken, ordersHandler, req.session.UserId, ordersGetRequestParameter, itemsGetRequest);
       sliceGetRequest('merchants', decryptedAccessToken, merchantsHandler, req.session.UserId, false, ordersGetRequest);
     });
-
-  // return next();
 };
 
 module.exports.getUserData = getUserData;
