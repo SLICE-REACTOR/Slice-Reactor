@@ -53,10 +53,6 @@ var GraphDataStore = assign({}, EventEmitter.prototype, {
   getData: function() {
     // TODO change to filteredGraphData after filtering is complete
     return _graphData;
-  },
-  filterByCategoryOrMerchant: function(categoryOrMerchant) {
-    _switchToCategoryOrMerchant(categoryOrMerchant);
-    this.emitChange();
   }
 });
 
@@ -76,7 +72,7 @@ GraphDataStore.dispatchToken = AppDispatcher.register(function(payload) {
       break;
 
     case ActionTypes.FILTER_DATA:
-      filterByCategoryOrMerchant(action.filter);
+      _switchToCategoryOrMerchant(action.filter);
       GraphDataStore.emitChange();
       break;
 
