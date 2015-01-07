@@ -5,7 +5,6 @@
   "main": "public/js/app.js",
   "private": true,
   "author": "Slice-Reactor",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/SLICE-REACTOR/Slice-Reactor/issues"
   },

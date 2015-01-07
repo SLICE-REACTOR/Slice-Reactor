@@ -43,9 +43,5 @@ View the project roadmap [here][roadmap-url]
 
 See [CONTRIBUTING.md][contributing-url] for contribution guidelines.
 
-## License
-
-MIT License 2014
-
 [contributing-url]: https://github.com/SLICE-REACTOR/Slice-Reactor/blob/develop/CONTRIBUTING.md
 [roadmap-url]: https://github.com/SLICE-REACTOR/Slice-Reactor/wiki/Roadmap
