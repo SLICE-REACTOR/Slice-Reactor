@@ -4,6 +4,12 @@
   "description": "Thesis",
   "main": "public/js/app.js",
   "private": true,
+  "author": "Slice-Reactor",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SLICE-REACTOR/Slice-Reactor/issues"
+  },
+  "homepage": "https://github.com/SLICE-REACTOR/Slice-Reactor",
   "dependencies": {
     "body-parser": "^1.10.0",
     "bower": "^1.3.12",
