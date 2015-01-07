@@ -2,6 +2,7 @@ var AppDispatcher = require('../dispatcher/Dispatcher');
 var Constants = require('../constants/Constants');
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
+var helper = require('../utils/chartHelpers');
 
 var ActionTypes = Constants.ActionTypes;
 var CHANGE_EVENT = 'change';
@@ -79,14 +80,14 @@ var GraphDataStore = assign({}, EventEmitter.prototype, {
     if (categoryOrMerchant === 'merchant') {
       _filterValue = {
         primary: 'Merchant',
-        secondary: 'Category',
+        secondary: 'Categories',
         category: '',
         merchant: 'active'
       }
     } else {
       _filterValue = {
         primary: 'Category',
-        secondary: 'Merchant',
+        secondary: 'Merchants',
         category: 'active',
         merchant: ''
       }
@@ -94,6 +95,12 @@ var GraphDataStore = assign({}, EventEmitter.prototype, {
   },
   getFilterValue: function() {
     return _filterValue;
+  },
+  getLineChart: function() {
+    return helper.lineChartProcessing(_graphData);
+  },
+  getBarGraph: function() {
+    return helper.barGraphProcessing(_filteredGraphData);
   }
 
 });
