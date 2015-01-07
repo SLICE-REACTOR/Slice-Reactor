@@ -2,8 +2,8 @@ var React = require('react');
 var GraphDataStore = require('../stores/GraphDataStore');
 var GraphActionCreators = require('../actions/GraphActionCreators');
 
-var getFilterState = function() {
-  return GraphDataStore.getActiveFilter;
+var getStateFromStores = function() {
+  return GraphDataStore.getFilterValue();
 };
 
 var BarGraph = React.createClass({
@@ -18,20 +18,15 @@ var BarGraph = React.createClass({
 
   _filterByCategory: function() {
     console.log('_filterByCategory');
-
-    this.setState({
-      category: 'active',
-      merchant: ''
-    });
+    GraphDataStore.setFilter('category');
+    this.setState(GraphDataStore.getFilterValue());
     GraphActionCreators.filterData('category');
   },
 
   _filterByMerchant: function() {
     console.log('_filterByMerchant');
-    this.setState({
-      category: '',
-      merchant: 'active'
-    });
+    GraphDataStore.setFilter('merchant');
+    this.setState(GraphDataStore.getFilterValue());
     GraphActionCreators.filterData('merchant');
   },
 

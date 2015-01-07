@@ -12,6 +12,13 @@ var _merchantGraphData = [];
 
 var _filteredGraphData = [];
 
+var _filterValue = {
+  primary: 'Category',
+  secondary: 'Merchant',
+  category: 'active',
+  merchant: ''
+}
+
 function _addGraphData(graphData) {
   _graphData = graphData;
   _filterByCategory(graphData);
@@ -55,6 +62,14 @@ function _switchToCategoryOrMerchant(categoryOrMerchant) {
   }
 };
 
+function _filterData(categoryOrMerchant) {
+  if (categoryOrMerchant === 'merchant') {
+    _filteredGraphData = _merchantGraphData;
+  } else {
+    _filteredGraphData = _categoryGraphData;
+  }
+};
+
 var GraphDataStore = assign({}, EventEmitter.prototype, {
   emitChange: function() {
     this.emit(CHANGE_EVENT);
@@ -68,8 +83,25 @@ var GraphDataStore = assign({}, EventEmitter.prototype, {
   getData: function() {
     return _filteredGraphData;
   },
-  getActiveFilter: function() {
-    return _filterState;
+  setFilter: function(categoryOrMerchant) {
+    if (categoryOrMerchant === 'merchant') {
+      _filterValue = {
+        primary: 'Merchant',
+        secondary: 'Category',
+        category: '',
+        merchant: 'active'
+      }
+    } else {
+      _filterValue = {
+        primary: 'Category',
+        secondary: 'Merchant',
+        category: 'active',
+        merchant: ''
+      }
+    }
+  },
+  getFilterValue: function() {
+    return _filterValue;
   }
 
 });
@@ -86,6 +118,7 @@ GraphDataStore.dispatchToken = AppDispatcher.register(function(payload) {
 
     case ActionTypes.FILTER_DATA:
       _switchToCategoryOrMerchant(action.filter);
+      _filterData(action.filter);
       GraphDataStore.emitChange();
       break;
 
