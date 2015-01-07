@@ -69,7 +69,17 @@ var GraphDataStore = assign({}, EventEmitter.prototype, {
   getData: function() {
     // TODO change to filteredGraphData after filtering is complete
     return _filteredGraphData;
+  },
+  checkIfFilteredByCategory: function() {
+    console.log('checking filter value');
+    return _isFilteredByCategory;
+  },
+  toggleFilter: function() {
+    console.log('toggling filter');
+    _isFilteredByCategory = !_isFilteredByCategory;
   }
+
+
 });
 
 GraphDataStore.dispatchToken = AppDispatcher.register(function(payload) {

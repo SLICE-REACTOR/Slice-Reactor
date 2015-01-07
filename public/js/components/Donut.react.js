@@ -5,9 +5,7 @@ var getStateFromStores = function() {
   var array = GraphDataStore.getData();
   var categoryNames = {};
   var JSONobj = [];
-  console.log(array);
   array.forEach(function(item) {
-    console.log(item);
     var key = item.primaryLabel;
     var value = 0;
 
