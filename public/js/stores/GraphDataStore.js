@@ -11,7 +11,6 @@ var _categoryGraphData = [];
 var _merchantGraphData = [];
 
 var _filteredGraphData = [];
-var _isFilteredByCategory = true;
 
 function _addGraphData(graphData) {
   _graphData = graphData;
@@ -67,18 +66,11 @@ var GraphDataStore = assign({}, EventEmitter.prototype, {
     this.removeListener(CHANGE_EVENT, callback);
   },
   getData: function() {
-    // TODO change to filteredGraphData after filtering is complete
     return _filteredGraphData;
   },
-  checkIfFilteredByCategory: function() {
-    console.log('checking filter value');
-    return _isFilteredByCategory;
-  },
-  toggleFilter: function() {
-    console.log('toggling filter');
-    _isFilteredByCategory = !_isFilteredByCategory;
+  getActiveFilter: function() {
+    return _filterState;
   }
-
 
 });
 

@@ -4,17 +4,17 @@ var GraphDataStore = require('../stores/GraphDataStore');
 var getStateFromStores = function() {
   var sliceData = GraphDataStore.getData();
   var sliceDataMonthly = {};
-  for (var i = 0; i < sliceData.length; i++) {
-    if (sliceData[i].price > 0) {
-      var purchaseDateArray = sliceData[i].purchaseDate.split('-');
-      var monthYear = purchaseDateArray[0] + '-' + purchaseDateArray[1] + '-01';
-      if (!sliceDataMonthly[monthYear]) {
-        sliceDataMonthly[monthYear] = sliceData[i].price / 100;
-      } else {
-        sliceDataMonthly[monthYear] += sliceData[i].price / 100;
-      }
-    }
-  }
+  // for (var i = 0; i < sliceData.length; i++) {
+  //   if (sliceData[i].price > 0) {
+  //     var purchaseDateArray = sliceData[i].purchaseDate.split('-');
+  //     var monthYear = purchaseDateArray[0] + '-' + purchaseDateArray[1] + '-01';
+  //     if (!sliceDataMonthly[monthYear]) {
+  //       sliceDataMonthly[monthYear] = sliceData[i].price / 100;
+  //     } else {
+  //       sliceDataMonthly[monthYear] += sliceData[i].price / 100;
+  //     }
+  //   }
+  // }
   sliceData = [];
   for (var key in sliceDataMonthly) {
     var lineGraphItem = {};
@@ -22,7 +22,7 @@ var getStateFromStores = function() {
     lineGraphItem['price'] = sliceDataMonthly[key].toFixed(2);
     sliceData.push(lineGraphItem);
   }
-  
+
   return {data: sliceData}
 };
 
@@ -52,7 +52,7 @@ var LineGraph = React.createClass({
             x: 'purchaseDate',
             value: [ "price"]
         }
-      },  
+      },
       color: {
         pattern: ['#24ACBF']
       },
