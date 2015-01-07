@@ -54,14 +54,6 @@ function _filterByMerchant(graphData) {
   _merchantGraphData = merchants;
 };
 
-function _switchToCategoryOrMerchant(categoryOrMerchant) {
-  if (categoryOrMerchant === 'merchant') {
-    _filteredGraphData = _merchantGraphData;
-  } else {
-    _filteredGraphData = _categoryGraphData;
-  }
-};
-
 function _filterData(categoryOrMerchant) {
   if (categoryOrMerchant === 'merchant') {
     _filteredGraphData = _merchantGraphData;
@@ -117,7 +109,6 @@ GraphDataStore.dispatchToken = AppDispatcher.register(function(payload) {
       break;
 
     case ActionTypes.FILTER_DATA:
-      _switchToCategoryOrMerchant(action.filter);
       _filterData(action.filter);
       GraphDataStore.emitChange();
       break;
