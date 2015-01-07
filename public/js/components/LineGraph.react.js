@@ -65,13 +65,10 @@ var LineGraph = React.createClass({
           type: 'timeseries',
           tick: {
             rotate: 75,
-            format: '%m-%Y'
+            format: '%b-%Y'
           }
         },
         y : {
-          // tick: {
-          //   values: [0, 1, 2, 3, 4]
-          // },
           label: {
             text: 'Dollars Spent',
             position: 'outer-middle'
