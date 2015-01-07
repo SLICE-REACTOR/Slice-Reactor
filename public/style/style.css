@@ -253,6 +253,10 @@ input[type="reset"]:hover {
 }
 
 /****** LineGraph.react.js ******/
+/****** removes black fill in line chart ******/
+path {
+  fill:none;
+}
 
 footer {
   background-color: #F5F5F5;
