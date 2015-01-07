@@ -39,7 +39,18 @@ var BarGraph = React.createClass({
       },
       legend: {
         show: false
-      }
+      },
+      grid: {
+        y: {
+            show: true
+        },
+        x: {
+          show: false
+        }
+      },
+      tooltip: {
+  show: false
+}
     })
   },
   render: function() {
