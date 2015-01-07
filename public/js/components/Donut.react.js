@@ -55,7 +55,6 @@ var Donut = React.createClass({
     })
   },
   render: function() {
-    console.log('rendering donut');
     this._renderChart(this.state.data);
     return (
       <div id="donut">

@@ -19,39 +19,23 @@ var BarGraph = React.createClass({
   _filterByCategory: function() {
     console.log('_filterByCategory');
 
-    GraphActionCreators.filterData('category');
     this.setState({
       category: 'active',
       merchant: ''
     });
-
-    console.log('state: ', this.state);
+    GraphActionCreators.filterData('category');
   },
 
   _filterByMerchant: function() {
     console.log('_filterByMerchant');
-
-    GraphActionCreators.filterData('merchant');
     this.setState({
       category: '',
       merchant: 'active'
     });
-
-    console.log('state: ', this.state);
-  },
-
-  componentDidMount: function(){
-    GraphDataStore.addChangeListener(this._onChange);
-  },
-
-  componentWillUnmount: function() {
-    GraphDataStore.removeChangeListener(this._onChange);
+    GraphActionCreators.filterData('merchant');
   },
 
   render: function() {
-    console.log('rendering datainput form');
-    console.log('state.category: ', this.state.category);
-    console.log('state.merchant: ', this.state.merchant);
     return (
       <div id="date-filter-input">
 
@@ -75,12 +59,6 @@ var BarGraph = React.createClass({
         <div className="divider"></div>
       </div>
     );
-  },
-  _onChange: function() {
-    this.setState({
-      category: '',
-      merchant: 'active'
-    });
   }
 
 });
