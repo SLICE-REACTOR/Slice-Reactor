@@ -36,7 +36,21 @@ var BarGraph = React.createClass({
         },
       color: {
         pattern: ['#24ACBF' , '#F16A4A' , '#FBC162' , '#AFD136' , '#923F96' , '#3B5E9F' , '#F8ED6B' , '#D74667' , '#3E784B']
-      }
+      },
+      legend: {
+        show: false
+      },
+      grid: {
+        y: {
+            show: true
+        },
+        x: {
+          show: false
+        }
+      },
+      tooltip: {
+  show: false
+}
     })
   },
   render: function() {
