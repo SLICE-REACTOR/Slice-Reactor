@@ -30,9 +30,9 @@ var barGraphProcessing = function(data) {
         itemCategory = 'Other';
       }
       if (!sliceDataByCategory[itemCategory]) {
-        sliceDataByCategory[itemCategory] = data[i].price / 100;
+        sliceDataByCategory[itemCategory] = data[i].price;
       } else {
-        sliceDataByCategory[itemCategory] += data[i].price / 100;
+        sliceDataByCategory[itemCategory] += data[i].price;
       }
     }
   }

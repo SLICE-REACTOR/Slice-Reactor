@@ -80,14 +80,14 @@ var GraphDataStore = assign({}, EventEmitter.prototype, {
     if (categoryOrMerchant === 'merchant') {
       _filterValue = {
         primary: 'Merchant',
-        secondary: 'Category',
+        secondary: 'Categories',
         category: '',
         merchant: 'active'
       }
     } else {
       _filterValue = {
         primary: 'Category',
-        secondary: 'Merchant',
+        secondary: 'Merchants',
         category: 'active',
         merchant: ''
       }
