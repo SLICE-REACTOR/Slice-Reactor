@@ -22,7 +22,7 @@ var getStateFromStores = function() {
     lineGraphItem['price'] = sliceDataMonthly[key].toFixed(2);
     sliceData.push(lineGraphItem);
   }
-  
+
   return {data: sliceData}
 };
 
@@ -52,7 +52,7 @@ var LineGraph = React.createClass({
             x: 'purchaseDate',
             value: [ "price"]
         }
-      },  
+      },
       color: {
         pattern: ['#24ACBF']
       },
@@ -85,7 +85,7 @@ var LineGraph = React.createClass({
       },
       tooltip: {
         show: false
-      } 
+      }
     });
   },
   render: function() {

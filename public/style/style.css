@@ -143,16 +143,6 @@ input::-webkit-clear-button {
   display: none;
 }
 
-/*input[type="date"]:active,
-input[type="date"]:selected,
-input[type="date"]:visited
-input[type="date"]:focus
-{
-    display: none;
-    border: none;
-    outline: none;
-}*/
-
 input[type="date"] {
     -webkit-align-items: center;
     display: -webkit-inline-flex;
@@ -229,7 +219,7 @@ input[type="reset"]:hover {
   transition: background-color .15s, border .15s, color .15s;
 }
 
-.category-merchant-button:hover {
+.active {
   background-color: #24ACBF;
   border: 1px solid #24ACBF;
   color: white;

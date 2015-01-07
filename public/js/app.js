@@ -3,7 +3,7 @@ var React = require('react');
 var APIUtils = require('./utils/APIUtils');
 window.React = React; // export for http://fb.me/react-devtools
 
-APIUtils.getAllOrders();
+APIUtils.getAllGraphData();
 
 React.render(
     <App />,
