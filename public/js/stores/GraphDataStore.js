@@ -8,9 +8,6 @@ var CHANGE_EVENT = 'change';
 
 var _graphData = [];
 
-// function _addGraphData(graphData) {
-//   _graphData = graphData;
-// };
 
 function _addOrders(allOrders) {
   _graphData = allOrders;
@@ -29,6 +26,70 @@ var GraphDataStore = assign({}, EventEmitter.prototype, {
   },
   getData: function() {
     return _graphData;
+  },
+  getLineChart: function() {
+    var sliceDataMonthly = {};
+    for (var i = 0; i < _graphData.length; i++) {
+      if (_graphData[i].price > 0) {
+        var purchaseDateArray = _graphData[i].purchaseDate.split('-');
+        var monthYear = purchaseDateArray[0] + '-' + purchaseDateArray[1] + '-01';
+        if (!sliceDataMonthly[monthYear]) {
+          sliceDataMonthly[monthYear] = _graphData[i].price / 100;
+        } else {
+          sliceDataMonthly[monthYear] += _graphData[i].price / 100;
+        }
+      }
+    }
+    lineChartData = [];
+    for (var key in sliceDataMonthly) {
+      var lineGraphItem = {};
+      lineGraphItem['purchaseDate'] = key;
+      lineGraphItem['price'] = sliceDataMonthly[key].toFixed(2);
+      lineChartData.push(lineGraphItem);
+    }
+    return lineChartData;
+  },
+  getBarGraph: function() {
+    var sliceDataByCategory = {};
+    for (var i = 0; i < _graphData.length; i++) {
+      if (_graphData[i].price > 0) {
+        var itemCategory = _graphData[i].categoryName;
+        if (itemCategory === null) {
+          itemCategory = 'Other';
+        }
+        if (!sliceDataByCategory[itemCategory]) {
+          sliceDataByCategory[itemCategory] = _graphData[i].price / 100;
+        } else {
+          sliceDataByCategory[itemCategory] += _graphData[i].price / 100;
+        }
+      }
+    }
+    barGraphAll = [];
+    for (var key in sliceDataByCategory) {
+      var barChartItem = {};
+      barChartItem['categoryName'] = key;
+      barChartItem['price'] = sliceDataByCategory[key].toFixed(2);
+      barGraphAll.push(barChartItem);
+    }
+    barGraphAll.sort(function(a, b) {
+      return b.price - a.price;
+    });
+    barGraphData = [];
+    var barChartOther = {
+      categoryName: 'All Others',
+      price: 0
+    }
+    for (var i = 0; i < barGraphAll.length; i++) {
+      if (i < 6) {
+        barGraphData.push(barGraphAll[i]);
+      } else {
+        barChartOther.price += parseFloat(barGraphAll[i].price);
+      }
+    }
+    if (barChartOther.price > 0) {
+      barGraphData.push(barChartOther);
+    }
+    return barGraphData;
   }
 });
 

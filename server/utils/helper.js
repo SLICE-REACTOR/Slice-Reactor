@@ -83,12 +83,37 @@ var itemsHandler = function(items, userId){
   });
 };
 
+var createOrderObject = function(rawOrder, userId) {
+  var processedOrder = {"UserId": userId, "updateTime": rawOrder.updateTime, "href": rawOrder.href, "orderNumber": rawOrder.orderNumber, "orderDate": rawOrder.orderDate, "orderTitle": rawOrder.orderTitle, "orderTotal": rawOrder.orderTotal, "shippingCost": rawOrder.shippingCost, "orderTax": rawOrder.orderTax, "PurchaseTypeHref": rawOrder.purchaseType.href, "MerchantHref": rawOrder.merchant.href};
+
+  return processedOrder;
+};
+
 var ordersHandler = function(orders, userId){
-  var sequelizeInsert = [];
-  for (var i = 0; i < orders.result.length; i++) {
-    sequelizeInsert.push({"UserId": userId, "updateTime": orders.result[i].updateTime, "href": orders.result[i].href, "orderNumber": orders.result[i].orderNumber, "orderDate": orders.result[i].orderDate, "orderTitle": orders.result[i].orderTitle, "orderTotal": orders.result[i].orderTotal, "shippingCost": orders.result[i].shippingCost, "orderTax": orders.result[i].orderTax, "PurchaseTypeHref": orders.result[i].purchaseType.href, "MerchantHref": orders.result[i].merchant.href});
-  }
-  db.Orders.bulkCreate(sequelizeInsert);
+  db.Merchants.findAll({
+   attributes: ['href']
+   }).complete(function(err, merchantIds) {
+    var merchantIdObject = {};
+    var validOrders = [];
+    var invalidOrders = [];
+    if (merchantIds) {
+      for (var i = 0; i < merchantIds.length; i++) {
+        merchantIdObject[merchantIds[i].href] = true;
+      }
+      for (var i = 0; i < orders.result.length; i++) {
+        if (!merchantIdObject[orders.result[i].merchant.href]) {
+          invalidOrders.push(createOrderObject(orders.result[i], userId));
+        } else {
+          validOrders.push(createOrderObject(orders.result[i], userId));
+        }
+      }
+    }
+    if (validOrders.length > 0) {
+      db.Orders.bulkCreate(validOrders);
+    }
+    console.log('INVALID ORDERS: (', invalidOrders.length,') ', invalidOrders);
+  });
+  
   db.Users.find({where:{id: userId}}).then(function(user) {
     user.updateOrders = orders.currentTime;
     user.save();
