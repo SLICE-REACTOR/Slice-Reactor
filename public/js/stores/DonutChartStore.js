@@ -34,6 +34,7 @@ DonutChartStore.dispatchToken = AppDispatcher.register(function(payload) {
   switch(action.type) {
 
     case ActionTypes.RECEIVE_GRAPH_DATA:
+      AppDispatcher.waitFor([FilteredDataStore.dispatchToken]);
       // TODO insert arguments here
       _addDonutChartData();
       DonutChartStore.emitChange();

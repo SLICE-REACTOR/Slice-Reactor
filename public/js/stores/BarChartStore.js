@@ -34,6 +34,7 @@ BarChartStore.dispatchToken = AppDispatcher.register(function(payload) {
   switch(action.type) {
 
     case ActionTypes.RECEIVE_GRAPH_DATA:
+      AppDispatcher.waitFor([FilteredDataStore.dispatchToken]);
       _addBarChartData(action.allGraphData);
       BarChartStore.emitChange();
       break;

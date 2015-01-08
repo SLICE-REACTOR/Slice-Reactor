@@ -34,7 +34,8 @@ LineChartStore.dispatchToken = AppDispatcher.register(function(payload) {
   switch(action.type) {
 
     case ActionTypes.RECEIVE_GRAPH_DATA:
-
+      // TODO insert arguments here
+      _reformatData();
       _addLineChartData();
       LineChartStore.emitChange();
       break;
