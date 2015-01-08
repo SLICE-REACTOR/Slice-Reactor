@@ -2,10 +2,16 @@ var AppDispatcher = require('../dispatcher/Dispatcher');
 var Constants = require('../constants/Constants');
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
+var FilteredDataStore = require('./FilteredDataStore');
+
 var ActionTypes = Constants.ActionTypes;
 var CHANGE_EVENT = 'change';
 
 var _barChartData = [];
+
+var _reformatData = function() {};
+
+var _addBarChartData = function() {};
 
 var BarChartStore = assign({}, EventEmitter.prototype, {
   emitChange: function() {
@@ -28,7 +34,7 @@ BarChartStore.dispatchToken = AppDispatcher.register(function(payload) {
   switch(action.type) {
 
     case ActionTypes.RECEIVE_GRAPH_DATA:
-      _addGraphData(action.allGraphData);
+      _addBarChartData(action.allGraphData);
       BarChartStore.emitChange();
       break;
 

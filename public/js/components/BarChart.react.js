@@ -2,7 +2,7 @@ var React = require('react');
 var BarChartStore = require('../stores/BarChartStore');
 
 var getStateFromStores = function() {
-  return {data: BarChartStore.getBarGraph()}
+  return {data: BarChartStore.getData()}
 };
 
 var BarChart = React.createClass({

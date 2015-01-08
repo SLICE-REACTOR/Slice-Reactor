@@ -2,7 +2,7 @@ var React = require('react');
 var LineChartStore = require('../stores/LineChartStore');
 
 var getStateFromStores = function() {
-  return {data: LineChartStore.getLineChart()}
+  return {data: LineChartStore.getData()}
 };
 
 var LineChart = React.createClass({

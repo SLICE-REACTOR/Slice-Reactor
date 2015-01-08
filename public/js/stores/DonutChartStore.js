@@ -2,10 +2,16 @@ var AppDispatcher = require('../dispatcher/Dispatcher');
 var Constants = require('../constants/Constants');
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
+var FilteredDataStore = require('./FilteredDataStore');
+
 var ActionTypes = Constants.ActionTypes;
 var CHANGE_EVENT = 'change';
 
 var _donutChartData = [];
+
+var _reformatData = function() {};
+
+var _addDonutChartData = function() {};
 
 var DonutChartStore = assign({}, EventEmitter.prototype, {
   emitChange: function() {
@@ -28,7 +34,8 @@ DonutChartStore.dispatchToken = AppDispatcher.register(function(payload) {
   switch(action.type) {
 
     case ActionTypes.RECEIVE_GRAPH_DATA:
-      _addGraphData(action.allGraphData);
+      // TODO insert arguments here
+      _addDonutChartData();
       DonutChartStore.emitChange();
       break;
 
