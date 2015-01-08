@@ -51,11 +51,10 @@ function _filterByMerchant(chartData) {
 };
 
 function _filterData(categoryOrMerchant) {
-  if (categoryOrMerchant === 'merchant') {
+  if (categoryOrMerchant === 'merchant')
     _filteredChartData = _merchantChartData;
-  } else {
+  else
     _filteredChartData = _categoryChartData;
-  }
 };
 
 var FilteredDataStore = assign({}, EventEmitter.prototype, {

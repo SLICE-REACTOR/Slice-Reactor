@@ -1,22 +1,22 @@
 var React = require('react');
-var GraphDataStore = require('../stores/GraphDataStore');
+var BarChartStore = require('../stores/BarChartStore');
 
 var getStateFromStores = function() {
-  return {data: GraphDataStore.getBarGraph()}
+  return {data: BarChartStore.getBarGraph()}
 };
 
 var BarChart = React.createClass({
   getInitialState: function() {
     return getStateFromStores();
   },
-  componentDidMount: function(){
-    GraphDataStore.addChangeListener(this._onChange);
+  componentDidMount: function() {
+    BarChartStore.addChangeListener(this._onChange);
     this._renderChart(this.state.data);
   },
   componentWillMount: function() {
-    GraphDataStore.removeChangeListener(this._onChange);
+    BarChartStore.removeChangeListener(this._onChange);
   },
-  _renderChart: function(dataset){
+  _renderChart: function(dataset) {
     //creates chart
     var barChart = c3.generate({
       bindto: '#chart_3',

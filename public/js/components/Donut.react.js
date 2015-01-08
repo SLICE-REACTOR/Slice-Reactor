@@ -1,8 +1,8 @@
 var React = require('react');
-var GraphDataStore = require('../stores/GraphDataStore');
+var DonutChartStore = require('../stores/DonutChartStore');
 
 var getStateFromStores = function() {
-  var array = GraphDataStore.getData();
+  var array = DonutChartStore.getData();
   var categoryNames = {};
   var JSONobj = [];
   array.forEach(function(item) {
@@ -23,11 +23,11 @@ var Donut = React.createClass({
     return getStateFromStores();
   },
   componentDidMount: function(){
-    GraphDataStore.addChangeListener(this._onChange);
+    DonutChartStore.addChangeListener(this._onChange);
     this._renderChart(this.state.data);
   },
   componentWillUnmount: function() {
-    GraphDataStore.removeChangeListener(this._onChange);
+    DonutChartStore.removeChangeListener(this._onChange);
   },
   _renderChart: function(dataset){
     var key = Object.keys(dataset[0]);
