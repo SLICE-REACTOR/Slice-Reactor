@@ -10,4 +10,10 @@ module.exports = {
       filter: categoryOrMerchant
     });
   },
+    filterDonutChartData: function(categoryNameOrMerchantName){
+    AppDispatcher.handleViewAction({
+      type: ActionTypes.FILTER_DONUT_PIECE_DATA,
+      filterChart: categoryNameOrMerchantName
+    });
+  }
 };
