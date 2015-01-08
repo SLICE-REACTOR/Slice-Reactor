@@ -6,7 +6,7 @@ var getStateFromStores = function() {
   var categoryNames = {};
   var JSONobj = [];
   array.forEach(function(item) {
-    var key = item.Order.Merchant.name;
+    var key = item.primaryLabel;
     var value = 0;
 
     if (item.price > 0)
@@ -59,7 +59,7 @@ var Donut = React.createClass({
     return (
       <div id="donut">
         <div className="graph-header">
-          <h2>Spending by Category</h2>
+          <h2>Spending by {GraphDataStore.getFilterValue().primary}</h2>
         </div>
         <div id="chart_1"></div>
       </div>
