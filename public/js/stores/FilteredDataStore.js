@@ -2,16 +2,14 @@ var AppDispatcher = require('../dispatcher/Dispatcher');
 var Constants = require('../constants/Constants');
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
-var helper = require('../utils/chartHelpers');
 
 var ActionTypes = Constants.ActionTypes;
 var CHANGE_EVENT = 'change';
 
-var _graphData = [];
-var _categoryGraphData = [];
-var _merchantGraphData = [];
-
-var _filteredGraphData = [];
+// DATA STORES
+var _filteredChartData = [];
+var _categoryChartData = [];
+var _merchantChartData = [];
 
 var _filterValue = {
   primary: 'Category',
@@ -20,15 +18,15 @@ var _filterValue = {
   merchant: ''
 }
 
-function _addGraphData(graphData) {
-  _graphData = graphData;
-  _filterByCategory(graphData);
-  _filterByMerchant(graphData);
-  _filteredGraphData = _categoryGraphData;
+function _addFilteredData(chartData) {
+  // getting data
+  _categoryChartData = _filterByCategory(chartData);
+  _merchantChartData = _filterByMerchant(chartData);
+  _filteredChartData = _categoryChartData;
 };
 
-function _filterByCategory(graphData) {
-  var categories = graphData.map(function(item) {
+function _filterByCategory(chartData) {
+  var categories = chartData.map(function(item) {
     var categoryObj = {
       primaryLabel: item.categoryName,
       secondaryLabel: item.Order.Merchant.name,
@@ -37,12 +35,11 @@ function _filterByCategory(graphData) {
     };
     return categoryObj;
   });
-
-  _categoryGraphData = categories;
+  return categories;
 };
 
-function _filterByMerchant(graphData) {
-  var merchants = graphData.map(function(item) {
+function _filterByMerchant(chartData) {
+  var merchants = chartData.map(function(item) {
     var merchantObj = {
       primaryLabel: item.Order.Merchant.name,
       secondaryLabel: item.categoryName,
@@ -51,31 +48,18 @@ function _filterByMerchant(graphData) {
     };
     return merchantObj;
   });
-
-  _merchantGraphData = merchants;
+  return merchants;
 };
 
 function _filterData(categoryOrMerchant) {
-  if (categoryOrMerchant === 'merchant') {
-    _filteredGraphData = _merchantGraphData;
-  } else {
-    _filteredGraphData = _categoryGraphData;
-  }
+  if (categoryOrMerchant === 'merchant')
+    _filteredChartData = _merchantChartData;
+  else
+    _filteredChartData = _categoryChartData;
 };
 
-var GraphDataStore = assign({}, EventEmitter.prototype, {
-  emitChange: function() {
-    this.emit(CHANGE_EVENT);
-  },
-  addChangeListener: function(callback) {
-    this.on(CHANGE_EVENT, callback);
-  },
-  removeChangeListener: function(callback) {
-    this.removeListener(CHANGE_EVENT, callback);
-  },
-  getData: function() {
-    return _filteredGraphData;
-  },
+var FilteredDataStore = assign({}, EventEmitter.prototype, {
+
   setFilter: function(categoryOrMerchant) {
     if (categoryOrMerchant === 'merchant') {
       _filterValue = {
@@ -96,28 +80,22 @@ var GraphDataStore = assign({}, EventEmitter.prototype, {
   getFilterValue: function() {
     return _filterValue;
   },
-  getLineChart: function() {
-    return helper.lineChartProcessing(_graphData);
-  },
-  getBarGraph: function() {
-    return helper.barGraphProcessing(_filteredGraphData);
+  getData: function() {
+    return _filteredChartData;
   }
-
 });
 
-GraphDataStore.dispatchToken = AppDispatcher.register(function(payload) {
+FilteredDataStore.dispatchToken = AppDispatcher.register(function(payload) {
   var action = payload.action;
 
   switch(action.type) {
 
-    case ActionTypes.RECEIVE_GRAPH_DATA:
-      _addGraphData(action.allGraphData);
-      GraphDataStore.emitChange();
+    case ActionTypes.RECEIVE_CHART_DATA:
+      _addFilteredData(action.allChartData);
       break;
 
     case ActionTypes.FILTER_DATA:
       _filterData(action.filter);
-      GraphDataStore.emitChange();
       break;
 
     default:
@@ -125,4 +103,5 @@ GraphDataStore.dispatchToken = AppDispatcher.register(function(payload) {
   }
 });
 
-module.exports = GraphDataStore;
+module.exports = FilteredDataStore;
+

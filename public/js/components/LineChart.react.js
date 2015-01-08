@@ -1,20 +1,21 @@
 var React = require('react');
-var GraphDataStore = require('../stores/GraphDataStore');
+var LineChartStore = require('../stores/LineChartStore');
+var FilteredDataStore = require('../stores/FilteredDataStore');
 
 var getStateFromStores = function() {
-  return {data: GraphDataStore.getLineChart()}
+  return {data: LineChartStore.getData()}
 };
 
-var LineGraph = React.createClass({
+var LineChart = React.createClass({
   getInitialState: function(){
     return getStateFromStores();
   },
   componentDidMount: function(){
-    GraphDataStore.addChangeListener(this._onChange);
+    LineChartStore.addChangeListener(this._onChange);
     this._renderChart(this.state.data);
   },
   componentWillMount: function() {
-    GraphDataStore.removeChangeListener(this._onChange);
+    LineChartStore.removeChangeListener(this._onChange);
   },
   _renderChart: function(dataset){
     var lineChart = c3.generate({
@@ -25,10 +26,10 @@ var LineGraph = React.createClass({
         left: 90,
       },
       data: {
-        x: 'purchaseDate',
+        x: 'date',
         json: dataset,
         keys: {
-            x: 'purchaseDate',
+            x: 'date',
             value: [ "price"]
         }
       },
@@ -83,4 +84,4 @@ var LineGraph = React.createClass({
   }
 });
 
-module.exports = LineGraph;
+module.exports = LineChart;

@@ -2,9 +2,9 @@ var React = require('react');
 var Header = require('./Header.react');
 var NavBar = require('./NavBar.react');
 var DateInput = require('./DateInput.react');
-var Donut = require('./Donut.react');
-var LineGraph = require('./LineGraph.react');
-var BarGraph = require('./BarGraph.react');
+var DonutChart = require('./DonutChart.react');
+var LineChart = require('./LineChart.react');
+var BarChart = require('./BarChart.react');
 var Footer = require('./Footer.react');
 
 var App = React.createClass({
@@ -15,9 +15,9 @@ var App = React.createClass({
         <NavBar />
         <div id="wrapper">
           <DateInput />
-          <Donut />
-          <LineGraph />
-          <BarGraph />
+          <DonutChart />
+          <LineChart />
+          <BarChart />
           <Footer />
         </div>
       </div>

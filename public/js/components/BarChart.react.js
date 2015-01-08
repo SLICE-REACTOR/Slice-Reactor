@@ -1,22 +1,23 @@
 var React = require('react');
-var GraphDataStore = require('../stores/GraphDataStore');
+var BarChartStore = require('../stores/BarChartStore');
+var FilteredDataStore = require('../stores/FilteredDataStore');
 
 var getStateFromStores = function() {
-  return {data: GraphDataStore.getBarGraph()}
+  return {data: BarChartStore.getData()}
 };
 
-var BarGraph = React.createClass({
+var BarChart = React.createClass({
   getInitialState: function() {
     return getStateFromStores();
   },
-  componentDidMount: function(){
-    GraphDataStore.addChangeListener(this._onChange);
+  componentDidMount: function() {
+    BarChartStore.addChangeListener(this._onChange);
     this._renderChart(this.state.data);
   },
   componentWillMount: function() {
-    GraphDataStore.removeChangeListener(this._onChange);
+    BarChartStore.removeChangeListener(this._onChange);
   },
-  _renderChart: function(dataset){
+  _renderChart: function(dataset) {
     //creates chart
     var barChart = c3.generate({
       bindto: '#chart_3',
@@ -58,7 +59,7 @@ var BarGraph = React.createClass({
     return (
       <div id="bar-graph">
         <div className="graph-header">
-          <h2>Top {GraphDataStore.getFilterValue().secondary}</h2>
+          <h2>Top {FilteredDataStore.getFilterValue().secondary}</h2>
         </div>
         <div id="chart_3"></div>
       </div>
@@ -69,4 +70,4 @@ var BarGraph = React.createClass({
   }
 });
 
-module.exports = BarGraph;
+module.exports = BarChart;
