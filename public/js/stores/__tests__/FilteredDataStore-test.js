@@ -54,26 +54,4 @@ describe('GraphDataStore', function() {
     var orders = GraphDataStore.getData();
     expect(orders[0]).toEqual({foo: 'foo'});
   });
-
-
-  // ***** EXAMPLES ***** //
-
-  // it('creates a to-do item', function() {
-  //   callback(actionTodoCreate);
-  //   var all = TodoStore.getAll();
-  //   var keys = Object.keys(all);
-  //   expect(keys.length).toBe(1);
-  //   expect(all[keys[0]].text).toEqual('foo');
-  // });
-
-  // it('destroys a to-do item', function() {
-  //   callback(actionTodoCreate);
-  //   var all = TodoStore.getAll();
-  //   var keys = Object.keys(all);
-  //   expect(keys.length).toBe(1);
-  //   actionTodoDestroy.action.id = keys[0];
-  //   callback(actionTodoDestroy);
-  //   expect(all[keys[0]]).toBeUndefined();
-  // });
-
 });
