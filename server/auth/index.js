@@ -21,6 +21,7 @@ passport.use(new SliceStrategy({
   function(req, accessToken, refreshToken, profile, done) {
     var cipher = crypto.createCipher(process.env.CIPHER_ALGORITHM, process.env.CIPHER_KEY);
     req.session.accessToken = cipher.update(accessToken, 'utf8', 'hex') + cipher.final('hex');
+
     db.Users.findOrCreate({where: {userEmail: profile.userEmail}})
      .then(function (user) {
        user[0].dataValues.createTime = profile._json.result.createTime;
@@ -31,8 +32,9 @@ passport.use(new SliceStrategy({
        user[0].save();
 
        // store userid in the session
-       req.session.UserId = user[0].dataValues.id;
-       return done(null, user[0].dataValues.id);
+      req.session.UserId = user[0].dataValues.id;
+      return done(null, user[0].dataValues.id);
+
      });
       return done(null, profile.userEmail);
 

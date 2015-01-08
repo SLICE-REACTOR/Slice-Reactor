@@ -2,7 +2,7 @@ var React = require('react');
 var GraphDataStore = require('../stores/GraphDataStore');
 
 var getStateFromStores = function() {
-  return {data: GraphDataStore.getData()}
+  return {data: GraphDataStore.getLineChart()}
 };
 
 var LineGraph = React.createClass({
@@ -29,9 +29,9 @@ var LineGraph = React.createClass({
         json: dataset,
         keys: {
             x: 'purchaseDate',
-            value: [ "quantity"]
+            value: [ "price"]
         }
-      },  
+      },
       color: {
         pattern: ['#24ACBF']
       },
@@ -44,13 +44,10 @@ var LineGraph = React.createClass({
           type: 'timeseries',
           tick: {
             rotate: 75,
-            format: '%m-%Y'
+            format: '%b-%Y'
           }
         },
         y : {
-          tick: {
-            values: [0, 1, 2, 3, 4]
-          },
           label: {
             text: 'Dollars Spent',
             position: 'outer-middle'
@@ -59,6 +56,14 @@ var LineGraph = React.createClass({
       },
       legend: {
           show: false
+      },
+      grid: {
+        y: {
+            show: true
+        }
+      },
+      tooltip: {
+        show: false
       }
     });
   },
@@ -78,6 +83,4 @@ var LineGraph = React.createClass({
   }
 });
 
-
 module.exports = LineGraph;
-

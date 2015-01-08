@@ -26,7 +26,7 @@ body {
   margin-bottom: 30px;
 }
 
-h2 {
+h2, h2 span {
   font-weight: bold;
   font-size: 24px;
 }
@@ -143,16 +143,6 @@ input::-webkit-clear-button {
   display: none;
 }
 
-/*input[type="date"]:active,
-input[type="date"]:selected,
-input[type="date"]:visited
-input[type="date"]:focus
-{
-    display: none;
-    border: none;
-    outline: none;
-}*/
-
 input[type="date"] {
     -webkit-align-items: center;
     display: -webkit-inline-flex;
@@ -229,7 +219,7 @@ input[type="reset"]:hover {
   transition: background-color .15s, border .15s, color .15s;
 }
 
-.category-merchant-button:hover {
+.active {
   background-color: #24ACBF;
   border: 1px solid #24ACBF;
   color: white;
@@ -253,9 +243,26 @@ input[type="reset"]:hover {
 }
 
 /****** LineGraph.react.js ******/
-
+/****** removes black fill in line chart ******/
+path {
+  fill:none;
+}
+line {
+  stroke: gray;
+  stroke-width: 0.7;
+}
 footer {
   background-color: #F5F5F5;
   text-align: center;
   font-size: 12px;
+}
+
+/****** loading.html ******/
+
+#loading {
+  text-align: center;
+}
+
+#loading img {
+  padding: 40px 0 40px 0;
 }
