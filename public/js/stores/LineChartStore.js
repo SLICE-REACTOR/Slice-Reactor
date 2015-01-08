@@ -3,6 +3,7 @@ var Constants = require('../constants/Constants');
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
 var FilteredDataStore = require('./FilteredDataStore');
+var chartHelpers = require('../utils/chartHelpers');
 
 var ActionTypes = Constants.ActionTypes;
 var CHANGE_EVENT = 'change';
@@ -10,8 +11,8 @@ var CHANGE_EVENT = 'change';
 // DATA STORE
 var _lineChartData = [];
 
-var _reformatData = function(filteredData) {
-
+var _formatData = function(filteredData) {
+  _lineChartData = chartHelpers.formatLineChartData(filteredData);
 };
 
 var LineChartStore = assign({}, EventEmitter.prototype, {
@@ -37,7 +38,7 @@ LineChartStore.dispatchToken = AppDispatcher.register(function(payload) {
     case ActionTypes.RECEIVE_GRAPH_DATA:
       AppDispatcher.waitFor([FilteredDataStore.dispatchToken]);
       var filteredData = FilteredDataStore.getData();
-      _reformatData(filteredData);
+      _formatData(filteredData);
       LineChartStore.emitChange();
       break;
 

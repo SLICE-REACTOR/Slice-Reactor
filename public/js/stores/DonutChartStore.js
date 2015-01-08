@@ -10,8 +10,8 @@ var CHANGE_EVENT = 'change';
 // DATA STORE
 var _donutChartData = [];
 
-var _reformatData = function(filteredData) {
-
+var _formatData = function(filteredData) {
+  _donutChartData = filteredData;
 };
 
 var DonutChartStore = assign({}, EventEmitter.prototype, {
@@ -37,7 +37,7 @@ DonutChartStore.dispatchToken = AppDispatcher.register(function(payload) {
     case ActionTypes.RECEIVE_GRAPH_DATA:
       AppDispatcher.waitFor([FilteredDataStore.dispatchToken]);
       var filteredData = FilteredDataStore.getData();
-      _reformatData(filteredData);
+      _formatData(filteredData);
       DonutChartStore.emitChange();
       break;
 

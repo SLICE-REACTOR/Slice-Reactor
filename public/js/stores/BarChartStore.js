@@ -3,6 +3,7 @@ var Constants = require('../constants/Constants');
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
 var FilteredDataStore = require('./FilteredDataStore');
+var chartHelpers = require('../utils/chartHelpers');
 
 var ActionTypes = Constants.ActionTypes;
 var CHANGE_EVENT = 'change';
@@ -10,46 +11,8 @@ var CHANGE_EVENT = 'change';
 // DATA STORE
 var _barChartData = [];
 
-var _reformatData = function(filteredData) {
-  var sliceDataByCategory = {};
-  var barChartData = [];
-  var barChartAll = [];
-
-  for (var i = 0; i < filteredData.length; i++) {
-    if (filteredData[i].price > 0) {
-      var itemCategory = filteredData[i].secondaryLabel;
-      if (itemCategory === null) itemCategory = 'Other';
-      if (!sliceDataByCategory[itemCategory])
-        sliceDataByCategory[itemCategory] = filteredData[i].price;
-      else
-        sliceDataByCategory[itemCategory] += filteredData[i].price;
-    }
-  }
-
-  for (var key in sliceDataByCategory) {
-    var barChartItem = {};
-    barChartItem['categoryName'] = key;
-    barChartItem['price'] = sliceDataByCategory[key].toFixed(2);
-    barChartAll.push(barChartItem);
-  }
-
-  barChartAll.sort(function(a, b) {return b.price - a.price;});
-
-  var barChartOther = {
-    categoryName: 'All Others',
-    price: 0
-  }
-
-  for (var i = 0; i < barChartAll.length; i++) {
-    if (i < 6)
-      barChartData.push(barChartAll[i]);
-    else
-      barChartOther.price += parseFloat(barChartAll[i].price);
-  }
-
-  if (barChartOther.price > 0) barChartData.push(barChartOther);
-
-  _barChartData = barChartData;
+var _formatData = function(filteredData) {
+  _barChartData = chartHelpers.formatBarChartData(filteredData);
 };
 
 var BarChartStore = assign({}, EventEmitter.prototype, {
@@ -75,7 +38,7 @@ BarChartStore.dispatchToken = AppDispatcher.register(function(payload) {
     case ActionTypes.RECEIVE_GRAPH_DATA:
       AppDispatcher.waitFor([FilteredDataStore.dispatchToken]);
       var filteredData = FilteredDataStore.getData();
-      _reformatData(filteredData);
+      _formatData(filteredData);
       BarChartStore.emitChange();
       break;
 
