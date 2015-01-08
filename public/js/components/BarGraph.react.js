@@ -2,7 +2,7 @@ var React = require('react');
 var GraphDataStore = require('../stores/GraphDataStore');
 
 var getStateFromStores = function() {
-  return {data: GraphDataStore.getData()}
+  return {data: GraphDataStore.getBarGraph()}
 };
 
 var BarGraph = React.createClass({
@@ -36,6 +36,20 @@ var BarGraph = React.createClass({
         },
       color: {
         pattern: ['#24ACBF' , '#F16A4A' , '#FBC162' , '#AFD136' , '#923F96' , '#3B5E9F' , '#F8ED6B' , '#D74667' , '#3E784B']
+      },
+      legend: {
+        show: false
+      },
+      grid: {
+        y: {
+            show: true
+        },
+        x: {
+          show: false
+        }
+      },
+      tooltip: {
+        show: false
       }
     })
   },
@@ -44,7 +58,7 @@ var BarGraph = React.createClass({
     return (
       <div id="bar-graph">
         <div className="graph-header">
-          <h2>Top Merchants</h2>
+          <h2>Top {GraphDataStore.getFilterValue().secondary}</h2>
         </div>
         <div id="chart_3"></div>
       </div>

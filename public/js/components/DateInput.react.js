@@ -1,6 +1,34 @@
 var React = require('react');
 var GraphDataStore = require('../stores/GraphDataStore');
+var GraphActionCreators = require('../actions/GraphActionCreators');
+
+var getStateFromStores = function() {
+  return GraphDataStore.getFilterValue();
+};
+
 var BarGraph = React.createClass({
+
+  getInitialState: function() {
+    console.log('getting initial state');
+    return {
+      category: 'active',
+      merchant: ''
+    }
+  },
+
+  _filterByCategory: function() {
+    console.log('_filterByCategory');
+    GraphDataStore.setFilter('category');
+    this.setState(GraphDataStore.getFilterValue());
+    GraphActionCreators.filterData('category');
+  },
+
+  _filterByMerchant: function() {
+    console.log('_filterByMerchant');
+    GraphDataStore.setFilter('merchant');
+    this.setState(GraphDataStore.getFilterValue());
+    GraphActionCreators.filterData('merchant');
+  },
 
   render: function() {
     return (
@@ -19,13 +47,15 @@ var BarGraph = React.createClass({
 
         <div id="filter-wrapper">
           <span className="date-filter-label"><b>Filter</b></span>
-          <div className="category-merchant-button">By Category</div>
-          <div className="category-merchant-button">By Merchant</div>
+          <div className={this.state.category + " category-merchant-button"} onClick={this._filterByCategory}>By Category</div>
+          <div className={this.state.merchant + " category-merchant-button"} onClick={this._filterByMerchant}>By Merchant</div>
         </div>
+
         <div className="divider"></div>
       </div>
     );
   }
+
 });
 
 module.exports = BarGraph;

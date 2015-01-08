@@ -1,11 +1,19 @@
+var fs = require('fs');
+var helper = require('../utils/helper');
 module.exports = function(app, helper, db) {
 
-  app.get('/', function(req, res){
-    res.send(__dirname + '/public/index.html');
+  app.get('/', helper.ensureAuthenticated, function(req, res){
+    fs.readFile(__dirname + '/../../public/home.html', 'utf8', function(err,data) {
+      if (err) { throw err }
+      res.send(data);
+    });
   });
 
   app.get('/login', function(req, res){
-   res.send('<a href="/auth/slice">Log in with Slice</a>.');
+    fs.readFile(__dirname + '/../../public/login.html', 'utf8', function(err,data) {
+      if (err) { throw err }
+      res.send(data);
+    });
   });
 
   app.get('/logout', function(req, res){
@@ -16,6 +24,7 @@ module.exports = function(app, helper, db) {
   //handles get request from client
   app.get('/userdata', function(req, res){
    var user = req.session.UserId;
+   // var user = 1;
    // query database for user info
    db.Items.findAll({
    attributes: ['purchaseDate', 'categoryName', 'price', 'quantity'],
@@ -26,13 +35,20 @@ module.exports = function(app, helper, db) {
      ], attributes: ['orderTotal']}
    ]
    }).then(function(items) {
-   // return user data to client
+     // return user data to client
      res.send(JSON.stringify(items))
    });
-  })
+  });
 
-  app.get('/account', helper.ensureAuthenticated, helper.getUserData, function(req, res) {
-   res.send('Congrats on logging in with Slice! Check the server log for your latest item.');
+  app.get('/loaduserdata', helper.ensureAuthenticated, function(req, res) {
+    helper.getUserData(req, res);
+  });
+
+  app.get('/loading', helper.ensureAuthenticated, function(req, res) {
+    fs.readFile(__dirname + '/../../public/loading.html', 'utf8', function(err,data) {
+      if (err) { throw err }
+      res.send(data);
+    });
   });
 
 };
