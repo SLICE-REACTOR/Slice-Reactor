@@ -7,11 +7,12 @@ var FilteredDataStore = require('./FilteredDataStore');
 var ActionTypes = Constants.ActionTypes;
 var CHANGE_EVENT = 'change';
 
+// DATA STORE
 var _barChartData = [];
 
-var _reformatData = function() {};
+var _reformatData = function(filteredData) {
 
-var _addBarChartData = function() {};
+};
 
 var BarChartStore = assign({}, EventEmitter.prototype, {
   emitChange: function() {
@@ -35,7 +36,8 @@ BarChartStore.dispatchToken = AppDispatcher.register(function(payload) {
 
     case ActionTypes.RECEIVE_GRAPH_DATA:
       AppDispatcher.waitFor([FilteredDataStore.dispatchToken]);
-      _addBarChartData(action.allGraphData);
+      var filteredData = FilteredDataStore.getData();
+      _reformatData(filteredData);
       BarChartStore.emitChange();
       break;
 

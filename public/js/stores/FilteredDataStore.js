@@ -2,9 +2,12 @@ var AppDispatcher = require('../dispatcher/Dispatcher');
 var Constants = require('../constants/Constants');
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
+
 var ActionTypes = Constants.ActionTypes;
 var CHANGE_EVENT = 'change';
 
+
+// DATA STORES
 var _chartData = [];
 var _filteredChartData = [];
 
@@ -79,6 +82,9 @@ var FilteredDataStore = assign({}, EventEmitter.prototype, {
   getFilterValue: function() {
     return _filterValue;
   },
+  getData: function() {
+    return _chartData;
+  }
 });
 
 FilteredDataStore.dispatchToken = AppDispatcher.register(function(payload) {
@@ -88,12 +94,10 @@ FilteredDataStore.dispatchToken = AppDispatcher.register(function(payload) {
 
     case ActionTypes.RECEIVE_CHART_DATA:
       _addChartData(action.allChartData);
-      GraphDataStore.emitChange();
       break;
 
     case ActionTypes.FILTER_DATA:
       _filterData(action.filter);
-      GraphDataStore.emitChange();
       break;
 
     default:

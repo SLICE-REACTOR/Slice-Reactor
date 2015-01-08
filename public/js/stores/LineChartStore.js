@@ -7,11 +7,11 @@ var FilteredDataStore = require('./FilteredDataStore');
 var ActionTypes = Constants.ActionTypes;
 var CHANGE_EVENT = 'change';
 
+// DATA STORE
 var _lineChartData = [];
 
-var _reformatData = function() {};
-
-var _addLineChartData = function() {};
+var _reformatData = function(filteredData) {
+};
 
 var LineChartStore = assign({}, EventEmitter.prototype, {
   emitChange: function() {
@@ -34,9 +34,9 @@ LineChartStore.dispatchToken = AppDispatcher.register(function(payload) {
   switch(action.type) {
 
     case ActionTypes.RECEIVE_GRAPH_DATA:
-      // TODO insert arguments here
-      _reformatData();
-      _addLineChartData();
+      AppDispatcher.waitFor([FilteredDataStore.dispatchToken]);
+      var filteredData = FilteredDataStore.getData();
+      _reformatData(filteredData);
       LineChartStore.emitChange();
       break;
 

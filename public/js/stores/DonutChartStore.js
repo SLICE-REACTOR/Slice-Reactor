@@ -7,11 +7,10 @@ var FilteredDataStore = require('./FilteredDataStore');
 var ActionTypes = Constants.ActionTypes;
 var CHANGE_EVENT = 'change';
 
+// DATA STORE
 var _donutChartData = [];
 
-var _reformatData = function() {};
-
-var _addDonutChartData = function() {};
+var _reformatData = function(filteredData) {};
 
 var DonutChartStore = assign({}, EventEmitter.prototype, {
   emitChange: function() {
@@ -35,8 +34,8 @@ DonutChartStore.dispatchToken = AppDispatcher.register(function(payload) {
 
     case ActionTypes.RECEIVE_GRAPH_DATA:
       AppDispatcher.waitFor([FilteredDataStore.dispatchToken]);
-      // TODO insert arguments here
-      _addDonutChartData();
+      var filteredData = FilteredDataStore.getData();
+      _reformatData(filteredData);
       DonutChartStore.emitChange();
       break;
 
