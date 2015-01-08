@@ -36,7 +36,6 @@ var formatBarChartData = function(filteredData) {
         sliceDataByCategory[itemCategory] += filteredData[i].price;
     }
   }
-
   for (var key in sliceDataByCategory) {
     var barChartItem = {};
     barChartItem['categoryName'] = key;
@@ -59,7 +58,6 @@ var formatBarChartData = function(filteredData) {
   }
 
   if (barChartOther.price > 0) barChartData.push(barChartOther);
-
   return barChartData;
 };
 
