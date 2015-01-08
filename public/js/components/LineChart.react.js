@@ -1,4 +1,5 @@
 var React = require('react');
+var FilteredDataStore = require('../stores/FilteredDataStore');
 var LineChartStore = require('../stores/LineChartStore');
 
 var getStateFromStores = function() {

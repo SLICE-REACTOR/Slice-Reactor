@@ -1,5 +1,6 @@
 var React = require('react');
 var GraphDataStore = require('../stores/GraphDataStore');
+var FilteredDataStore = require('../stores/FilteredDataStore');
 var ChartActionCreators = require('../actions/ChartActionCreators');
 
 var getStateFromStores = function() {
@@ -17,14 +18,14 @@ var BarChart = React.createClass({
   },
 
   _filterByCategory: function() {
-    GraphDataStore.setFilter('category');
-    this.setState(GraphDataStore.getFilterValue());
+    FilteredDataStore.setFilter('category');
+    this.setState(FilteredDataStore.getFilterValue());
     ChartActionCreators.filterData('category');
   },
 
   _filterByMerchant: function() {
-    GraphDataStore.setFilter('merchant');
-    this.setState(GraphDataStore.getFilterValue());
+    FilteredDataStore.setFilter('merchant');
+    this.setState(FilteredDataStore.getFilterValue());
     ChartActionCreators.filterData('merchant');
   },
 

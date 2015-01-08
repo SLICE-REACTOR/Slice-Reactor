@@ -1,4 +1,5 @@
 var React = require('react');
+var FilteredDataStore = require('../stores/FilteredDataStore');
 var BarChartStore = require('../stores/BarChartStore');
 
 var getStateFromStores = function() {
@@ -58,7 +59,7 @@ var BarChart = React.createClass({
     return (
       <div id="bar-graph">
         <div className="graph-header">
-          <h2>Top {GraphDataStore.getFilterValue().secondary}</h2>
+          <h2>Top {FilteredDataStore.getFilterValue().secondary}</h2>
         </div>
         <div id="chart_3"></div>
       </div>
