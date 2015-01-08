@@ -13,15 +13,15 @@ var lineChartProcessing = function(data) {
   }
   lineChartData = [];
   for (var key in sliceDataMonthly) {
-    var lineGraphItem = {};
-    lineGraphItem['purchaseDate'] = key;
-    lineGraphItem['price'] = sliceDataMonthly[key].toFixed(2);
-    lineChartData.push(lineGraphItem);
+    var lineChartItem = {};
+    lineChartItem['purchaseDate'] = key;
+    lineChartItem['price'] = sliceDataMonthly[key].toFixed(2);
+    lineChartData.push(lineChartItem);
   }
   return lineChartData;
 };
 
-var barGraphProcessing = function(data) {
+var barChartProcessing = function(data) {
   var sliceDataByCategory = {};
   for (var i = 0; i < data.length; i++) {
     if (data[i].price > 0) {
@@ -36,33 +36,33 @@ var barGraphProcessing = function(data) {
       }
     }
   }
-  barGraphAll = [];
+  barChartAll = [];
   for (var key in sliceDataByCategory) {
     var barChartItem = {};
     barChartItem['categoryName'] = key;
     barChartItem['price'] = sliceDataByCategory[key].toFixed(2);
-    barGraphAll.push(barChartItem);
+    barChartAll.push(barChartItem);
   }
-  barGraphAll.sort(function(a, b) {
+  barChartAll.sort(function(a, b) {
     return b.price - a.price;
   });
-  barGraphData = [];
+  barChartData = [];
   var barChartOther = {
     categoryName: 'All Others',
     price: 0
   }
-  for (var i = 0; i < barGraphAll.length; i++) {
+  for (var i = 0; i < barChartAll.length; i++) {
     if (i < 6) {
-      barGraphData.push(barGraphAll[i]);
+      barChartData.push(barChartAll[i]);
     } else {
-      barChartOther.price += parseFloat(barGraphAll[i].price);
+      barChartOther.price += parseFloat(barChartAll[i].price);
     }
   }
   if (barChartOther.price > 0) {
-    barGraphData.push(barChartOther);
+    barChartData.push(barChartOther);
   }
-  return barGraphData;
+  return barChartData;
 };
 
 module.exports.lineChartProcessing = lineChartProcessing;
-module.exports.barGraphProcessing = barGraphProcessing;
+module.exports.barChartProcessing = barChartProcessing;

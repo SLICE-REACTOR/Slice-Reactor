@@ -5,7 +5,7 @@ var getStateFromStores = function() {
   return {data: GraphDataStore.getBarGraph()}
 };
 
-var BarGraph = React.createClass({
+var BarChart = React.createClass({
   getInitialState: function() {
     return getStateFromStores();
   },
@@ -69,4 +69,4 @@ var BarGraph = React.createClass({
   }
 });
 
-module.exports = BarGraph;
+module.exports = BarChart;

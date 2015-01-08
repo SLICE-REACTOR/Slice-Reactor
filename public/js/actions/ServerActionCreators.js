@@ -4,7 +4,7 @@ var Constants = require('../constants/Constants');
 var ActionTypes = Constants.ActionTypes;
 
 module.exports = {
-  receiveAllGraphData: function(allGraphData) {
+  receiveAllChartData: function(allGraphData) {
     AppDispatcher.handleServerAction({
       type: ActionTypes.RECEIVE_GRAPH_DATA,
       allGraphData: allGraphData

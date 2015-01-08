@@ -83,4 +83,4 @@ var LineGraph = React.createClass({
   }
 });
 
-module.exports = LineGraph;
+module.exports = LineChart;
