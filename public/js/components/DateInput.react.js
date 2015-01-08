@@ -1,10 +1,9 @@
 var React = require('react');
-var GraphDataStore = require('../stores/GraphDataStore');
 var FilteredDataStore = require('../stores/FilteredDataStore');
 var ChartActionCreators = require('../actions/ChartActionCreators');
 
 var getStateFromStores = function() {
-  return GraphDataStore.getFilterValue();
+  return FilteredDataStore.getFilterValue();
 };
 
 var BarChart = React.createClass({

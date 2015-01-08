@@ -12,6 +12,7 @@ var CHANGE_EVENT = 'change';
 var _lineChartData = [];
 
 var _formatData = function(filteredData) {
+  console.log('formatted line chart data: ', chartHelpers.formatLineChartData(filteredData));
   _lineChartData = chartHelpers.formatLineChartData(filteredData);
 };
 
@@ -35,7 +36,7 @@ LineChartStore.dispatchToken = AppDispatcher.register(function(payload) {
 
   switch(action.type) {
 
-    case ActionTypes.RECEIVE_GRAPH_DATA:
+    case ActionTypes.RECEIVE_CHART_DATA:
       AppDispatcher.waitFor([FilteredDataStore.dispatchToken]);
       var filteredData = FilteredDataStore.getData();
       _formatData(filteredData);

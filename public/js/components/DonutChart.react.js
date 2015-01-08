@@ -1,9 +1,10 @@
 var React = require('react');
-var FilteredDataStore = require('../stores/FilteredDataStore');
 var DonutChartStore = require('../stores/DonutChartStore');
+var FilteredDataStore = require('../stores/FilteredDataStore');
 
 var getStateFromStores = function() {
   var array = DonutChartStore.getData();
+  console.log('donut chart data: ', DonutChartStore.getData());
   var categoryNames = {};
   var JSONobj = [];
   array.forEach(function(item) {

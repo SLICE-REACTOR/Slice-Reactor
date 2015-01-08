@@ -19,6 +19,7 @@ var _filterValue = {
 }
 
 function _addFilteredData(chartData) {
+  // getting data
   _categoryChartData = _filterByCategory(chartData);
   _merchantChartData = _filterByMerchant(chartData);
   _filteredChartData = _categoryChartData;
@@ -101,4 +102,6 @@ FilteredDataStore.dispatchToken = AppDispatcher.register(function(payload) {
       // do nothing
   }
 });
+
+module.exports = FilteredDataStore;
 

@@ -1,6 +1,6 @@
 var React = require('react');
-var FilteredDataStore = require('../stores/FilteredDataStore');
 var LineChartStore = require('../stores/LineChartStore');
+var FilteredDataStore = require('../stores/FilteredDataStore');
 
 var getStateFromStores = function() {
   return {data: LineChartStore.getData()}
@@ -26,10 +26,10 @@ var LineChart = React.createClass({
         left: 90,
       },
       data: {
-        x: 'purchaseDate',
+        x: 'date',
         json: dataset,
         keys: {
-            x: 'purchaseDate',
+            x: 'date',
             value: [ "price"]
         }
       },
