@@ -24,7 +24,7 @@ var BarChart = React.createClass({
       data: {
         json: dataset,
         keys: {
-          x : 'categoryName',
+          x : 'categoryOrMerchantName',
           value: ['price']
         },
           type: 'bar'
@@ -32,7 +32,7 @@ var BarChart = React.createClass({
         axis: {
           rotated: true,
           x: {
-            type: 'categoryName' // this needed to load string x value
+            type: 'categoryOrMerchantName' // this needed to load string x value
           }
         },
       color: {
