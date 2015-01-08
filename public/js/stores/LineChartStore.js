@@ -11,6 +11,7 @@ var CHANGE_EVENT = 'change';
 var _lineChartData = [];
 
 var _reformatData = function(filteredData) {
+
 };
 
 var LineChartStore = assign({}, EventEmitter.prototype, {

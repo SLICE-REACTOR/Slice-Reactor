@@ -10,7 +10,9 @@ var CHANGE_EVENT = 'change';
 // DATA STORE
 var _donutChartData = [];
 
-var _reformatData = function(filteredData) {};
+var _reformatData = function(filteredData) {
+
+};
 
 var DonutChartStore = assign({}, EventEmitter.prototype, {
   emitChange: function() {

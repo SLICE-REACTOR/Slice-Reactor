@@ -6,10 +6,10 @@ var assign = require('object-assign');
 var ActionTypes = Constants.ActionTypes;
 var CHANGE_EVENT = 'change';
 
-
 // DATA STORES
-var _chartData = [];
 var _filteredChartData = [];
+var _categoryChartData = [];
+var _merchantChartData = [];
 
 var _filterValue = {
   primary: 'Category',
@@ -18,10 +18,9 @@ var _filterValue = {
   merchant: ''
 }
 
-function _addChartData(chartData) {
-  _chartData = chartData;
-  _filterByCategory(chartData);
-  _filterByMerchant(chartData);
+function _addFilteredData(chartData) {
+  _categoryChartData = _filterByCategory(chartData);
+  _merchantChartData = _filterByMerchant(chartData);
   _filteredChartData = _categoryChartData;
 };
 
@@ -35,8 +34,7 @@ function _filterByCategory(chartData) {
     };
     return categoryObj;
   });
-
-  _categoryChartData = categories;
+  return categories;
 };
 
 function _filterByMerchant(chartData) {
@@ -49,8 +47,7 @@ function _filterByMerchant(chartData) {
     };
     return merchantObj;
   });
-
-  _merchantChartData = merchants;
+  return merchants;
 };
 
 function _filterData(categoryOrMerchant) {
@@ -83,7 +80,7 @@ var FilteredDataStore = assign({}, EventEmitter.prototype, {
     return _filterValue;
   },
   getData: function() {
-    return _chartData;
+    return _filteredChartData;
   }
 });
 
@@ -93,7 +90,7 @@ FilteredDataStore.dispatchToken = AppDispatcher.register(function(payload) {
   switch(action.type) {
 
     case ActionTypes.RECEIVE_CHART_DATA:
-      _addChartData(action.allChartData);
+      _addFilteredData(action.allChartData);
       break;
 
     case ActionTypes.FILTER_DATA:
