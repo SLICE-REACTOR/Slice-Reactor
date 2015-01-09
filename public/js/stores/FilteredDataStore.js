@@ -18,7 +18,7 @@ _filteredChartData.category = [];
 _filteredChartData.merchant = [];
 
 // default filter values
-var _filterValue = {
+var _filterValues = {
   primary: 'Category',
   secondary: 'Merchant',
   category: 'active',
@@ -34,16 +34,16 @@ function _addFilteredData(chartData) {
   _allChartData = chartData;
   _allCategoryData = _filterByCategory(chartData); // min date defined here
   _allMerchantData = _filterByMerchant(chartData);
-  _filterByDate(_filterValue);
+  _filterByDate(_filterValues);
 };
 
 //
 function _filterByCategory(chartData) {
   return categories = chartData.map(function(item) {
     // finds min date
-    if (new Date(item.purchaseDate) < new Date(_filterValue.minDate)) {
-      _filterValue.minDate = item.purchaseDate;
-      _filterValue.setMinDate = item.purchaseDate;
+    if (new Date(item.purchaseDate) < new Date(_filterValues.minDate)) {
+      _filterValues.minDate = item.purchaseDate;
+      _filterValues.setMinDate = item.purchaseDate;
     }
     var categoryObj = {
       primaryLabel: item.categoryName,
@@ -68,10 +68,10 @@ function _filterByMerchant(chartData) {
   });
 };
 
-//
+// sets the user-submitted dates to the filterValue object
 function _setDateRange(dates) {
-  _filterValue.minDate = dates.minDate;
-  _filterValue.maxDate = dates.maxDate;
+  _filterValues.minDate = dates.minDate;
+  _filterValues.maxDate = dates.maxDate;
 };
 
 //
@@ -87,14 +87,14 @@ function _filterByDate(dates) {
 //
 function _toggleFilter(categoryOrMerchant) {
   if (categoryOrMerchant === 'merchant') {
-    _filterValue = {
+    _filterValues = {
       primary: 'Merchant',
       secondary: 'Categories',
       category: '',
       merchant: 'active'
     }
   } else {
-    _filterValue = {
+    _filterValues = {
       primary: 'Category',
       secondary: 'Merchants',
       category: 'active',
@@ -115,10 +115,10 @@ var FilteredDataStore = assign({}, EventEmitter.prototype, {
     this.removeListener(CHANGE_EVENT, callback);
   },
   getFilterValue: function() {
-    return _filterValue;
+    return _filterValues;
   },
   getData: function() {
-    if (_filterValue.primary === 'Category')
+    if (_filterValues.primary === 'Category')
       return _filteredChartData.category;
     else
       return _filteredChartData.merchant;
@@ -142,7 +142,7 @@ FilteredDataStore.dispatchToken = AppDispatcher.register(function(payload) {
 
     case ActionTypes.FILTER_BY_DATE:
       _setDateRange(action.dates);
-      _filterByDate(_filterValue);
+      _filterByDate(_filterValues);
       break;
 
     default:
