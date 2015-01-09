@@ -3,6 +3,7 @@ var Constants = require('../constants/Constants');
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
 var FilteredDataStore = require('./FilteredDataStore');
+var chartHelpers = require('../utils/chartHelpers');
 
 var ActionTypes = Constants.ActionTypes;
 var CHANGE_EVENT = 'change';
@@ -11,7 +12,7 @@ var CHANGE_EVENT = 'change';
 var _donutChartData = [];
 
 var _formatData = function(filteredData) {
-  _donutChartData = filteredData;
+  _donutChartData = chartHelpers.formatDonutChartData(filteredData);
 };
 
 var DonutChartStore = assign({}, EventEmitter.prototype, {

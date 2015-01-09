@@ -1,3 +1,48 @@
+var formatDonutChartData = function(filteredData) {
+  var categoryOrMerchantData = {};
+  var totalSpent = 0;
+  filteredData.forEach(function(item) {
+    if (item.price > 0) {
+      var itemLabel = item.primaryLabel;
+      if (itemLabel === null) {
+        itemLabel = 'Other';
+      }
+      totalSpent += item.price;
+      if (!categoryOrMerchantData[itemLabel]) {
+        categoryOrMerchantData[itemLabel] = item.price;
+      } else {
+        categoryOrMerchantData[itemLabel] += item.price;
+      }
+    }
+  });
+  var donutChartData = [];
+  var donutChartDataOthers = [];
+  var donutChartAllOthersItem = ['All Others', 0];
+  for (var key in categoryOrMerchantData) {
+    if (categoryOrMerchantData[key] / totalSpent * 100 >= 3) {
+      var donutChartItem = [key, categoryOrMerchantData[key].toFixed(2)];
+      donutChartData.push(donutChartItem);
+    } else {
+      donutChartAllOthersItem[1] += categoryOrMerchantData[key];
+      donutChartDataOthers.push([key, categoryOrMerchantData[key].toFixed(2)])
+    }
+  }
+  if (donutChartData.length < 8) {
+    donutChartDataOthers.sort(function(a, b) {
+      return a[1] - b[1];
+    });
+    while (donutChartData.length < 8 && donutChartDataOthers.length > 0) {
+      donutChartAllOthersItem[1] -= donutChartDataOthers[donutChartDataOthers.length - 1][1];
+      donutChartData.push(donutChartDataOthers.pop())
+    }  
+  }
+  if (donutChartAllOthersItem[1] > 0) {
+    donutChartAllOthersItem[1] = donutChartAllOthersItem[1].toFixed(2);
+    donutChartData.push(donutChartAllOthersItem);
+  }
+  return donutChartData;
+};
+
 var lineGraphItemConstructor = function(year, month, existingDates) {
   var lineGraphItem = {};
   var monthString = month;
@@ -95,3 +140,4 @@ var formatBarChartData = function(filteredData) {
 
 module.exports.formatLineChartData = formatLineChartData;
 module.exports.formatBarChartData = formatBarChartData;
+module.exports.formatDonutChartData = formatDonutChartData;

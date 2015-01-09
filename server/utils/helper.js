@@ -158,7 +158,6 @@ var merchantsHandler = function(merchants, userId, getRequest){
 var getUserData = function(req, res) {
   var decipher = crypto.createDecipher(process.env.CIPHER_ALGORITHM, process.env.CIPHER_KEY);
   var decryptedAccessToken = decipher.update(req.session.accessToken, 'hex', 'utf8') + decipher.final('utf8');
-  
   var ordersGetRequestParameter = false;
   var itemsGetRequestParameter = false;
 
