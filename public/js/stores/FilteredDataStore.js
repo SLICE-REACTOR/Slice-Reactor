@@ -16,10 +16,12 @@ var _filterValue = {
   secondary: 'Merchant',
   category: 'active',
   merchant: ''
+  minDate:
+  maxDate:
 }
 
-var _dateMin;
-var _dateMax;
+var _dateMin = [9999, 99, 99];
+var _dateMax = [0, 0, 0];
 
 function _addFilteredData(chartData) {
   // getting data
@@ -28,12 +30,32 @@ function _addFilteredData(chartData) {
   _filteredChartData = _categoryChartData;
 };
 
+function _getMinMaxDate(dateArray) {
+  // sets min date
+  if (dateArray[0] < _dateMin[0])
+    _dateMin = dateArray;
+  else if (dateArray[0] === _dateMin[0] && dateArray[1] < _dateMin[1])
+    _dateMin = dateArray;
+  else if (dateArray[0] === _dateMin[0] && dateArray[1] === _dateMin[1] && dateArray[2] < _dateMin[2])
+    _dateMin = dateArray;
+
+  // sets max date
+  if (dateArray[0] > _dateMax[0])
+    _dateMax = dateArray;
+  else if (dateArray[0] === _dateMax[0] && dateArray[1] > _dateMax[1])
+    _dateMax = dateArray;
+  else if (dateArray[0] === _dateMax[0] && dateArray[1] === _dateMax[1] && dateArray[2] > _dateMax[2])
+    _dateMax = dateArray;
+};
+
 function _filterByCategory(chartData) {
   return categories = chartData.map(function(item) {
     var dateArray = item.purchaseDate.split('-');
     var parsedDateArray = dateArray.map(function(item) {
       return parseInt(item, 10);
     });
+
+    _getMinMaxDate(parsedDateArray);
 
     var categoryObj = {
       primaryLabel: item.categoryName,

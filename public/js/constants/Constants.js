@@ -3,7 +3,7 @@ var keyMirror = require('keymirror');
 module.exports = {
 
   ActionTypes: keyMirror({
-    RECEIVE_GRAPH_DATA: null,
+    RECEIVE_CHART_DATA: null,
     FILTER_DATA: null
   }),
 
