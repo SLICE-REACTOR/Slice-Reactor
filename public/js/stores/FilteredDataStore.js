@@ -85,7 +85,8 @@ function _filterByDate(dates) {
 };
 
 //
-function _toggleData(categoryOrMerchant) {
+function _toggleFilter(categoryOrMerchant) {
+  console.log('toggling filter');
   if (categoryOrMerchant === 'merchant') {
     _filterValue = {
       primary: 'Merchant',
@@ -136,7 +137,8 @@ FilteredDataStore.dispatchToken = AppDispatcher.register(function(payload) {
       break;
 
     case ActionTypes.FILTER_DATA:
-      _toggleData(action.filter);
+      _toggleFilter(action.filter);
+      FilteredDataStore.emitChange()
       break;
 
     case ActionTypes.FILTER_BY_DATE:
