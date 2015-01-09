@@ -5,7 +5,7 @@ var lineGraphItemConstructor = function(year, month, existingDates) {
     var monthString = "0" + month;
   }
   var dateKey = year + "-" + monthString + "-01";
-    lineGraphItem['purchaseDate'] = dateKey;
+    lineGraphItem['date'] = dateKey;
   if (existingDates[dateKey]) {
     lineGraphItem['price'] = existingDates[dateKey].toFixed(2) || 0;
   } else {
@@ -14,18 +14,18 @@ var lineGraphItemConstructor = function(year, month, existingDates) {
   return lineGraphItem;
 };
 
-var formatLineChartData = function(filterData) {
+var formatLineChartData = function(filteredData) {
   var sliceDataMonthly = {};
   var earliestYearMonthData = [];
-  for (var i = 0; i < filterData.length; i++) {
-    var purchaseDateArray = filterData[i].purchaseDate.split('-');
+  for (var i = 0; i < filteredData.length; i++) {
+    var purchaseDateArray = filteredData[i].date.split('-');
     if (i === 0 || purchaseDateArray[0] < earliestYearMonthData[0]) {
       earliestYearMonthData[0] = purchaseDateArray[0];
       if (i === 0 || purchaseDateArray[1] < earliestYearMonthData[1]) {
         earliestYearMonthData[1] = purchaseDateArray[1];
       }
     }
-    if (data[i].price > 0) {
+    if (filteredData[i].price > 0) {
       var monthYear = purchaseDateArray[0] + '-' + purchaseDateArray[1] + '-01';
       if (!sliceDataMonthly[monthYear])
         sliceDataMonthly[monthYear] = filteredData[i].price;

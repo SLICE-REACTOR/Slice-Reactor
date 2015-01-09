@@ -3,7 +3,7 @@ var DonutChartStore = require('../stores/DonutChartStore');
 var FilteredDataStore = require('../stores/FilteredDataStore');
 
 var getStateFromStores = function() {
-  var data = GraphDataStore.getData();
+  var data = DonutChartStore.getData();
   var categoryOrMerchantData = {};
   var totalSpent = 0;
   data.forEach(function(item) {
