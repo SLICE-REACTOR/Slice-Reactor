@@ -12,7 +12,7 @@ var _allChartData = [];
 var _allCategoryData = [];
 var _allMerchantData = [];
 
-// returned store
+// Data store that is passed to all other stores
 var _filteredChartData = {};
 _filteredChartData.category = [];
 _filteredChartData.merchant = [];
@@ -29,6 +29,7 @@ var _filterValue = {
   setMaxDate: dateFilterHelpers.getToday().string
 };
 
+// add all data to data stores
 function _addFilteredData(chartData) {
   _allChartData = chartData;
   _allCategoryData = _filterByCategory(chartData); // min date defined here
@@ -36,8 +37,10 @@ function _addFilteredData(chartData) {
   _filterByDate(_filterValue);
 };
 
+//
 function _filterByCategory(chartData) {
   return categories = chartData.map(function(item) {
+    // finds min date
     if (new Date(item.purchaseDate) < new Date(_filterValue.minDate)) {
       _filterValue.minDate = item.purchaseDate;
       _filterValue.setMinDate = item.purchaseDate;
@@ -52,6 +55,7 @@ function _filterByCategory(chartData) {
   });
 };
 
+//
 function _filterByMerchant(chartData) {
   return merchants = chartData.map(function(item) {
     var merchantObj = {
@@ -64,11 +68,13 @@ function _filterByMerchant(chartData) {
   });
 };
 
+//
 function _setDateRange(dates) {
   _filterValue.minDate = dates.minDate;
   _filterValue.maxDate = dates.maxDate;
 };
 
+//
 function _filterByDate(dates) {
   _filteredChartData.category = _allCategoryData.filter(function(item) {
     return new Date(dates.minDate) < new Date(item.date) && new Date(item.date) < new Date(dates.maxDate);
@@ -78,6 +84,7 @@ function _filterByDate(dates) {
   });
 };
 
+//
 function _toggleData(categoryOrMerchant) {
   if (categoryOrMerchant === 'merchant') {
     _filterValue = {

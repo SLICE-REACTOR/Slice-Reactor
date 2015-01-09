@@ -35,6 +35,13 @@ var DateInput = React.createClass({
     dates.maxDate = this.state.maxDate;
     ChartActionCreators.filterByDate(dates);
   },
+  _resetDate: function() {
+    this.setState({
+      minDate: this.state.setMinDate,
+      maxDate: this.state.setMaxDate
+    });
+    this._filterByDate();
+  },
   render: function() {
     return (
       <div id="date-filter-input">
@@ -61,7 +68,7 @@ var DateInput = React.createClass({
               defaultValue={this.state.maxDate}/>
           </span>
 
-          <input type="reset" id="reset" value="RESET" />
+          <input type="button" id="reset" value="RESET" onClick={this._resetDate}/>
           <input type="button" id="submit" value="SUBMIT" onClick={this._filterByDate}/>
         </form>
 
