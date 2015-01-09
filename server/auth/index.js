@@ -35,7 +35,6 @@ passport.use(new SliceStrategy({
         req.session.UserId = user[0].dataValues.id;
         return done(null, user[0].dataValues.id);
       });
->>>>>>> Kdr18702-v0.3
   }
 ));
 
