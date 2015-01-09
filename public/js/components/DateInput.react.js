@@ -29,11 +29,19 @@ var DateInput = React.createClass({
   _handleMaxDateChange: function(event) {
     this.setState({maxDate: event.target.value});
   },
-  _filterByDate: function() {
-    var dates = {};
-    dates.minDate = this.state.minDate;
-    dates.maxDate = this.state.maxDate;
-    ChartActionCreators.filterByDate(dates);
+  _submitDates: function() {
+    // relies on this.state having properties 'minDate' and 'maxDate'
+    ChartActionCreators.filterByDate(this.state);
+  },
+  _resetDates: function() {
+    this.setState({
+      minDate: this.state.setMinDate,
+      maxDate: this.state.setMaxDate
+    });
+    var date = {}
+    date.minDate = this.state.setMinDate;
+    date.maxDate = this.state.setMaxDate;
+    ChartActionCreators.filterByDate(date);
   },
   render: function() {
     return (
@@ -61,8 +69,8 @@ var DateInput = React.createClass({
               defaultValue={this.state.maxDate}/>
           </span>
 
-          <input type="reset" id="reset" value="RESET" />
-          <input type="button" id="submit" value="SUBMIT" onClick={this._filterByDate}/>
+          <input type="button" id="reset" value="RESET" onClick={this._resetDates}/>
+          <input type="button" id="submit" value="SUBMIT" onClick={this._submitDates}/>
         </form>
 
         <div id="filter-wrapper">
