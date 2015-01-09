@@ -1,68 +1,168 @@
-var lineChartProcessing = function(data) {
-  var sliceDataMonthly = {};
-  for (var i = 0; i < data.length; i++) {
-    if (data[i].price > 0) {
-      var purchaseDateArray = data[i].purchaseDate.split('-');
-      var monthYear = purchaseDateArray[0] + '-' + purchaseDateArray[1] + '-01';
-      if (!sliceDataMonthly[monthYear]) {
-        sliceDataMonthly[monthYear] = data[i].price / 100;
+var formatDonutChartData = function(filteredData) {
+  var categoryOrMerchantData = {};
+  var totalSpent = 0;
+  filteredData.forEach(function(item) {
+    if (item.price > 0) {
+      var itemLabel = item.primaryLabel;
+      if (itemLabel === null) {
+        itemLabel = 'Other';
+      }
+      totalSpent += item.price;
+      if (!categoryOrMerchantData[itemLabel]) {
+        categoryOrMerchantData[itemLabel] = item.price;
       } else {
-        sliceDataMonthly[monthYear] += data[i].price / 100;
+        categoryOrMerchantData[itemLabel] += item.price;
       }
     }
+  });
+  var donutChartData = [];
+  var donutChartDataOthers = [];
+  var donutChartAllOthersItem = ['All Others', 0];
+  for (var key in categoryOrMerchantData) {
+    if (categoryOrMerchantData[key] / totalSpent * 100 >= 3) {
+      var donutChartItem = [key, categoryOrMerchantData[key].toFixed(2)];
+      donutChartData.push(donutChartItem);
+    } else {
+      donutChartAllOthersItem[1] += categoryOrMerchantData[key];
+      donutChartDataOthers.push([key, categoryOrMerchantData[key].toFixed(2)])
+    }
   }
-  lineChartData = [];
-  for (var key in sliceDataMonthly) {
-    var lineGraphItem = {};
-    lineGraphItem['purchaseDate'] = key;
-    lineGraphItem['price'] = sliceDataMonthly[key].toFixed(2);
-    lineChartData.push(lineGraphItem);
+  if (donutChartData.length < 8) {
+    donutChartDataOthers.sort(function(a, b) {
+      return a[1] - b[1];
+    });
+    while (donutChartData.length < 8 && donutChartDataOthers.length > 0) {
+      donutChartAllOthersItem[1] -= donutChartDataOthers[donutChartDataOthers.length - 1][1];
+      donutChartData.push(donutChartDataOthers.pop())
+    }  
+  }
+  if (donutChartAllOthersItem[1] > 0) {
+    donutChartAllOthersItem[1] = donutChartAllOthersItem[1].toFixed(2);
+    donutChartData.push(donutChartAllOthersItem);
+  }
+  return [donutChartData, donutChartDataOthers];
+};
+
+var lineGraphItemConstructor = function(year, month, existingDates) {
+  var lineGraphItem = {};
+  var monthString = month;
+  if (monthString < 10) {
+    var monthString = "0" + month;
+  }
+  var dateKey = year + "-" + monthString + "-01";
+    lineGraphItem['date'] = dateKey;
+  if (existingDates[dateKey]) {
+    lineGraphItem['price'] = existingDates[dateKey].toFixed(2) || 0;
+  } else {
+    lineGraphItem['price'] = 0;
+  }
+  return lineGraphItem;
+};
+
+var formatLineChartData = function(filteredData) {
+  var sliceDataMonthly = {};
+  var earliestYearMonthData = [];
+  for (var i = 0; i < filteredData.length; i++) {
+    var purchaseDateArray = filteredData[i].date.split('-');
+    if (i === 0 || purchaseDateArray[0] < earliestYearMonthData[0]) {
+      earliestYearMonthData[0] = purchaseDateArray[0];
+      if (i === 0 || purchaseDateArray[1] < earliestYearMonthData[1]) {
+        earliestYearMonthData[1] = purchaseDateArray[1];
+      }
+    }
+    if (filteredData[i].price > 0) {
+      var monthYear = purchaseDateArray[0] + '-' + purchaseDateArray[1] + '-01';
+      if (!sliceDataMonthly[monthYear])
+        sliceDataMonthly[monthYear] = filteredData[i].price;
+      else
+        sliceDataMonthly[monthYear] += filteredData[i].price;
+    }
+  }
+  var lineChartData = [];
+  var currentDate = new Date;
+  var currentYearMonth = [currentDate.getFullYear(), currentDate.getMonth() + 1];
+  for (var year = earliestYearMonthData[0]; year <= currentYearMonth[0]; year++) {
+    for (var month = 1; month < 13; month ++) {
+      if (year === earliestYearMonthData[0] && month >= earliestYearMonthData[1]) {
+        lineChartData.push(lineGraphItemConstructor(year, month, sliceDataMonthly));
+      } else if (year === currentYearMonth[0] && month <= currentYearMonth[1]) {
+        lineChartData.push(lineGraphItemConstructor(year, month, sliceDataMonthly));
+      } else if (year !== currentYearMonth[0] && year !== earliestYearMonthData[0]) {
+        lineChartData.push(lineGraphItemConstructor(year, month, sliceDataMonthly));
+      }
+    }
   }
   return lineChartData;
 };
 
-var barGraphProcessing = function(data) {
-  var sliceDataByCategory = {};
-  for (var i = 0; i < data.length; i++) {
-    if (data[i].price > 0) {
-      var itemCategory = data[i].secondaryLabel;
-      if (itemCategory === null) {
-        itemCategory = 'Other';
+var formatBarChartData = function(filteredData) {
+  var sliceDataByCategoryOrMerchant = {};
+  for (var i = 0; i < filteredData.length; i++) {
+    if (filteredData[i].price > 0) {
+      var itemLabel = filteredData[i].secondaryLabel;
+      if (itemLabel === null) {
+        itemLabel = 'Other';
       }
-      if (!sliceDataByCategory[itemCategory]) {
-        sliceDataByCategory[itemCategory] = data[i].price;
+      if (!sliceDataByCategoryOrMerchant[itemLabel]) {
+        sliceDataByCategoryOrMerchant[itemLabel] = filteredData[i].price;
       } else {
-        sliceDataByCategory[itemCategory] += data[i].price;
+        sliceDataByCategoryOrMerchant[itemLabel] += filteredData[i].price;
       }
     }
   }
-  barGraphAll = [];
-  for (var key in sliceDataByCategory) {
+  barChartAll = [];
+  for (var key in sliceDataByCategoryOrMerchant) {
     var barChartItem = {};
-    barChartItem['categoryName'] = key;
-    barChartItem['price'] = sliceDataByCategory[key].toFixed(2);
-    barGraphAll.push(barChartItem);
+    barChartItem['categoryOrMerchantName'] = key;
+    barChartItem['price'] = sliceDataByCategoryOrMerchant[key].toFixed(2);
+    barChartAll.push(barChartItem);
   }
-  barGraphAll.sort(function(a, b) {
+  barChartAll.sort(function(a, b) {
     return b.price - a.price;
   });
-  barGraphData = [];
+  barChartData = [];
   var barChartOther = {
-    categoryName: 'All Others',
+    categoryOrMerchantName: 'All Others',
     price: 0
   }
-  for (var i = 0; i < barGraphAll.length; i++) {
+  for (var i = 0; i < barChartAll.length; i++) {
     if (i < 6) {
-      barGraphData.push(barGraphAll[i]);
+      barChartData.push(barChartAll[i]);
     } else {
-      barChartOther.price += parseFloat(barGraphAll[i].price);
+      barChartOther.price += parseFloat(barChartAll[i].price);
     }
   }
   if (barChartOther.price > 0) {
-    barGraphData.push(barChartOther);
+    barChartData.push(barChartOther);
   }
-  return barGraphData;
+  return barChartData;
 };
 
-module.exports.lineChartProcessing = lineChartProcessing;
-module.exports.barGraphProcessing = barGraphProcessing;
+var filterDonutChartPiece = function(categoryOrMerchantName, filteredData, allOthers){
+  var donutPieceData = [];
+  if(categoryOrMerchantName === 'All Others'){
+    var allOthersData = [];
+    allOthers.forEach(function(piece){
+      allOthersData.push(piece[0]);
+    });
+    filteredData.map(function(item){
+      for(var i = 0; i < allOthersData.length; i++){
+        if(item.primaryLabel === allOthersData[i]){
+          donutPieceData.push(item);
+        }
+      }
+    })
+  }else{
+    filteredData.map(function(item){
+      if(categoryOrMerchantName === item.primaryLabel){
+        donutPieceData.push(item);
+      }
+    })
+  }
+  return donutPieceData;
+};
+
+module.exports.filterDonutChartPiece = filterDonutChartPiece;
+module.exports.formatLineChartData = formatLineChartData;
+module.exports.formatBarChartData = formatBarChartData;
+module.exports.formatDonutChartData = formatDonutChartData;

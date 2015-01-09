@@ -186,7 +186,7 @@ input::-webkit-datetime-edit-fields-wrapper {
   color: gray;
 }
 
-input[type="reset"] {
+#reset, #submit {
   cursor: pointer;
   margin-left: 10px;
   color: #D3D3D3;
@@ -196,12 +196,12 @@ input[type="reset"] {
   transition: color .15s;
 }
 
-input[type="reset"]:focus {
+#reset:focus, #submit:focus {
   border: none;
   outline: none;
 }
 
-input[type="reset"]:hover {
+#reset:hover, #submit:hover {
   color: gray;
 }
 

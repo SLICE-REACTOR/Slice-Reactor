@@ -26,7 +26,7 @@ var sliceGetRequest = function(resourceType, accessToken, callback, userId, para
       "Authorization": "Bearer " + accessToken
     }
   };
-  
+
   var req = https.request(options, function(res) {
     var body = '';
     res.on('data', function(chunk) {

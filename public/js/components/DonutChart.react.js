@@ -1,44 +1,34 @@
 var React = require('react');
-var GraphDataStore = require('../stores/GraphDataStore');
+var DonutChartStore = require('../stores/DonutChartStore');
+var FilteredDataStore = require('../stores/FilteredDataStore');
+var ChartActionCreators = require('../actions/ChartActionCreators');
 
-var getStateFromStores = function() {
-  var array = GraphDataStore.getData();
-  var categoryNames = {};
-  var JSONobj = [];
-  array.forEach(function(item) {
-    var key = item.primaryLabel;
-    var value = 0;
-
-    if (item.price > 0)
-      value = item.price / 100;
-
-    categoryNames[key] = value;
-  });
-  JSONobj.push(categoryNames);
-  return {data: JSONobj};
+var updateChartData = function(item){
+  ChartActionCreators.filterDonutChartData(item);
 };
 
-var Donut = React.createClass({
+var getStateFromStores = function() {
+  return {data: DonutChartStore.getData()}
+};
+
+var DonutChart = React.createClass({
   getInitialState: function(){
     return getStateFromStores();
   },
   componentDidMount: function(){
-    GraphDataStore.addChangeListener(this._onChange);
+    DonutChartStore.addChangeListener(this._onChange);
     this._renderChart(this.state.data);
   },
   componentWillUnmount: function() {
-    GraphDataStore.removeChangeListener(this._onChange);
+    DonutChartStore.removeChangeListener(this._onChange);
   },
   _renderChart: function(dataset){
-    var key = Object.keys(dataset[0]);
     var donutChart = c3.generate({
       bindto: '#chart_1',
       data: {
-        json: dataset,
-        keys: {
-          value: key
-        },
-        type: 'donut'
+        columns: dataset,
+        type: 'donut',
+        onclick: function (d) { updateChartData(d.id) }
       },
       legend: {
         position: 'right'
@@ -59,7 +49,7 @@ var Donut = React.createClass({
     return (
       <div id="donut">
         <div className="graph-header">
-          <h2>Spending by {GraphDataStore.getFilterValue().primary}</h2>
+          <h2>Spending by {FilteredDataStore.getFilterValue().primary}</h2>
         </div>
         <div id="chart_1"></div>
       </div>
@@ -70,7 +60,5 @@ var Donut = React.createClass({
   }
 });
 
-
-module.exports = Donut;
-
+module.exports = DonutChart;
 
