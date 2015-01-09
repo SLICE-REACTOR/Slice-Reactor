@@ -17,16 +17,17 @@ var _filteredMerchantData = [];
 
 var _today = dateFilterHelpers.getToday();
 
+// default filter values
 var _filterValue = {
   primary: 'Category',
   secondary: 'Merchant',
   category: 'active',
   merchant: '',
-  minDate: '',
-  maxDate: ''
+  minDate: '9999-12-30',
+  maxDate: '',
+  setMinDate: '',
+  setMaxDate: dateFilterHelpers.getToday().string
 };
-
-var _dateMin = [9999, 99, 99];
 
 function _addFilteredData(chartData) {
   _allChartData = chartData;
@@ -39,17 +40,10 @@ function _filterByCategory(chartData) {
   _filterValue.maxDate = _today.string;
 
   return categories = chartData.map(function(item) {
-
-    var dateArray = item.purchaseDate.split('-');
-
-    var parsedDateArray = dateArray.map(function(item) {
-      return parseInt(item, 10);
-    });
-
-    var minDate = dateFilterHelpers.getMinDate(parsedDateArray, _dateMin, item.purchaseDate);
-    if (minDate.minArray) _dateMin = minDate.minArray;
-    if (minDate.minString) _filterValue.minDate = minDate.minString;
-
+    if (new Date(item.purchaseDate) < new Date(_filterValue.minDate)) {
+      _filterValue.minDate = item.purchaseDate;
+      _filterValue.setMinDate = item.purchaseDate;
+    }
     var categoryObj = {
       primaryLabel: item.categoryName,
       secondaryLabel: item.Order.Merchant.name,

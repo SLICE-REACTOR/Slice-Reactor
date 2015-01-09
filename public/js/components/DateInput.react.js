@@ -42,8 +42,6 @@ var DateInput = React.createClass({
   },
   render: function() {
     console.log('state in date input', this.state);
-    var minDate = this.state.minDate;
-    var maxDate = this.state.maxDate;
     return (
       <div id="date-filter-input">
 
@@ -51,10 +49,22 @@ var DateInput = React.createClass({
 
           <label className="date-filter-label"><b>Date Range</b></label>
           <span className="date-input">
-            <input type="date" id="minDate" onChange={this._handleMinDateChange} value={minDate} defaultValue={minDate}/>
+            <input type="date"
+              id="minDate"
+              onChange={this._handleMinDateChange}
+              value={this.state.minDate}
+              min={this.state.setMinDate}
+              max={this.state.setMaxDate}
+              defaultValue={this.state.minDate}/>
           </span>
           <span className="date-input">
-            <input type="date" id="maxDate" onChange={this._handleMaxDateChange} value={maxDate} defaultValue={maxDate}/>
+            <input type="date"
+              id="maxDate"
+              onChange={this._handleMaxDateChange}
+              value={this.state.maxDate}
+              min={this.state.setMinDate}
+              max={this.state.setMaxDate}
+              defaultValue={this.state.maxDate}/>
           </span>
 
           <input type="reset" id="reset" value="RESET" />
