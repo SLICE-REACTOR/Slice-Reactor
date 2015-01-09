@@ -27,7 +27,7 @@ var DonutChart = React.createClass({
       bindto: '#chart_1',
       data: {
         columns: dataset,
-        type: 'donut'
+        type: 'donut',
         onclick: function (d) { updateChartData(d.id) }
       },
       legend: {

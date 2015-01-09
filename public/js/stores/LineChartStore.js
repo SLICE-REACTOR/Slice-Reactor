@@ -59,7 +59,7 @@ LineChartStore.dispatchToken = AppDispatcher.register(function(payload) {
 
     case ActionTypes.FILTER_DONUT_PIECE_DATA:
       AppDispatcher.waitFor([DonutChartStore.dispatchToken]);
-      var filteredData = DonutChartStore.sendDonutPieceDatatoLine();
+      var filteredData = DonutChartStore.sendDonutPieceData();
       _formatData(filteredData);
       LineChartStore.emitChange();
       break;      

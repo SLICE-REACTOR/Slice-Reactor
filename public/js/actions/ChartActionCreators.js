@@ -14,7 +14,7 @@ module.exports = {
     AppDispatcher.handleViewAction({
       type: ActionTypes.FILTER_BY_DATE,
       dates: dates
-    })
+    });
   },
   filterDonutChartData: function(categoryNameOrMerchantName){
     AppDispatcher.handleViewAction({
