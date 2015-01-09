@@ -1,6 +1,11 @@
 var React = require('react');
 var DonutChartStore = require('../stores/DonutChartStore');
 var FilteredDataStore = require('../stores/FilteredDataStore');
+var ChartActionCreators = require('../actions/ChartActionCreators');
+
+var updateChartData = function(item){
+  ChartActionCreators.filterDonutChartData(item);
+};
 
 var getStateFromStores = function() {
   return {data: DonutChartStore.getData()}
@@ -23,6 +28,7 @@ var DonutChart = React.createClass({
       data: {
         columns: dataset,
         type: 'donut'
+        onclick: function (d) { updateChartData(d.id) }
       },
       legend: {
         position: 'right'
