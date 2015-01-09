@@ -1,11 +1,9 @@
 var ServerActionCreators = require('../actions/ServerActionCreators');
 
 module.exports = {
-
-  getAllOrders: function() {
-    // retrieve data from a database
+  getAllGraphData: function() {
     $.get('/userdata', function(data) {
-      ServerActionCreators.receiveAllOrders(JSON.parse(data));
+      ServerActionCreators.receiveAllChartData(JSON.parse(data));
     });
-  },
+  }
 };

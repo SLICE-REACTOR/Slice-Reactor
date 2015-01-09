@@ -4,11 +4,10 @@ var Constants = require('../constants/Constants');
 var ActionTypes = Constants.ActionTypes;
 
 module.exports = {
-
-  receiveAllOrders: function(allOrders) {
+  receiveAllChartData: function(allChartData) {
     AppDispatcher.handleServerAction({
-      type: ActionTypes.RECEIVE_ORDERS,
-      allOrders: allOrders
+      type: ActionTypes.RECEIVE_CHART_DATA,
+      allChartData: allChartData
     });
   }
 };
