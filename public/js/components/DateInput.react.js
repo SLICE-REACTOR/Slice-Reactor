@@ -17,7 +17,7 @@ var DateInput = React.createClass({
   componentWillUnmount: function() {
     FilteredDataStore.removeChangeListener(this._onChange);
   },
-  _filterByCategory: function(event) {
+  _filterByCategory: function() {
     ChartActionCreators.filterData('category');
   },
   _filterByMerchant: function() {
@@ -75,8 +75,8 @@ var DateInput = React.createClass({
 
         <div id="filter-wrapper">
           <span className="date-filter-label"><b>Filter</b></span>
-          <div className={this.state.category + " category-merchant-button"} value="category" onClick={this._filterByCategory}>By Category</div>
-          <div className={this.state.merchant + " category-merchant-button"} value="merchant" onClick={this._filterByMerchant}>By Merchant</div>
+          <div className={this.state.category + " category-merchant-button"} onClick={this._filterByCategory}>By Category</div>
+          <div className={this.state.merchant + " category-merchant-button"} onClick={this._filterByMerchant}>By Merchant</div>
         </div>
 
         <div className="divider"></div>
