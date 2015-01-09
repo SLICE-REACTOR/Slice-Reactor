@@ -12,7 +12,6 @@ var CHANGE_EVENT = 'change';
 var _lineChartData = [];
 
 var _formatData = function(filteredData) {
-  console.log('formatted line chart data: ', chartHelpers.formatLineChartData(filteredData));
   _lineChartData = chartHelpers.formatLineChartData(filteredData);
 };
 

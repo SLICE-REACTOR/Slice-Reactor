@@ -8,21 +8,7 @@ var updateChartData = function(item){
 };
 
 var getStateFromStores = function() {
-  var array = DonutChartStore.getData();
-  console.log('donut chart data: ', DonutChartStore.getData());
-  var categoryNames = {};
-  var JSONobj = [];
-  array.forEach(function(item) {
-    var key = item.primaryLabel;
-    var value = 0;
-
-    if (item.price > 0)
-      value = item.price / 100;
-
-    categoryNames[key] = value;
-  });
-  JSONobj.push(categoryNames);
-  return {data: JSONobj};
+  return {data: DonutChartStore.getData()}
 };
 
 var Donut = React.createClass({
@@ -37,16 +23,11 @@ var Donut = React.createClass({
     DonutChartStore.removeChangeListener(this._onChange);
   },
   _renderChart: function(dataset){
-    var key = Object.keys(dataset[0]);
     var donutChart = c3.generate({
       bindto: '#chart_1',
       data: {
-        json: dataset,
-        keys: {
-          value: key
-        },
-        type: 'donut',
-        onclick: function (d) { updateChartData(d.id) }
+        columns: dataset,
+        type: 'donut'
       },
       legend: {
         position: 'right'
@@ -78,7 +59,4 @@ var Donut = React.createClass({
   }
 });
 
-
 module.exports = Donut;
-
-
