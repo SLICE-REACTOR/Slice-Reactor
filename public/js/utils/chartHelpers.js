@@ -40,7 +40,7 @@ var formatDonutChartData = function(filteredData) {
     donutChartAllOthersItem[1] = donutChartAllOthersItem[1].toFixed(2);
     donutChartData.push(donutChartAllOthersItem);
   }
-  return donutChartData;
+  return [donutChartData, donutChartDataOthers];
 };
 
 var lineGraphItemConstructor = function(year, month, existingDates) {
@@ -138,6 +138,31 @@ var formatBarChartData = function(filteredData) {
   return barChartData;
 };
 
+var filterDonutChartPiece = function(categoryOrMerchantName, filteredData, allOthers){
+  var donutPieceData = [];
+  if(categoryOrMerchantName === 'All Others'){
+    var allOthersData = [];
+    allOthers.forEach(function(piece){
+      allOthersData.push(piece[0]);
+    });
+    filteredData.map(function(item){
+      for(var i = 0; i < allOthersData.length; i++){
+        if(item.primaryLabel === allOthersData[i]){
+          donutPieceData.push(item);
+        }
+      }
+    })
+  }else{
+    filteredData.map(function(item){
+      if(categoryOrMerchantName === item.primaryLabel){
+        donutPieceData.push(item);
+      }
+    })
+  }
+  return donutPieceData;
+};
+
+module.exports.filterDonutChartPiece = filterDonutChartPiece;
 module.exports.formatLineChartData = formatLineChartData;
 module.exports.formatBarChartData = formatBarChartData;
 module.exports.formatDonutChartData = formatDonutChartData;

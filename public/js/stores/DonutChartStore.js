@@ -10,9 +10,22 @@ var CHANGE_EVENT = 'change';
 
 // DATA STORE
 var _donutChartData = [];
+var _donutPieceData = [];
+var _donutAllOthers = [];
 
 var _formatData = function(filteredData) {
-  _donutChartData = chartHelpers.formatDonutChartData(filteredData);
+  var chartData = chartHelpers.formatDonutChartData(filteredData);
+  //gets data from individual catergory or merchant names
+  _donutChartData = chartData[0];
+  //gets data from catergory or merchant names contained in all others
+  _donutAllOthers = chartData[1];
+};
+
+function _filterDonutPieceData(categoryNameOrMerchantName, filteredData, allOthersData){
+  //clears data set received from donut piece
+  _donutPieceData = [];
+  //onclick of donut piece filters data set to be re-rendered by bar and line charts
+  _donutPieceData = chartHelpers.filterDonutChartPiece(categoryNameOrMerchantName, filteredData, allOthersData);
 };
 
 var DonutChartStore = assign({}, EventEmitter.prototype, {
@@ -27,7 +40,10 @@ var DonutChartStore = assign({}, EventEmitter.prototype, {
   },
   getData: function() {
     return _donutChartData;
-  }
+  },
+  sendDonutPieceData: function(){
+    return _donutPieceData;
+  }   
 });
 
 DonutChartStore.dispatchToken = AppDispatcher.register(function(payload) {
@@ -46,6 +62,13 @@ DonutChartStore.dispatchToken = AppDispatcher.register(function(payload) {
       AppDispatcher.waitFor([FilteredDataStore.dispatchToken]);
       var filteredData = FilteredDataStore.getData();
       _formatData(filteredData);
+      DonutChartStore.emitChange();
+      break;
+  
+    case ActionTypes.FILTER_DONUT_PIECE_DATA:
+      var allOthersData = _donutAllOthers;
+      var filteredData = FilteredDataStore.getData();
+      _filterDonutPieceData(action.filterChart, filteredData, allOthersData);
       DonutChartStore.emitChange();
       break;
 
