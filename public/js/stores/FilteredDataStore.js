@@ -12,10 +12,10 @@ var _allChartData = [];
 var _filteredChartData = [];
 var _categoryChartData = [];
 var _merchantChartData = [];
+var _filteredCategoryData = [];
+var _filteredMerchantData = [];
 
 var _today = dateFilterHelpers.getToday();
-
-console.log('today: ', _today);
 
 var _filterValue = {
   primary: 'Category',
@@ -23,11 +23,10 @@ var _filterValue = {
   category: 'active',
   merchant: '',
   minDate: '',
-  maxDate: _today.string
+  maxDate: ''
 };
 
 var _dateMin = [9999, 99, 99];
-var _dateMax = [0, 0, 0];
 
 function _addFilteredData(chartData) {
   _allChartData = chartData;
@@ -37,6 +36,8 @@ function _addFilteredData(chartData) {
 };
 
 function _filterByCategory(chartData) {
+  _filterValue.maxDate = _today.string;
+
   return categories = chartData.map(function(item) {
 
     var dateArray = item.purchaseDate.split('-');
@@ -53,10 +54,7 @@ function _filterByCategory(chartData) {
       primaryLabel: item.categoryName,
       secondaryLabel: item.Order.Merchant.name,
       price: item.price / 100,
-      date: item.purchaseDate,
-      year: parsedDateArray[0],
-      month: parsedDateArray[1],
-      day: parsedDateArray[2]
+      date: item.purchaseDate
     };
     return categoryObj;
   });
@@ -73,20 +71,35 @@ function _filterByMerchant(chartData) {
       primaryLabel: item.Order.Merchant.name,
       secondaryLabel: item.categoryName,
       price: item.price / 100,
-      date: item.purchaseDate,
-      year: parsedDateArray[0],
-      month: parsedDateArray[1],
-      day: parsedDateArray[2]
+      date: item.purchaseDate
     };
     return merchantObj;
   });
 };
 
+function _filterByDate(dates) {
+  var minDate = dates.minDate;
+  var maxDate = dates.maxDate;
+
+  _filteredCategoryData = _categoryChartData.filter(function(item) {
+    return new Date(minDate) < new Date(item.date) && new Date(item.date) < new Date(maxDate);
+  });
+
+  _filteredMerchantData = _merchantChartData.filter(function(item) {
+    return new Date(minDate) < new Date(item.date) && new Date(item.date) < new Date(maxDate);
+  });
+
+  if (_filterValue.merchant === 'active')
+    _filteredChartData = _filteredMerchantData;
+  else
+    _filteredChartData = _filteredCategoryData;
+};
+
 function _toggleData(categoryOrMerchant) {
   if (categoryOrMerchant === 'merchant')
-    _filteredChartData = _merchantChartData;
+    _filteredChartData = _filteredMerchantData;
   else
-    _filteredChartData = _categoryChartData;
+    _filteredChartData = _filteredCategoryData;
 };
 
 var FilteredDataStore = assign({}, EventEmitter.prototype, {
@@ -137,6 +150,10 @@ FilteredDataStore.dispatchToken = AppDispatcher.register(function(payload) {
 
     case ActionTypes.FILTER_DATA:
       _toggleData(action.filter);
+      break;
+
+    case ActionTypes.FILTER_BY_DATE:
+      _filterByDate(action.dates);
       break;
 
     default:

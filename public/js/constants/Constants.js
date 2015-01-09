@@ -4,7 +4,8 @@ module.exports = {
 
   ActionTypes: keyMirror({
     RECEIVE_CHART_DATA: null,
-    FILTER_DATA: null
+    FILTER_DATA: null,
+    FILTER_BY_DATE: null
   }),
 
   PayloadSources: keyMirror({

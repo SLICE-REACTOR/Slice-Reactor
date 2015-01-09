@@ -49,6 +49,13 @@ DonutChartStore.dispatchToken = AppDispatcher.register(function(payload) {
       DonutChartStore.emitChange();
       break;
 
+    case ActionTypes.FILTER_BY_DATE:
+      AppDispatcher.waitFor([FilteredDataStore.dispatchToken]);
+      var filteredData = FilteredDataStore.getData();
+      _formatData(filteredData);
+      DonutChartStore.emitChange();
+      break;
+
     default:
       // do nothing
   }

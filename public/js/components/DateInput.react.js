@@ -27,8 +27,23 @@ var DateInput = React.createClass({
     this.setState(FilteredDataStore.getFilterValue());
     ChartActionCreators.filterData('merchant');
   },
+  _handleMinDateChange: function(event) {
+    this.setState({minDate: event.target.value});
+  },
+  _handleMaxDateChange: function(event) {
+    this.setState({maxDate: event.target.value});
+  },
+  _filterByDate: function() {
+    console.log('clicked submit');
+    var dates = {};
+    dates.minDate = this.state.minDate;
+    dates.maxDate = this.state.maxDate;
+    ChartActionCreators.filterByDate(dates);
+  },
   render: function() {
     console.log('state in date input', this.state);
+    var minDate = this.state.minDate;
+    var maxDate = this.state.maxDate;
     return (
       <div id="date-filter-input">
 
@@ -36,14 +51,14 @@ var DateInput = React.createClass({
 
           <label className="date-filter-label"><b>Date Range</b></label>
           <span className="date-input">
-            <input type="date" id="minDate" value={this.state.minDate}/>
+            <input type="date" id="minDate" onChange={this._handleMinDateChange} value={minDate} defaultValue={minDate}/>
           </span>
           <span className="date-input">
-            <input type="date" id="maxDate" value={this.state.maxDate}/>
+            <input type="date" id="maxDate" onChange={this._handleMaxDateChange} value={maxDate} defaultValue={maxDate}/>
           </span>
 
           <input type="reset" id="reset" value="RESET" />
-          <input type="button" id="submit" value="SUBMIT" />
+          <input type="button" id="submit" value="SUBMIT" onClick={this._filterByDate}/>
         </form>
 
         <div id="filter-wrapper">

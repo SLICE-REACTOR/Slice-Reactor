@@ -49,6 +49,13 @@ LineChartStore.dispatchToken = AppDispatcher.register(function(payload) {
       LineChartStore.emitChange();
       break;
 
+    case ActionTypes.FILTER_BY_DATE:
+      AppDispatcher.waitFor([FilteredDataStore.dispatchToken]);
+      var filteredData = FilteredDataStore.getData();
+      _formatData(filteredData);
+      LineChartStore.emitChange();
+      break;
+
     default:
       // do nothing
   }
