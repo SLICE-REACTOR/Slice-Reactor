@@ -15,12 +15,16 @@ var _donutAllOthers = [];
 
 var _formatData = function(filteredData) {
   var chartData = chartHelpers.formatDonutChartData(filteredData);
+  //gets data from individual catergory or merchant names
   _donutChartData = chartData[0];
+  //gets data from catergory or merchant names contained in all others
   _donutAllOthers = chartData[1];
 };
 
 function _filterDonutPieceData(categoryNameOrMerchantName, filteredData, allOthersData){
+  //clears data set received from donut piece
   _donutPieceData = [];
+  //onclick of donut piece filters data set to be re-rendered by bar and line charts
   _donutPieceData = chartHelpers.filterDonutChartPiece(categoryNameOrMerchantName, filteredData, allOthersData);
 };
 
