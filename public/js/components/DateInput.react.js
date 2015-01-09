@@ -6,41 +6,38 @@ var getStateFromStores = function() {
   return FilteredDataStore.getFilterValue();
 };
 
-var BarChart = React.createClass({
+var DateInput = React.createClass({
 
   getInitialState: function() {
-    console.log('getting initial state');
-    return {
-      category: 'active',
-      merchant: ''
-    }
+    return getStateFromStores();
   },
-
   _filterByCategory: function() {
     FilteredDataStore.setFilter('category');
     this.setState(FilteredDataStore.getFilterValue());
     ChartActionCreators.filterData('category');
   },
-
   _filterByMerchant: function() {
     FilteredDataStore.setFilter('merchant');
     this.setState(FilteredDataStore.getFilterValue());
     ChartActionCreators.filterData('merchant');
   },
-
   render: function() {
+    console.log('state in date input', this.state);
     return (
       <div id="date-filter-input">
 
         <form id="date-form">
+
           <label className="date-filter-label"><b>Date Range</b></label>
           <span className="date-input">
-            <input type="date" id="minDate" />
+            <input type="date" id="minDate" value={this.state.minDate}/>
           </span>
           <span className="date-input">
-            <input type="date" id="maxDate" />
+            <input type="date" id="maxDate" value={this.state.maxDate}/>
           </span>
+
           <input type="reset" id="reset" value="RESET" />
+          <input type="button" id="submit" value="SUBMIT" />
         </form>
 
         <div id="filter-wrapper">
@@ -52,10 +49,13 @@ var BarChart = React.createClass({
         <div className="divider"></div>
       </div>
     );
+  },
+  _onChange: function() {
+    this.setState(getStateFromStores());
   }
 
 });
 
-module.exports = BarChart;
+module.exports = DateInput;
 
 

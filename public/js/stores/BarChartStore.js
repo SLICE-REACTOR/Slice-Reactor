@@ -26,6 +26,7 @@ var BarChartStore = assign({}, EventEmitter.prototype, {
     this.removeListener(CHANGE_EVENT, callback);
   },
   getData: function() {
+    console.log('bar chart data: ', _barChartData);
     return _barChartData;
   }
 });
