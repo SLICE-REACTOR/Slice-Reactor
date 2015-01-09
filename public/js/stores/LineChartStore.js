@@ -3,6 +3,7 @@ var Constants = require('../constants/Constants');
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
 var FilteredDataStore = require('./FilteredDataStore');
+var DonutChartStore = require('./DonutChartStore');
 var chartHelpers = require('../utils/chartHelpers');
 
 var ActionTypes = Constants.ActionTypes;
@@ -48,6 +49,13 @@ LineChartStore.dispatchToken = AppDispatcher.register(function(payload) {
       _formatData(filteredData);
       LineChartStore.emitChange();
       break;
+
+    case ActionTypes.FILTER_DONUT_PIECE_DATA:
+      AppDispatcher.waitFor([DonutChartStore.dispatchToken]);
+      var filteredData = DonutChartStore.sendDonutPieceDatatoLine();
+      _formatData(filteredData);
+      LineChartStore.emitChange();
+      break;      
 
     default:
       // do nothing

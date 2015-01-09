@@ -4,7 +4,8 @@ module.exports = {
 
   ActionTypes: keyMirror({
     RECEIVE_GRAPH_DATA: null,
-    FILTER_DATA: null
+    FILTER_DATA: null,
+    FILTER_DONUT_PIECE_DATA: null
   }),
 
   PayloadSources: keyMirror({
