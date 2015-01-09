@@ -56,17 +56,17 @@ var DateInput = React.createClass({
               onChange={this._handleMinDateChange}
               value={this.state.minDate}
               min={this.state.setMinDate}
-              max={this.state.setMaxDate}
-              defaultValue={this.state.minDate}/>
+              max={this.state.maxDate}
+              defaultValue={this.state.minDate} />
           </span>
           <span className="date-input">
             <input type="date"
               id="maxDate"
               onChange={this._handleMaxDateChange}
               value={this.state.maxDate}
-              min={this.state.setMinDate}
+              min={this.state.minDate}
               max={this.state.setMaxDate}
-              defaultValue={this.state.maxDate}/>
+              defaultValue={this.state.maxDate} />
           </span>
 
           <input type="button" id="reset" value="RESET" onClick={this._resetDates}/>
