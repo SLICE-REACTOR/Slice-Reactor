@@ -46,9 +46,7 @@ var DateInput = React.createClass({
   render: function() {
     return (
       <div id="date-filter-input">
-
         <form id="date-form">
-
           <label className="date-filter-label"><b>Date Range</b></label>
           <span className="date-input">
             <input type="date"
