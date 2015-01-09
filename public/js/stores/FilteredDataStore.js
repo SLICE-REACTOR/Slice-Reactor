@@ -18,6 +18,9 @@ var _filterValue = {
   merchant: ''
 }
 
+var _dateMin;
+var _dateMax;
+
 function _addFilteredData(chartData) {
   // getting data
   _categoryChartData = _filterByCategory(chartData);
@@ -26,29 +29,43 @@ function _addFilteredData(chartData) {
 };
 
 function _filterByCategory(chartData) {
-  var categories = chartData.map(function(item) {
+  return categories = chartData.map(function(item) {
+    var dateArray = item.purchaseDate.split('-');
+    var parsedDateArray = dateArray.map(function(item) {
+      return parseInt(item, 10);
+    });
+
     var categoryObj = {
       primaryLabel: item.categoryName,
       secondaryLabel: item.Order.Merchant.name,
       price: item.price / 100,
-      date: item.purchaseDate
+      date: item.purchaseDate,
+      year: parsedDateArray[0],
+      month: parsedDateArray[1],
+      day: parsedDateArray[2]
     };
     return categoryObj;
   });
-  return categories;
 };
 
 function _filterByMerchant(chartData) {
-  var merchants = chartData.map(function(item) {
+  return merchants = chartData.map(function(item) {
+    var dateArray = item.purchaseDate.split('-');
+    var parsedDateArray = dateArray.map(function(item) {
+      return parseInt(item, 10);
+    });
+
     var merchantObj = {
       primaryLabel: item.Order.Merchant.name,
       secondaryLabel: item.categoryName,
       price: item.price / 100,
-      date: item.purchaseDate
+      date: item.purchaseDate,
+      year: parsedDateArray[0],
+      month: parsedDateArray[1],
+      day: parsedDateArray[2]
     };
     return merchantObj;
   });
-  return merchants;
 };
 
 function _filterData(categoryOrMerchant) {
