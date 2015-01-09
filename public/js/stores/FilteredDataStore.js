@@ -2,6 +2,7 @@ var AppDispatcher = require('../dispatcher/Dispatcher');
 var Constants = require('../constants/Constants');
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
+var dateFilterHelpers = require('../utils/dateFilterHelpers');
 
 var ActionTypes = Constants.ActionTypes;
 var CHANGE_EVENT = 'change';
@@ -12,11 +13,17 @@ var _filteredChartData = [];
 var _categoryChartData = [];
 var _merchantChartData = [];
 
+var _today = dateFilterHelpers.getToday();
+
+console.log('today: ', _today);
+
 var _filterValue = {
   primary: 'Category',
   secondary: 'Merchant',
   category: 'active',
-  merchant: ''
+  merchant: '',
+  minDate: '',
+  maxDate: _today.string
 };
 
 var _dateMin = [9999, 99, 99];
@@ -29,36 +36,6 @@ function _addFilteredData(chartData) {
   _filteredChartData = _categoryChartData;
 };
 
-function _getMinMaxDate(dateArray, stringDate) {
-  // sets min date
-  if (dateArray[0] < _dateMin[0]) {
-    _dateMin = dateArray;
-    _filterValue.minDate = stringDate;
-  }
-  else if (dateArray[0] === _dateMin[0] && dateArray[1] < _dateMin[1]) {
-    _dateMin = dateArray;
-    _filterValue.minDate = stringDate;
-  }
-  else if (dateArray[0] === _dateMin[0] && dateArray[1] === _dateMin[1] && dateArray[2] < _dateMin[2]) {
-    _dateMin = dateArray;
-    _filterValue.minDate = stringDate;
-  }
-
-  // sets max date
-  if (dateArray[0] > _dateMax[0]) {
-    _dateMax = dateArray;
-    _filterValue.maxDate = stringDate;
-  }
-  else if (dateArray[0] === _dateMax[0] && dateArray[1] > _dateMax[1]) {
-    _dateMax = dateArray;
-    _filterValue.maxDate = stringDate;
-  }
-  else if (dateArray[0] === _dateMax[0] && dateArray[1] === _dateMax[1] && dateArray[2] > _dateMax[2]) {
-    _dateMax = dateArray;
-    _filterValue.maxDate = stringDate;
-  }
-};
-
 function _filterByCategory(chartData) {
   return categories = chartData.map(function(item) {
 
@@ -68,7 +45,9 @@ function _filterByCategory(chartData) {
       return parseInt(item, 10);
     });
 
-    _getMinMaxDate(parsedDateArray, item.purchaseDate);
+    var minDate = dateFilterHelpers.getMinDate(parsedDateArray, _dateMin, item.purchaseDate);
+    if (minDate.minArray) _dateMin = minDate.minArray;
+    if (minDate.minString) _filterValue.minDate = minDate.minString;
 
     var categoryObj = {
       primaryLabel: item.categoryName,
