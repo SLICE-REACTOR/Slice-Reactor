@@ -153,6 +153,7 @@ FilteredDataStore.dispatchToken = AppDispatcher.register(function(payload) {
 
     case ActionTypes.RECEIVE_CHART_DATA:
       _addFilteredData(action.allChartData);
+      FilteredDataStore.emitChange();
       break;
 
     case ActionTypes.FILTER_DATA:
