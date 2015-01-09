@@ -174,8 +174,6 @@ var getUserData = function(req, res) {
       var ordersGetRequest = sliceGetRequest.bind(null,'orders', decryptedAccessToken, ordersHandler, req.session.UserId, ordersGetRequestParameter, itemsGetRequest);
       sliceGetRequest('merchants', decryptedAccessToken, merchantsHandler, req.session.UserId, false, ordersGetRequest);
     });
-
-  // return next();
 };
 
 module.exports.getUserData = getUserData;

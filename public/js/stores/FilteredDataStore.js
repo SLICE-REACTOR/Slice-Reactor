@@ -104,4 +104,3 @@ FilteredDataStore.dispatchToken = AppDispatcher.register(function(payload) {
 });
 
 module.exports = FilteredDataStore;
-
