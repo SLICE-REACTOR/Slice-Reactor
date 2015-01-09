@@ -54,11 +54,6 @@ function _filterByCategory(chartData) {
 
 function _filterByMerchant(chartData) {
   return merchants = chartData.map(function(item) {
-    var dateArray = item.purchaseDate.split('-');
-    var parsedDateArray = dateArray.map(function(item) {
-      return parseInt(item, 10);
-    });
-
     var merchantObj = {
       primaryLabel: item.Order.Merchant.name,
       secondaryLabel: item.categoryName,
@@ -78,7 +73,6 @@ function _filterByDate(dates) {
   _filteredChartData.category = _allCategoryData.filter(function(item) {
     return new Date(dates.minDate) < new Date(item.date) && new Date(item.date) < new Date(dates.maxDate);
   });
-
   _filteredChartData.merchant = _allMerchantData.filter(function(item) {
     return new Date(dates.minDate) < new Date(item.date) && new Date(item.date) < new Date(dates.maxDate);
   });
