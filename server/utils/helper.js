@@ -246,7 +246,7 @@ var refreshUserAccessToken = function() {
       });
     });
 };
-refreshUserAccessToken();
+
 module.exports.getUserData = getUserData;
 module.exports.refreshUserAccessToken = refreshUserAccessToken;
 module.exports.ensureAuthenticated = ensureAuthenticated;

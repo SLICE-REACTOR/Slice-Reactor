@@ -1,7 +1,6 @@
 var expect = require('Chai').expect;
-var request = require('request');
 var sinon = require('sinon');
-// var should = require('should');
+var request = require('request');
 var https = require('https');
 var db = require('../server/db/sequelize');
 var helper = require('../server/utils/helper.js')
@@ -23,7 +22,6 @@ describe('server response', function () {
   it('should respond to GET requests for /login with a 200 status code', function (done) {
     request.get('http://localhost:8000/login', function(err, res, body) {
       expect(res.statusCode).to.equal(200);
-      // expect(res.body).to.equal('wrong header');
       done();
     });
   });
@@ -78,7 +76,7 @@ describe('server response', function () {
               cb2();
             }};
           }});
-        }}); 
+        }});
     helper.saveUpdatedTokens({access_token: "access-token", refresh_token: "refresh-token"}, 27, function(userId) {
       db.Users.find.called.should.be.equal(true);
       expect(userId).to.equal(27);
