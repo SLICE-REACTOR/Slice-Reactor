@@ -11,6 +11,12 @@ var DateInput = React.createClass({
   getInitialState: function() {
     return getStateFromStores();
   },
+  componentDidMount: function(){
+    FilteredDataStore.addChangeListener(this._onChange);
+  },
+  componentWillUnmount: function() {
+    FilteredDataStore.removeChangeListener(this._onChange);
+  },
   _filterByCategory: function() {
     FilteredDataStore.setFilter('category');
     this.setState(FilteredDataStore.getFilterValue());
