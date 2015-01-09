@@ -1,3 +1,5 @@
+var dateFilters = require('../stores/FilteredDataStore').getFilterValue();
+
 var formatDonutChartData = function(filteredData) {
   var categoryOrMerchantData = {};
   var totalSpent = 0;
@@ -52,7 +54,7 @@ var lineGraphItemConstructor = function(year, month, existingDates) {
   var dateKey = year + "-" + monthString + "-01";
     lineGraphItem['date'] = dateKey;
   if (existingDates[dateKey]) {
-    lineGraphItem['price'] = existingDates[dateKey].toFixed(2) || 0;
+    lineGraphItem['price'] = existingDates[dateKey].toFixed(2);
   } else {
     lineGraphItem['price'] = 0;
   }
@@ -61,34 +63,42 @@ var lineGraphItemConstructor = function(year, month, existingDates) {
 
 var formatLineChartData = function(filteredData) {
   var sliceDataMonthly = {};
-  var earliestYearMonthData = [];
+  var lineChartData = [];
+  var minYearMonthDay = dateFilters.minDate.split('-');
+  var maxYearMonthDay = dateFilters.maxDate.split('-');
+  var minDate = new Date(minYearMonthDay[0], minYearMonthDay[1] - 1, minYearMonthDay[2]);
+  var maxDate = new Date(maxYearMonthDay[0], maxYearMonthDay[1] - 1, maxYearMonthDay[2]);
   for (var i = 0; i < filteredData.length; i++) {
-    var purchaseDateArray = filteredData[i].date.split('-');
-    if (i === 0 || purchaseDateArray[0] < earliestYearMonthData[0]) {
-      earliestYearMonthData[0] = purchaseDateArray[0];
-      if (i === 0 || purchaseDateArray[1] < earliestYearMonthData[1]) {
-        earliestYearMonthData[1] = purchaseDateArray[1];
+    var purchaseDateYearMonthDay = filteredData[i].date.split('-');
+    var purchaseDate = new Date(purchaseDateYearMonthDay[0], purchaseDateYearMonthDay[1] - 1, purchaseDateYearMonthDay[2]);
+    if (filteredData[i].price > 0) {
+      var monthYear = purchaseDateYearMonthDay[0] + '-' + purchaseDateYearMonthDay[1] + '-01';
+      // if the purchase date is between the minimum and maximum date
+      if (purchaseDate >= minDate && purchaseDate <= maxDate) {
+        if (!sliceDataMonthly[monthYear]) {
+          sliceDataMonthly[monthYear] = filteredData[i].price;
+        }
+        else {
+          sliceDataMonthly[monthYear] += filteredData[i].price;
+        }
       }
     }
-    if (filteredData[i].price > 0) {
-      var monthYear = purchaseDateArray[0] + '-' + purchaseDateArray[1] + '-01';
-      if (!sliceDataMonthly[monthYear])
-        sliceDataMonthly[monthYear] = filteredData[i].price;
-      else
-        sliceDataMonthly[monthYear] += filteredData[i].price;
-    }
   }
-  var lineChartData = [];
-  var currentDate = new Date;
-  var currentYearMonth = [currentDate.getFullYear(), currentDate.getMonth() + 1];
-  for (var year = earliestYearMonthData[0]; year <= currentYearMonth[0]; year++) {
+  for (var year = parseInt(minYearMonthDay[0]); year <= parseInt(maxYearMonthDay[0]); year++) {
     for (var month = 1; month < 13; month ++) {
-      if (year === earliestYearMonthData[0] && month >= earliestYearMonthData[1]) {
-        lineChartData.push(lineGraphItemConstructor(year, month, sliceDataMonthly));
-      } else if (year === currentYearMonth[0] && month <= currentYearMonth[1]) {
-        lineChartData.push(lineGraphItemConstructor(year, month, sliceDataMonthly));
-      } else if (year !== currentYearMonth[0] && year !== earliestYearMonthData[0]) {
-        lineChartData.push(lineGraphItemConstructor(year, month, sliceDataMonthly));
+      // if the 
+      if (minYearMonthDay[0] === maxYearMonthDay[0]) {
+        if (month >= parseInt(minYearMonthDay[1]) && month <= parseInt(maxYearMonthDay[1])) {
+          lineChartData.push(lineGraphItemConstructor(year, month, sliceDataMonthly));
+        }
+      } else {
+        if (year === parseInt(minYearMonthDay[0]) && month >= parseInt(minYearMonthDay[1])) {
+          lineChartData.push(lineGraphItemConstructor(year, month, sliceDataMonthly));
+        } else if (year === parseInt(maxYearMonthDay[0]) && month <= parseInt(maxYearMonthDay[1])) {
+          lineChartData.push(lineGraphItemConstructor(year, month, sliceDataMonthly));
+        } else if (year < parseInt(maxYearMonthDay[0]) && year > parseInt(minYearMonthDay[0])) {
+          lineChartData.push(lineGraphItemConstructor(year, month, sliceDataMonthly));
+        }
       }
     }
   }
