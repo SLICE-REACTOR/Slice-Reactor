@@ -18,13 +18,9 @@ var DateInput = React.createClass({
     FilteredDataStore.removeChangeListener(this._onChange);
   },
   _filterByCategory: function() {
-    FilteredDataStore.setFilter('category');
-    this.setState(FilteredDataStore.getFilterValue());
     ChartActionCreators.filterData('category');
   },
   _filterByMerchant: function() {
-    FilteredDataStore.setFilter('merchant');
-    this.setState(FilteredDataStore.getFilterValue());
     ChartActionCreators.filterData('merchant');
   },
   _handleMinDateChange: function(event) {
@@ -34,7 +30,6 @@ var DateInput = React.createClass({
     this.setState({maxDate: event.target.value});
   },
   _filterByDate: function() {
-    console.log('clicked submit');
     var dates = {};
     dates.minDate = this.state.minDate;
     dates.maxDate = this.state.maxDate;

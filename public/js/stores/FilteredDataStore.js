@@ -9,13 +9,13 @@ var CHANGE_EVENT = 'change';
 
 // DATA STORES
 var _allChartData = [];
-var _filteredChartData = [];
-var _categoryChartData = [];
-var _merchantChartData = [];
-var _filteredCategoryData = [];
-var _filteredMerchantData = [];
+var _allCategoryData = [];
+var _allMerchantData = [];
 
-var _today = dateFilterHelpers.getToday();
+// returned store
+var _filteredChartData = {};
+_filteredChartData.category = [];
+_filteredChartData.merchant = [];
 
 // default filter values
 var _filterValue = {
@@ -24,21 +24,19 @@ var _filterValue = {
   category: 'active',
   merchant: '',
   minDate: '9999-12-30',
-  maxDate: '',
+  maxDate: dateFilterHelpers.getToday().string,
   setMinDate: '',
   setMaxDate: dateFilterHelpers.getToday().string
 };
 
 function _addFilteredData(chartData) {
   _allChartData = chartData;
-  _categoryChartData = _filterByCategory(chartData);
-  _merchantChartData = _filterByMerchant(chartData);
-  _filteredChartData = _categoryChartData;
+  _allCategoryData = _filterByCategory(chartData); // min date defined here
+  _allMerchantData = _filterByMerchant(chartData);
+  _filterByDate(_filterValue);
 };
 
 function _filterByCategory(chartData) {
-  _filterValue.maxDate = _today.string;
-
   return categories = chartData.map(function(item) {
     if (new Date(item.purchaseDate) < new Date(_filterValue.minDate)) {
       _filterValue.minDate = item.purchaseDate;
@@ -71,29 +69,37 @@ function _filterByMerchant(chartData) {
   });
 };
 
+function _setDateRange(dates) {
+  _filterValue.minDate = dates.minDate;
+  _filterValue.maxDate = dates.maxDate;
+};
+
 function _filterByDate(dates) {
-  var minDate = dates.minDate;
-  var maxDate = dates.maxDate;
-
-  _filteredCategoryData = _categoryChartData.filter(function(item) {
-    return new Date(minDate) < new Date(item.date) && new Date(item.date) < new Date(maxDate);
+  _filteredChartData.category = _allCategoryData.filter(function(item) {
+    return new Date(dates.minDate) < new Date(item.date) && new Date(item.date) < new Date(dates.maxDate);
   });
 
-  _filteredMerchantData = _merchantChartData.filter(function(item) {
-    return new Date(minDate) < new Date(item.date) && new Date(item.date) < new Date(maxDate);
+  _filteredChartData.merchant = _allMerchantData.filter(function(item) {
+    return new Date(dates.minDate) < new Date(item.date) && new Date(item.date) < new Date(dates.maxDate);
   });
-
-  if (_filterValue.merchant === 'active')
-    _filteredChartData = _filteredMerchantData;
-  else
-    _filteredChartData = _filteredCategoryData;
 };
 
 function _toggleData(categoryOrMerchant) {
-  if (categoryOrMerchant === 'merchant')
-    _filteredChartData = _filteredMerchantData;
-  else
-    _filteredChartData = _filteredCategoryData;
+  if (categoryOrMerchant === 'merchant') {
+    _filterValue = {
+      primary: 'Merchant',
+      secondary: 'Categories',
+      category: '',
+      merchant: 'active'
+    }
+  } else {
+    _filterValue = {
+      primary: 'Category',
+      secondary: 'Merchants',
+      category: 'active',
+      merchant: ''
+    }
+  }
 };
 
 var FilteredDataStore = assign({}, EventEmitter.prototype, {
@@ -107,28 +113,14 @@ var FilteredDataStore = assign({}, EventEmitter.prototype, {
   removeChangeListener: function(callback) {
     this.removeListener(CHANGE_EVENT, callback);
   },
-  setFilter: function(categoryOrMerchant) {
-    if (categoryOrMerchant === 'merchant') {
-      _filterValue = {
-        primary: 'Merchant',
-        secondary: 'Categories',
-        category: '',
-        merchant: 'active'
-      }
-    } else {
-      _filterValue = {
-        primary: 'Category',
-        secondary: 'Merchants',
-        category: 'active',
-        merchant: ''
-      }
-    }
-  },
   getFilterValue: function() {
     return _filterValue;
   },
   getData: function() {
-    return _filteredChartData;
+    if (_filterValue.primary === 'Category')
+      return _filteredChartData.category;
+    else
+      return _filteredChartData.merchant;
   }
 });
 
@@ -147,7 +139,8 @@ FilteredDataStore.dispatchToken = AppDispatcher.register(function(payload) {
       break;
 
     case ActionTypes.FILTER_BY_DATE:
-      _filterByDate(action.dates);
+      _setDateRange(action.dates);
+      _filterByDate(_filterValue);
       break;
 
     default:
