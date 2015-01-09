@@ -37,8 +37,7 @@ var LineChart = React.createClass({
         pattern: ['#24ACBF']
       },
       point: {
-        //increases size of point
-        r: 5
+        r: 4 // changes point radius
       },
       axis: {
         x: {

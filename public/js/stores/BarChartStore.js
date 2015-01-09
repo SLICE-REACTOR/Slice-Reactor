@@ -49,6 +49,13 @@ BarChartStore.dispatchToken = AppDispatcher.register(function(payload) {
       BarChartStore.emitChange();
       break;
 
+    case ActionTypes.FILTER_BY_DATE:
+      AppDispatcher.waitFor([FilteredDataStore.dispatchToken]);
+      var filteredData = FilteredDataStore.getData();
+      _formatData(filteredData);
+      BarChartStore.emitChange();
+      break;
+
     default:
       // do nothing
   }

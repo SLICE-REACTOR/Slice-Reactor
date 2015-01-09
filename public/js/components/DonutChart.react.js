@@ -6,7 +6,7 @@ var getStateFromStores = function() {
   return {data: DonutChartStore.getData()}
 };
 
-var Donut = React.createClass({
+var DonutChart = React.createClass({
   getInitialState: function(){
     return getStateFromStores();
   },
@@ -54,4 +54,5 @@ var Donut = React.createClass({
   }
 });
 
-module.exports = Donut;
+module.exports = DonutChart;
+

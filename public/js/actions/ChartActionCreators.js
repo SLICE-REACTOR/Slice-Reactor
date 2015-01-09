@@ -10,4 +10,10 @@ module.exports = {
       filter: categoryOrMerchant
     });
   },
+  filterByDate: function(dates) {
+    AppDispatcher.handleViewAction({
+      type: ActionTypes.FILTER_BY_DATE,
+      dates: dates
+    });
+  }
 };
