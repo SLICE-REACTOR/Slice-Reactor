@@ -86,7 +86,6 @@ function _filterByDate(dates) {
 
 //
 function _toggleFilter(categoryOrMerchant) {
-  console.log('toggling filter');
   if (categoryOrMerchant === 'merchant') {
     _filterValue = {
       primary: 'Merchant',
