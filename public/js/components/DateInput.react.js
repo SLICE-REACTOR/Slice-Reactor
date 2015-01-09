@@ -36,7 +36,6 @@ var DateInput = React.createClass({
     ChartActionCreators.filterByDate(dates);
   },
   render: function() {
-    console.log('state in date input', this.state);
     return (
       <div id="date-filter-input">
 
