@@ -36,11 +36,10 @@ var sliceRefreshRequest = function(refreshToken, callback, userId) {
       body += chunk;
     });
     res.on('end', function() {
-      callback(JSON.parse(body), userId);
+      callback(JSON.parse(body), userId, getUserData);
     });
   });
 
-  // req.write(postData);
   req.end();
 
   req.on('error', function(e) {
@@ -59,7 +58,7 @@ var saveUpdatedTokens = function(tokens, userId, callback) {
       user.refreshToken = encryptedRefreshToken;
       user.save().then(function() {
         // once new token is saved update the users data
-        getUserData(userId);
+        callback(userId);
       });
     });
 };
@@ -251,3 +250,7 @@ var refreshUserAccessToken = function() {
 module.exports.getUserData = getUserData;
 module.exports.refreshUserAccessToken = refreshUserAccessToken;
 module.exports.ensureAuthenticated = ensureAuthenticated;
+
+// exported for testing
+module.exports.sliceRefreshRequest = sliceRefreshRequest;
+module.exports.saveUpdatedTokens = saveUpdatedTokens;
