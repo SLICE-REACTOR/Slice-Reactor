@@ -12,20 +12,22 @@ var ensureAuthenticated = function (req, res, next) {
 
 // make post request to Slice to renew accessToken
 var slicePostRequest = function(refreshToken, callback, userId) {
-  var postData = JSON.stringify({
+  var postData = {
     client_id: process.env.SLICE_CLIENT_ID,
     client_secret: process.env.SLICE_CLIENT_SECRET,
-    grant_type: 'refresh_token',
-    refresh_token: refreshToken
-  });
-
+    refresh_token: refreshToken,
+    grant_type: 'refresh_token' 
+  };
+var apiPath = '/oauth/token?';
+for (var key in postData) {
+  apiPath += '&' + key + '=' + postData[key];
+}
+console.log(apiPath);
   var options = {
     host: 'api.slice.com',
-    path: '/oauth/token',
-    method: 'POST',
+    path: apiPath,
     headers: {
-      'Content-Type': 'application/json; charset=utf-8',
-      'Content-Length': postData.length
+      'Content-Type': 'application/x-www-form-urlencoded'
     }
   };
 
@@ -35,16 +37,29 @@ var slicePostRequest = function(refreshToken, callback, userId) {
       body += chunk;
     });
     res.on('end', function() {
-      callback(body, userId);
+      callback(JSON.parse(body), userId);
     });
   });
 
-  req.write(postData);
+  // req.write(postData);
   req.end();
 
   req.on('error', function(e) {
     console.error(e);
   });
+};
+
+var saveUpdatedTokens = function(tokens, userId, callback) {
+  var cipher1 = crypto.createCipher(process.env.CIPHER_ALGORITHM, process.env.CIPHER_KEY);
+  var cipher2 = crypto.createCipher(process.env.CIPHER_ALGORITHM, process.env.CIPHER_KEY);
+  var encryptedAccessToken = cipher1.update(tokens.access_token, 'utf8', 'hex') + cipher1.final('hex');
+  var encryptedRefreshToken = cipher2.update(tokens.refresh_token, 'utf8', 'hex') + cipher2.final('hex');
+  db.Users.find({where:{id: userId}})
+    .then(function(user) {
+      user.accessToken = encryptedAccessToken;
+      user.refreshToken = encryptedRefreshToken;
+      user.save();
+    });
 };
 
 // make api call for items to Slice
@@ -198,7 +213,6 @@ var getUserData = function(req, res) {
 
   db.Users.find({where: {id: req.session.UserId}})
     .then(function (user) {
-      console.log(user);
       var decipher = crypto.createDecipher(process.env.CIPHER_ALGORITHM, process.env.CIPHER_KEY);
       var decryptedAccessToken = decipher.update(user.dataValues.accessToken, 'hex', 'utf8') + decipher.final('utf8');
       if (user.dataValues.updateOrders) {
@@ -222,7 +236,6 @@ var refreshUserAccessToken = function() {
       users.forEach(function(user, key, collection) {
         var decryptedRefreshToken = decipher.update(user.refreshToken, 'hex', 'utf8') + decipher.final('utf8');
         slicePostRequest(decryptedRefreshToken, function(data) {console.log(data);}, user.id);
-        
       });
       // if (user.updateOrders && user.updateItems) {
       //   ordersGetRequestParameter = {since: user.dataValues.updateOrders};
