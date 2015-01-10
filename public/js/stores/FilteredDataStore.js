@@ -77,10 +77,10 @@ function _setDateRange(dates) {
 //
 function _filterByDate(dates) {
   _filteredChartData.category = _allCategoryData.filter(function(item) {
-    return new Date(dates.minDate) < new Date(item.date) && new Date(item.date) < new Date(dates.maxDate);
+    return new Date(dates.minDate) <= new Date(item.date) && new Date(item.date) <= new Date(dates.maxDate);
   });
   _filteredChartData.merchant = _allMerchantData.filter(function(item) {
-    return new Date(dates.minDate) < new Date(item.date) && new Date(item.date) < new Date(dates.maxDate);
+    return new Date(dates.minDate) <= new Date(item.date) && new Date(item.date) <= new Date(dates.maxDate);
   });
 };
 
