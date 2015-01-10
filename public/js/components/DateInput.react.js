@@ -13,6 +13,7 @@ var DateInput = React.createClass({
   },
   componentDidMount: function(){
     FilteredDataStore.addChangeListener(this._onChange);
+    $('#minDate');
   },
   componentWillUnmount: function() {
     FilteredDataStore.removeChangeListener(this._onChange);

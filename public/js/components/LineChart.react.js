@@ -29,42 +29,31 @@ var LineChart = React.createClass({
         x: 'date',
         json: dataset,
         keys: {
-            x: 'date',
-            value: [ "price"]
+          x: 'date',
+          value: [ "price"]
         }
       },
       color: {
         pattern: ['#24ACBF']
       },
-      point: {
-        r: 4 // changes point radius
-      },
+      point: {r: 4},
       axis: {
         x: {
           type: 'timeseries',
-          tick: {
-            rotate: 75,
-            format: '%b-%Y'
-          }
+          tick: {rotate: 75, format: '%b-%Y'}
         },
         y : {
-          label: {
-            text: 'Dollars Spent',
-            position: 'outer-middle'
-          }
+          min: 0,
+          label: {text: 'Dollars Spent', position: 'outer-middle'},
+          padding: {top: 10, bottom: 10},
+          tick: {count: 3}
         }
       },
-      legend: {
-          show: false
-      },
+      legend: {show: false},
       grid: {
-        y: {
-            show: true
-        }
+        y: {show: true}
       },
-      tooltip: {
-        show: false
-      }
+      tooltip: {show: false}
     });
   },
   render: function() {
