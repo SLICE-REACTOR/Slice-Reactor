@@ -188,6 +188,7 @@ input::-webkit-datetime-edit-fields-wrapper {
 #ui-datepicker-div {
   background-color: white;
   border-radius: 3px;
+  font-size: 14px;
   /*border: 1px solid #D3D3D3;*/
   box-shadow: 2px 0px 15px #888888;
 }
@@ -213,31 +214,37 @@ input::-webkit-datetime-edit-fields-wrapper {
 .ui-datepicker-prev {
   /*text-indent: -9999px;*/
   float: left;
+  padding-left: 10px;
 }
 
 .ui-datepicker-next {
   float: right;
+  padding-right: 10px;
 }
+
 .ui-datepicker-calendar {
   /*background-color: #D3D3D3;*/
   background-color: white;
   border-collapse: collapse;
   border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;
+  color: gray;
+}
+
+.ui-datepicker-calendar a {
+  color: gray;
 }
 
 .ui-datepicker-calendar th {
   width: 30px;
+  height: 30px;
 }
 
 .ui-datepicker-calendar td {
   border: 1px solid #D3D3D3;
-  background-color: #F5F5F5;
+  background-color: white;
   text-align: center;
-}
-
-.ui-datepicker-calendar td:hover {
-  background-color: #D3D3D3;
+  height: 25px;
 }
 
 .ui-datepicker-calendar tr:last-child td:first-child {
@@ -252,6 +259,13 @@ input::-webkit-datetime-edit-fields-wrapper {
   background-color: #D3D3D3;
 }
 
+.ui-datepicker-current-day {
+  background-color: #24ACBF;
+}
+
+.ui-datepicker-current-day a{
+  color: white;
+}
 
 .category-merchant-button {
   box-sizing: border-box;
