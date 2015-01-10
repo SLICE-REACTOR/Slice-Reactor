@@ -5,13 +5,15 @@ var sequelize = new Sequelize(process.env.DATABASE_NAME, process.env.DATABASE_US
 
 var Users = sequelize.define('Users', {
   createTime: Sequelize.BIGINT,
-  firstName: Sequelize.STRING(50),
-  lastName: Sequelize.STRING(50),
+  firstName: Sequelize.STRING,
+  lastName: Sequelize.STRING,
   updateTime: Sequelize.BIGINT,
-  userEmail: Sequelize.STRING(100),
-  userName: Sequelize.STRING(100),
+  userEmail: Sequelize.STRING,
+  userName: Sequelize.STRING,
   updateOrders: Sequelize.BIGINT,
-  updateItems: Sequelize.BIGINT
+  updateItems: Sequelize.BIGINT,
+  accessToken: Sequelize.STRING,
+  refreshToken: Sequelize.STRING
 });
 
 var Categories = sequelize.define('Categories', {
@@ -19,16 +21,16 @@ var Categories = sequelize.define('Categories', {
     type: Sequelize.STRING,
     primaryKey: true
   },
-  name: Sequelize.STRING(100)
-});
+  name: Sequelize.STRING
+}, {timestamps: false});
 
 var PurchaseTypes = sequelize.define('PurchaseTypes', {
   href: {
     type: Sequelize.STRING,
     primaryKey: true
   },
-  name: Sequelize.STRING(100)
-});
+  name: Sequelize.STRING
+}, {timestamps: false});
 
 var Merchants = sequelize.define('Merchants', {
   updateTime: Sequelize.BIGINT,
@@ -36,15 +38,15 @@ var Merchants = sequelize.define('Merchants', {
     type: Sequelize.STRING,
     primaryKey: true
   },
-  name: Sequelize.STRING(400),
+  name: Sequelize.STRING(500),
   createTime: Sequelize.BIGINT,
-  logoUrl: Sequelize.STRING(400),
-  serviceFormUrl: Sequelize.STRING(400),
-  serviceEmail: Sequelize.STRING(400),
-  servicePhoneNumber: Sequelize.STRING(400),
-  priceDropPolicyUrl: Sequelize.STRING(400),
-  returnPolicyUrl: Sequelize.STRING(400),
-  websiteUrl: Sequelize.STRING(400),
+  logoUrl: Sequelize.STRING(500),
+  serviceFormUrl: Sequelize.STRING(500),
+  serviceEmail: Sequelize.STRING(500),
+  servicePhoneNumber: Sequelize.STRING(500),
+  priceDropPolicyUrl: Sequelize.STRING(500),
+  returnPolicyUrl: Sequelize.STRING(500),
+  websiteUrl: Sequelize.STRING(500),
   editable: Sequelize.BOOLEAN
 });
 
@@ -54,9 +56,9 @@ var Orders = sequelize.define('Orders', {
     type: Sequelize.STRING,
     primaryKey: true
   },
-  orderNumber: Sequelize.STRING(100),
-  orderDate: Sequelize.STRING(25),
-  orderTitle: Sequelize.STRING(400),
+  orderNumber: Sequelize.STRING,
+  orderDate: Sequelize.STRING,
+  orderTitle: Sequelize.STRING(500),
   orderTotal: Sequelize.INTEGER,
   shippingCost: Sequelize.INTEGER,
   orderTax: Sequelize.INTEGER
@@ -70,12 +72,12 @@ var Items = sequelize.define('Items', {
   updateTime: Sequelize.BIGINT,
   purchaseDate: Sequelize.STRING(500),
   price: Sequelize.INTEGER,
-  productUrl: Sequelize.STRING(700),
+  productUrl: Sequelize.STRING(1000),
   returnByDate: Sequelize.STRING,
-  imageUrl: Sequelize.STRING(400),
+  imageUrl: Sequelize.STRING(500),
   quantity: Sequelize.INTEGER,
-  categoryName: Sequelize.STRING(100),
-  description: Sequelize.STRING(400)
+  categoryName: Sequelize.STRING,
+  description: Sequelize.STRING(500)
 });
 
 Users.hasMany(Orders);
