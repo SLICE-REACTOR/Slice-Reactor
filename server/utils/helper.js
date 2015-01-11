@@ -11,18 +11,17 @@ var ensureAuthenticated = function (req, res, next) {
 };
 
 // make post request to Slice to renew accessToken
-var slicePostRequest = function(refreshToken, callback, userId) {
+var sliceRefreshRequest = function(refreshToken, callback, userId) {
   var postData = {
     client_id: process.env.SLICE_CLIENT_ID,
     client_secret: process.env.SLICE_CLIENT_SECRET,
     refresh_token: refreshToken,
     grant_type: 'refresh_token' 
   };
-var apiPath = '/oauth/token?';
-for (var key in postData) {
-  apiPath += '&' + key + '=' + postData[key];
-}
-console.log(apiPath);
+  var apiPath = '/oauth/token?';
+  for (var key in postData) {
+    apiPath += '&' + key + '=' + postData[key];
+  }
   var options = {
     host: 'api.slice.com',
     path: apiPath,
@@ -58,17 +57,20 @@ var saveUpdatedTokens = function(tokens, userId, callback) {
     .then(function(user) {
       user.accessToken = encryptedAccessToken;
       user.refreshToken = encryptedRefreshToken;
-      user.save();
+      user.save().then(function() {
+        // once new token is saved update the users data
+        getUserData(userId);
+      });
     });
 };
 
 // make api call for items to Slice
-var sliceGetRequest = function(resourceType, accessToken, callback, userId, parameter, getRequest) {
+var sliceGetRequest = function(resourceType, accessToken, callback, userId, parameter, getRequestOrReq, response) {
   var apiPath = '/api/v1/' + resourceType;
   if (parameter) {
-    apiPath += '/?';
+    apiPath += '?';
     for (var key in parameter) {
-      apiPath += key + '=' + parameter[key];
+      apiPath += '&' + key + '=' + parameter[key];
     }
   }
   var options = {
@@ -85,7 +87,7 @@ var sliceGetRequest = function(resourceType, accessToken, callback, userId, para
       body += chunk;
     });
     res.on('end', function() {
-      callback(JSON.parse(body), userId, getRequest);
+      callback(JSON.parse(body), userId, getRequestOrReq, response);
     });
   });
   req.end();
@@ -104,7 +106,7 @@ var createItemObject = function(rawItem, userId) {
   return processedItem;
 };
 
-var itemsHandler = function(items, userId, res){
+var itemsHandler = function(items, userId, req, res){
   db.Orders.findAll({
    attributes: ['href'],
    where: {UserId: userId}
@@ -126,13 +128,16 @@ var itemsHandler = function(items, userId, res){
     }
     if (validItems.length > 0) {
       db.Items.bulkCreate(validItems).then(function() {
-        res.redirect('/');
+        if (res) {
+          req.session.newUser = false;
+          res.redirect('/');
+        }
         db.Users.find({where:{id: userId}}).then(function(user) {
           user.updateItems = items.currentTime;
           user.save();
         });
       });
-    } else {
+    } else if (res) {
       res.redirect('/');
     }
     console.log('INVALID ITEMS: (', invalidItems.length,') ', invalidItems);
@@ -207,24 +212,25 @@ var merchantsHandler = function(merchants, userId, getRequest){
 };
 
 // decrypt access token and call function to make GET request of Slice API
-var getUserData = function(req, res) {
+var getUserData = function(userId, req, res) {
   var ordersGetRequestParameter = false;
   var itemsGetRequestParameter = false;
+  request = req || false;
+  response = res || false;
 
-  db.Users.find({where: {id: req.session.UserId}})
+  db.Users.find({where: {id: userId}})
     .then(function (user) {
       var decipher = crypto.createDecipher(process.env.CIPHER_ALGORITHM, process.env.CIPHER_KEY);
-      var decryptedAccessToken = decipher.update(user.dataValues.accessToken, 'hex', 'utf8') + decipher.final('utf8');
-      if (user.dataValues.updateOrders) {
-        ordersGetRequestParameter = {since: user.dataValues.updateOrders};
+      var decryptedAccessToken = decipher.update(user.accessToken, 'hex', 'utf8') + decipher.final('utf8');
+
+      if (user.updateOrders && user.updateItems) {
+        ordersGetRequestParameter = {since: user.updateOrders};
+        itemsGetRequestParameter = {since: user.updateItems};
       }
-      if (user.dataValues.updateItems) {
-        itemsGetRequestParameter = {since: user.dataValues.updateItems};
-      }
-      // last argument {limit: 1}
-      var itemsGetRequest = sliceGetRequest.bind(null, 'items', decryptedAccessToken, itemsHandler, req.session.UserId, itemsGetRequestParameter, res);
-      var ordersGetRequest = sliceGetRequest.bind(null,'orders', decryptedAccessToken, ordersHandler, req.session.UserId, ordersGetRequestParameter, itemsGetRequest);
-      sliceGetRequest('merchants', decryptedAccessToken, merchantsHandler, req.session.UserId, false, ordersGetRequest);
+      // Parameter argument handles since and limit, ie. {limit: 1, since: timeInMillisecondsSince1970}
+      var itemsGetRequest = sliceGetRequest.bind(null, 'items', decryptedAccessToken, itemsHandler, userId, itemsGetRequestParameter, request, response);
+      var ordersGetRequest = sliceGetRequest.bind(null,'orders', decryptedAccessToken, ordersHandler, userId, ordersGetRequestParameter, itemsGetRequest);
+      sliceGetRequest('merchants', decryptedAccessToken, merchantsHandler, userId, false, ordersGetRequest);
     });
 };
 
@@ -235,16 +241,11 @@ var refreshUserAccessToken = function() {
       var decipher = crypto.createDecipher(process.env.CIPHER_ALGORITHM, process.env.CIPHER_KEY);
       users.forEach(function(user, key, collection) {
         var decryptedRefreshToken = decipher.update(user.refreshToken, 'hex', 'utf8') + decipher.final('utf8');
-        slicePostRequest(decryptedRefreshToken, function(data) {console.log(data);}, user.id);
+        sliceRefreshRequest(decryptedRefreshToken, saveUpdatedTokens, user.id);
       });
-      // if (user.updateOrders && user.updateItems) {
-      //   ordersGetRequestParameter = {since: user.dataValues.updateOrders};
-      //   itemsGetRequestParameter = {since: user.dataValues.updateItems};
-      // }
-    
     });
 };
-refreshUserAccessToken();
+// refreshUserAccessToken();
 
 module.exports.getUserData = getUserData;
 module.exports.ensureAuthenticated = ensureAuthenticated;

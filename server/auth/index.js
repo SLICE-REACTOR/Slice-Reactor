@@ -35,6 +35,12 @@ passport.use(new SliceStrategy({
         user[0].dataValues.refreshToken = encryptedRefreshToken;
         user[0].save();
 
+        // set newUser value in session
+        req.session.newUser = false;
+        if (user[1]) {
+          req.session.newUser = true;
+        }
+
         // store userid in the session
         req.session.UserId = user[0].dataValues.id;
         return done(null, user[0].dataValues.id);
