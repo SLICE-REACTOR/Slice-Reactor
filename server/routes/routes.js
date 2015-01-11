@@ -4,13 +4,12 @@ module.exports = function(app, helper, db) {
 
   app.get('/', helper.ensureAuthenticated, function(req, res){
     if (req.session.newUser) {
-      // must send response to data request from front end
       res.redirect('./loading');
     } else {
-    fs.readFile(__dirname + '/../../public/home.html', 'utf8', function(err,data) {
-      if (err) { throw err }
-      res.send(data);
-    });
+      fs.readFile(__dirname + '/../../public/home.html', 'utf8', function(err,data) {
+        if (err) { throw err }
+        res.send(data);
+      });
     }
   });
 
