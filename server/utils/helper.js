@@ -239,9 +239,11 @@ var refreshUserAccessToken = function() {
   db.Users.findAll()
     .then(function (users) {
       var decipher = crypto.createDecipher(process.env.CIPHER_ALGORITHM, process.env.CIPHER_KEY);
+      var apiInterval = 0;
       users.forEach(function(user, key, collection) {
         var decryptedRefreshToken = decipher.update(user.refreshToken, 'hex', 'utf8') + decipher.final('utf8');
-        sliceRefreshRequest(decryptedRefreshToken, saveUpdatedTokens, user.id);
+        setTimeout(function() {sliceRefreshRequest(decryptedRefreshToken, saveUpdatedTokens, user.id);}, apiInterval);
+        apiInterval += 15000; // space the API request for each user out by 15 seconds
       });
     });
 };
