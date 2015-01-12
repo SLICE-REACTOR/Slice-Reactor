@@ -280,7 +280,7 @@ td.ui-datepicker-current-day {
   color: gray;
 }
 
-#reset, #submit {
+#reset {
   cursor: pointer;
   margin-left: 10px;
   color: #D3D3D3;
@@ -290,12 +290,12 @@ td.ui-datepicker-current-day {
   transition: color .15s;
 }
 
-#reset:focus, #submit:focus {
+#reset:focus {
   border: none;
   outline: none;
 }
 
-#reset:hover, #submit:hover {
+#reset:hover {
   color: gray;
 }
 

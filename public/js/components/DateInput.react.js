@@ -20,6 +20,7 @@ var DateInput = React.createClass({
       nextText: '>>',
       onSelect: function(data, inst) {
         this.setState({minDate: data});
+        ChartActionCreators.filterByDate(this.state);
       }.bind(this)
     });
     $('#maxDate').datepicker({
@@ -28,7 +29,8 @@ var DateInput = React.createClass({
       prevText: '<<',
       nextText: '>>',
       onSelect: function(data, inst) {
-        this.setState({minDate: data});
+        this.setState({maxDate: data});
+        ChartActionCreators.filterByDate(this.state);
       }.bind(this)
     });
   },
@@ -43,12 +45,10 @@ var DateInput = React.createClass({
   },
   _handleMinDateChange: function(event) {
     this.setState({minDate: event.target.value});
+    ChartActionCreators.filterByDate(this.state);
   },
   _handleMaxDateChange: function(event) {
     this.setState({maxDate: event.target.value});
-  },
-  _submitDates: function() {
-    // relies on this.state having properties 'minDate' and 'maxDate'
     ChartActionCreators.filterByDate(this.state);
   },
   _resetDates: function() {
@@ -73,6 +73,7 @@ var DateInput = React.createClass({
               value={this.state.minDate}
               min={this.state.setMinDate}
               max={this.state.maxDate}
+              readonly="true"
               defaultValue={this.state.minDate} />
           </span>
           <span className="date-input">
@@ -82,11 +83,11 @@ var DateInput = React.createClass({
               value={this.state.maxDate}
               min={this.state.minDate}
               max={this.state.setMaxDate}
+              readonly="true"
               defaultValue={this.state.maxDate} />
           </span>
 
           <input type="button" id="reset" value="RESET" onClick={this._resetDates}/>
-          <input type="button" id="submit" value="SUBMIT" onClick={this._submitDates}/>
         </form>
 
         <div id="filter-wrapper">
