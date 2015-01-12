@@ -242,6 +242,33 @@ input::-webkit-datetime-edit-fields-wrapper {
   background-color: #F5F5F5;
 }
 
+.c3-tooltip-container {
+  /*background-color: #24ACBF;*/
+  /*color: white;*/
+  /*border-radius: 3px;*/
+  border: 1px solid #D3D3D3;
+}
+
+.c3-tooltip {
+  border-collapse: collapse;
+}
+
+td.name {
+  background-color: #24ACBF;
+  color: white;
+  /*border-top-left-radius: 5px;*/
+  /*border-bottom-left-radius: 5px;*/
+  padding: 10px;
+}
+
+td.value {
+  background-color: #F5F5F5;
+  color: gray;
+  /*border-top-right-radius: 3px;*/
+  /*border-bottom-right-radius: 3px;*/
+  padding: 10px;
+}
+
 /****** LineGraph.react.js ******/
 /****** removes black fill in line chart ******/
 path {
