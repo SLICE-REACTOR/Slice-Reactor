@@ -5,8 +5,10 @@ var Header = React.createClass({
       <header>
         <div id="logo"></div>
         <span className="header-icons">
-          <span id="menu">MENU</span>
-          <i id="content-icon" className="fa fa-bars fa-lg"></i>
+          <a href="/logout" id="signout-link">
+            <span id="signout">SIGN OUT</span>
+            <i id="signout-icon" className="fa fa-sign-out fa-lg"></i>
+          </a>
         </span>
       </header>
     );
