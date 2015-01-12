@@ -255,11 +255,11 @@ input::-webkit-datetime-edit-fields-wrapper {
   border-bottom-right-radius: 3px;
 }
 
-.ui-datepicker-unselectable {
+td.ui-datepicker-unselectable {
   background-color: #D3D3D3;
 }
 
-.ui-datepicker-current-day {
+td.ui-datepicker-current-day {
   background-color: #24ACBF;
 }
 
