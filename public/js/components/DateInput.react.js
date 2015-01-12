@@ -13,26 +13,6 @@ var DateInput = React.createClass({
   },
   componentDidMount: function(){
     FilteredDataStore.addChangeListener(this._onChange);
-    $('#minDate').datepicker({
-      dateFormat: 'yy-mm-dd',
-      changeYear: true,
-      prevText: '<<',
-      nextText: '>>',
-      onSelect: function(data, inst) {
-        this.setState({minDate: data});
-        ChartActionCreators.filterByDate(this.state);
-      }.bind(this)
-    });
-    $('#maxDate').datepicker({
-      dateFormat: 'yy-mm-dd',
-      changeYear: true,
-      prevText: '<<',
-      nextText: '>>',
-      onSelect: function(data, inst) {
-        this.setState({maxDate: data});
-        ChartActionCreators.filterByDate(this.state);
-      }.bind(this)
-    });
   },
   componentWillUnmount: function() {
     FilteredDataStore.removeChangeListener(this._onChange);
@@ -42,14 +22,6 @@ var DateInput = React.createClass({
   },
   _filterByMerchant: function() {
     ChartActionCreators.filterData('merchant');
-  },
-  _handleMinDateChange: function(event) {
-    this.setState({minDate: event.target.value});
-    ChartActionCreators.filterByDate(this.state);
-  },
-  _handleMaxDateChange: function(event) {
-    this.setState({maxDate: event.target.value});
-    ChartActionCreators.filterByDate(this.state);
   },
   _resetDates: function() {
     this.setState({
@@ -69,21 +41,19 @@ var DateInput = React.createClass({
           <span className="date-input">
             <input type="date"
               id="minDate"
-              onChange={this._handleMinDateChange}
               value={this.state.minDate}
               min={this.state.setMinDate}
               max={this.state.maxDate}
-              readonly="true"
+              readOnly="true"
               defaultValue={this.state.minDate} />
           </span>
           <span className="date-input">
             <input type="date"
               id="maxDate"
-              onChange={this._handleMaxDateChange}
               value={this.state.maxDate}
               min={this.state.minDate}
               max={this.state.setMaxDate}
-              readonly="true"
+              readOnly="true"
               defaultValue={this.state.maxDate} />
           </span>
 
@@ -101,9 +71,32 @@ var DateInput = React.createClass({
     );
   },
   _onChange: function() {
+    $('#minDate').datepicker({
+      dateFormat: 'yy-mm-dd',
+      minDate: FilteredDataStore.getFilterValue().setMinDate,
+      maxDate: FilteredDataStore.getFilterValue().setMaxDate,
+      changeYear: true,
+      prevText: '<<',
+      nextText: '>>',
+      onSelect: function(data, inst) {
+        this.setState({minDate: data});
+        ChartActionCreators.filterByDate(this.state);
+      }.bind(this)
+    });
+    $('#maxDate').datepicker({
+      dateFormat: 'yy-mm-dd',
+      minDate: FilteredDataStore.getFilterValue().setMinDate,
+      maxDate: FilteredDataStore.getFilterValue().setMaxDate,
+      changeYear: true,
+      prevText: '<<',
+      nextText: '>>',
+      onSelect: function(data, inst) {
+        this.setState({maxDate: data});
+        ChartActionCreators.filterByDate(this.state);
+      }.bind(this)
+    });
     this.setState(getStateFromStores());
   }
-
 });
 
 module.exports = DateInput;

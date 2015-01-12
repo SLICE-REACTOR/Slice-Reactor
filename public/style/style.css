@@ -226,8 +226,8 @@ input::-webkit-datetime-edit-fields-wrapper {
   /*background-color: #D3D3D3;*/
   background-color: white;
   border-collapse: collapse;
-  border-bottom-left-radius: 3px;
-  border-bottom-right-radius: 3px;
+  /*border-bottom-left-radius: 3px;*/
+  /*border-bottom-right-radius: 3px;*/
   color: gray;
 }
 
@@ -247,16 +247,8 @@ input::-webkit-datetime-edit-fields-wrapper {
   height: 25px;
 }
 
-.ui-datepicker-calendar tr:last-child td:first-child {
-  border-bottom-left-radius: 3px;
-}
-
-.ui-datepicker-calendar tr:last-child td:last-child {
-  border-bottom-right-radius: 3px;
-}
-
 td.ui-datepicker-unselectable {
-  background-color: #D3D3D3;
+  background-color: #F5F5F5;
 }
 
 td.ui-datepicker-current-day {
