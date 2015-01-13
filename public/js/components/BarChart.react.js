@@ -19,7 +19,6 @@ var BarChart = React.createClass({
   },
   _renderChart: function(dataset) {
     //creates chart
-    console.log(dataset);
     var barChart = c3.generate({
       bindto: '#chart_3',
       data: {
@@ -51,8 +50,8 @@ var BarChart = React.createClass({
         }
       },
       tooltip: {
-  show: false
-}
+        show: false
+      }
     })
   },
   render: function() {
