@@ -87,19 +87,15 @@ function _filterByDate(dates) {
 //
 function _toggleFilter(categoryOrMerchant) {
   if (categoryOrMerchant === 'merchant') {
-    _filterValues = {
-      primary: 'Merchant',
-      secondary: 'Categories',
-      category: '',
-      merchant: 'active'
-    }
+    _filterValues.primary = 'Merchant',
+    _filterValues.secondary = 'Categories',
+    _filterValues.category = '',
+    _filterValues.merchant = 'active'
   } else {
-    _filterValues = {
-      primary: 'Category',
-      secondary: 'Merchants',
-      category: 'active',
-      merchant: ''
-    }
+    _filterValues.primary = 'Category',
+    _filterValues.secondary = 'Merchants',
+    _filterValues.category = 'active',
+    _filterValues.merchant = ''
   }
 };
 
