@@ -8,7 +8,7 @@ app.get('/auth/slice', passport.authenticate('slice'));
 // the user is logged in. Otherwise, authentication has failed.
 app.get('/auth/slice/callback', 
   passport.authenticate('slice', {
-    successRedirect: '/loading', failureRedirect: '/login'
+    successRedirect: '/', failureRedirect: '/login'
   }));
 
 };
