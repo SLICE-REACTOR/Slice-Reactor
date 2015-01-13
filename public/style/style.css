@@ -314,7 +314,13 @@ td.ui-datepicker-current-day {
 #donut {
   margin-bottom: 50px;
 }
-
+#donutPieceColor{
+  height: .5em;
+  width: 16em;
+}
+li{
+  list-style-type: none;
+}
 /****** LineGraph.react.js ******/
 
 #line-graph {
