@@ -348,14 +348,23 @@ td.value {
 }
 
 /****** LineGraph.react.js ******/
-/****** removes black fill in line chart ******/
-path {
-  fill:none;
+
+#chart_2, #chart_3 {
+  fill: gray;
 }
+
+path {
+  /*removes black fill in line chart*/
+  fill: none;
+}
+
 line {
   stroke: gray;
   stroke-width: 0.7;
 }
+
+/****** Footer.react.js ******/
+
 footer {
   background-color: #F5F5F5;
   text-align: center;
