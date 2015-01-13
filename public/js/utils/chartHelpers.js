@@ -29,6 +29,9 @@ var formatDonutChartData = function(filteredData) {
       donutChartDataOthers.push([key, categoryOrMerchantData[key].toFixed(2)])
     }
   }
+  donutChartData.sort(function(a, b) {
+    return b[1] - a[1];
+  });
   if (donutChartData.length < 8) {
     donutChartDataOthers.sort(function(a, b) {
       return a[1] - b[1];

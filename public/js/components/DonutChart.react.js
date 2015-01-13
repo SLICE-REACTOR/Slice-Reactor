@@ -51,6 +51,7 @@ var DonutChart = React.createClass({
       data: {
         columns: dataset,
         type: 'donut',
+        order: null,
         color: function (color, d) {
           if (d.id){
             colorArray.push([color, d.id]);
