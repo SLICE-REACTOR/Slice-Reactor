@@ -18,7 +18,7 @@ body {
   z-index: 1;
 }
 
-#donut, #line-graph, #bar-graph, footer {
+#donut, #line-graph, #bar-graph, #login, #loading, #new-user, footer {
   padding: 20px 40px 30px 40px;
 }
 
@@ -363,5 +363,28 @@ footer {
 }
 
 #loading img {
-  padding: 40px 0 40px 0;
+  padding: 40px 0 30px 0;
+}
+
+/****** login.html ******/
+
+.login-button, .login-button a {
+  display: inline-block;
+  text-align: center;
+  margin: 20px 0px;
+  color: #FFF;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 10px 20px 10px 20px;
+  background-color: #24ACBF;
+  border: 1px solid #D3D3D3;
+  border-radius: 5px;
+}
+
+.login-list, .login-list li {
+  margin: 0px 0px 0px 20px;
+}
+
+#login p {
+  margin: 10px 0px 0px 0px;
 }
