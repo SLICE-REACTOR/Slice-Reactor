@@ -36,7 +36,7 @@ var formatDonutChartData = function(filteredData) {
     while (donutChartData.length < 8 && donutChartDataOthers.length > 0) {
       donutChartAllOthersItem[1] -= donutChartDataOthers[donutChartDataOthers.length - 1][1];
       donutChartData.push(donutChartDataOthers.pop())
-    }  
+    }
   }
   if (donutChartAllOthersItem[1] > 0) {
     donutChartAllOthersItem[1] = donutChartAllOthersItem[1].toFixed(2);
@@ -86,7 +86,7 @@ var formatLineChartData = function(filteredData) {
   }
   for (var year = parseInt(minYearMonthDay[0]); year <= parseInt(maxYearMonthDay[0]); year++) {
     for (var month = 1; month < 13; month ++) {
-      // if the 
+      // if the
       if (minYearMonthDay[0] === maxYearMonthDay[0]) {
         if (month >= parseInt(minYearMonthDay[1]) && month <= parseInt(maxYearMonthDay[1])) {
           lineChartData.push(lineGraphItemConstructor(year, month, sliceDataMonthly));
