@@ -1,20 +1,21 @@
 var React = require('react');
-var GraphDataStore = require('../stores/GraphDataStore');
+var LineChartStore = require('../stores/LineChartStore');
+var FilteredDataStore = require('../stores/FilteredDataStore');
 
 var getStateFromStores = function() {
-  return {data: GraphDataStore.getLineChart()}
+  return {data: LineChartStore.getData()}
 };
 
-var LineGraph = React.createClass({
+var LineChart = React.createClass({
   getInitialState: function(){
     return getStateFromStores();
   },
   componentDidMount: function(){
-    GraphDataStore.addChangeListener(this._onChange);
+    LineChartStore.addChangeListener(this._onChange);
     this._renderChart(this.state.data);
   },
   componentWillMount: function() {
-    GraphDataStore.removeChangeListener(this._onChange);
+    LineChartStore.removeChangeListener(this._onChange);
   },
   _renderChart: function(dataset){
     var lineChart = c3.generate({
@@ -25,46 +26,34 @@ var LineGraph = React.createClass({
         left: 90,
       },
       data: {
-        x: 'purchaseDate',
+        x: 'date',
         json: dataset,
         keys: {
-            x: 'purchaseDate',
-            value: [ "price"]
+          x: 'date',
+          value: [ "price"]
         }
       },
       color: {
         pattern: ['#24ACBF']
       },
-      point: {
-        //increases size of point
-        r: 5
-      },
+      point: {r: 4},
       axis: {
         x: {
           type: 'timeseries',
-          tick: {
-            rotate: 75,
-            format: '%b-%Y'
-          }
+          tick: {rotate: 75, format: '%b-%Y'}
         },
         y : {
-          label: {
-            text: 'Dollars Spent',
-            position: 'outer-middle'
-          }
+          min: 0,
+          label: {text: 'Dollars Spent', position: 'outer-middle'},
+          padding: {top: 10, bottom: 10}
+          // tick: {count: 3}
         }
       },
-      legend: {
-          show: false
-      },
+      legend: {show: false},
       grid: {
-        y: {
-            show: true
-        }
+        y: {show: true}
       },
-      tooltip: {
-        show: false
-      }
+      tooltip: {show: false}
     });
   },
   render: function() {
@@ -83,4 +72,4 @@ var LineGraph = React.createClass({
   }
 });
 
-module.exports = LineGraph;
+module.exports = LineChart;
