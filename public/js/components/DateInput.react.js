@@ -23,16 +23,6 @@ var DateInput = React.createClass({
   _filterByMerchant: function() {
     ChartActionCreators.filterData('merchant');
   },
-  _handleMinDateChange: function(event) {
-    this.setState({minDate: event.target.value});
-  },
-  _handleMaxDateChange: function(event) {
-    this.setState({maxDate: event.target.value});
-  },
-  _submitDates: function() {
-    // relies on this.state having properties 'minDate' and 'maxDate'
-    ChartActionCreators.filterByDate(this.state);
-  },
   _resetDates: function() {
     this.setState({
       minDate: this.state.setMinDate,
@@ -46,31 +36,28 @@ var DateInput = React.createClass({
   render: function() {
     return (
       <div id="date-filter-input">
-
         <form id="date-form">
-
           <label className="date-filter-label"><b>Date Range</b></label>
           <span className="date-input">
             <input type="date"
               id="minDate"
-              onChange={this._handleMinDateChange}
               value={this.state.minDate}
               min={this.state.setMinDate}
-              max={this.state.setMaxDate}
-              defaultValue={this.state.minDate}/>
+              max={this.state.maxDate}
+              readOnly="true"
+              defaultValue={this.state.minDate} />
           </span>
           <span className="date-input">
             <input type="date"
               id="maxDate"
-              onChange={this._handleMaxDateChange}
               value={this.state.maxDate}
-              min={this.state.setMinDate}
+              min={this.state.minDate}
               max={this.state.setMaxDate}
-              defaultValue={this.state.maxDate}/>
+              readOnly="true"
+              defaultValue={this.state.maxDate} />
           </span>
 
           <input type="button" id="reset" value="RESET" onClick={this._resetDates}/>
-          <input type="button" id="submit" value="SUBMIT" onClick={this._submitDates}/>
         </form>
 
         <div id="filter-wrapper">
@@ -84,9 +71,32 @@ var DateInput = React.createClass({
     );
   },
   _onChange: function() {
+    $('#minDate').datepicker({
+      dateFormat: 'yy-mm-dd',
+      minDate: FilteredDataStore.getFilterValue().setMinDate,
+      maxDate: FilteredDataStore.getFilterValue().setMaxDate,
+      changeYear: true,
+      prevText: '<<',
+      nextText: '>>',
+      onSelect: function(data, inst) {
+        this.setState({minDate: data});
+        ChartActionCreators.filterByDate(this.state);
+      }.bind(this)
+    });
+    $('#maxDate').datepicker({
+      dateFormat: 'yy-mm-dd',
+      minDate: FilteredDataStore.getFilterValue().setMinDate,
+      maxDate: FilteredDataStore.getFilterValue().setMaxDate,
+      changeYear: true,
+      prevText: '<<',
+      nextText: '>>',
+      onSelect: function(data, inst) {
+        this.setState({maxDate: data});
+        ChartActionCreators.filterByDate(this.state);
+      }.bind(this)
+    });
     this.setState(getStateFromStores());
   }
-
 });
 
 module.exports = DateInput;
