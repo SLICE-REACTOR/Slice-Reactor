@@ -66,7 +66,16 @@ var LineChart = React.createClass({
       grid: {
         y: {show: true}
       },
-      tooltip: {show: false}
+      tooltip: {
+        format: {
+          title: function (d) { return },
+          value: function (value, ratio, id) {
+            var newValue = Math.floor(value);
+            var format = d3.format('$');  
+              return format(newValue);
+          }
+        }
+      }
     });
   },
   render: function() {
