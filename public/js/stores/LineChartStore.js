@@ -42,7 +42,6 @@ var LineChartStore = assign({}, EventEmitter.prototype, {
     return _lineChartData;
   },
   getMaxPrice: function() {
-    console.log('maxprice: ', _maxPrice);
     return _maxPrice;
   }
 });

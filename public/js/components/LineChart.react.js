@@ -40,7 +40,7 @@ var LineChart = React.createClass({
       axis: {
         x: {
           type: 'timeseries',
-          tick: {rotate: 90, format: '%b-%Y', outer: false}
+          tick: {rotate: 90, format: '%b-%Y'}
         },
         y : {
           label: {text: 'Dollars Spent', position: 'outer-middle'},
