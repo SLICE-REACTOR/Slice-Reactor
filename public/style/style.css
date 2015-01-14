@@ -314,10 +314,18 @@ td.ui-datepicker-current-day {
 #donut {
   margin-bottom: 50px;
 }
+
 #donutPieceColor {
   height: .5em;
   width: 16em;
 }
+
+#donutPieceName {
+  position: absolute;
+  height: 3em;
+  width: 16em;
+}
+
 #donutPieceName li {
   list-style-type: none;
 }
@@ -347,15 +355,30 @@ td.value {
   padding: 10px;
 }
 
-/****** LineGraph.react.js ******/
-/****** removes black fill in line chart ******/
-path {
-  fill:none;
+#chart_2 td.name, #chart_3 td.name {
+  display: none;
 }
+
+#chart_2, #chart_3 {
+  fill: gray;
+}
+
+path {
+  /*removes black fill in line chart*/
+  fill: none;
+}
+
 line {
   stroke: gray;
   stroke-width: 0.7;
 }
+/****** BarGraph.react.js ******/
+#chart_3 .c3-xgrid-focus {
+  display: none;
+}
+
+/****** Footer.react.js ******/
+
 footer {
   background-color: #F5F5F5;
   text-align: center;
@@ -383,8 +406,8 @@ footer {
   font-weight: bold;
   padding: 10px 20px 10px 20px;
   background-color: #24ACBF;
-  border: 1px solid #D3D3D3;
-  border-radius: 5px;
+  border: 1px solid #24ACBF;
+  border-radius: 3px;
 }
 
 .login-list, .login-list li {

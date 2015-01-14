@@ -50,7 +50,14 @@ var BarChart = React.createClass({
         }
       },
       tooltip: {
-        show: false
+        format: {
+          title: function (d) { return },
+          value: function (value, ratio, id) {
+            var newValue = Math.floor(value);
+            var format = d3.format('$');  
+              return format(newValue);
+          }
+        }
       }
     })
   },

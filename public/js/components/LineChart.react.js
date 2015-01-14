@@ -40,20 +40,42 @@ var LineChart = React.createClass({
       axis: {
         x: {
           type: 'timeseries',
-          tick: {rotate: 75, format: '%b-%Y'}
+          tick: {rotate: 90, format: '%b-%Y'}
         },
         y : {
-          min: 0,
           label: {text: 'Dollars Spent', position: 'outer-middle'},
-          padding: {top: 10, bottom: 10}
-          // tick: {count: 3}
+          padding: {top: 20, bottom: 10},
+          tick: {
+            format: function(d) {
+              if (d > 100) {
+                return Math.round(d / 50) * 50;
+              } else if (d > 20) {
+                return Math.round(d / 20) * 20;
+              } else if (d > 5) {
+                return Math.round(d / 5) * 5;
+              } else {
+                return Math.round(d);
+              }
+            },
+            values: [0, LineChartStore.getMaxPrice()/2, LineChartStore.getMaxPrice()]
+          },
+          min: 0
         }
       },
       legend: {show: false},
       grid: {
         y: {show: true}
       },
-      tooltip: {show: false}
+      tooltip: {
+        format: {
+          title: function (d) { return },
+          value: function (value, ratio, id) {
+            var newValue = Math.floor(value);
+            var format = d3.format('$');  
+              return format(newValue);
+          }
+        }
+      }
     });
   },
   render: function() {
