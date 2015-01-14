@@ -7,14 +7,18 @@ var dateFilterHelpers = require('../utils/dateFilterHelpers');
 var ActionTypes = Constants.ActionTypes;
 var CHANGE_EVENT = 'change';
 
-// DATA STORES
+// raw data from the database
 var _allChartData = [];
+// all data sorted by category
 var _allCategoryData = [];
+// all data sorted by merchant
 var _allMerchantData = [];
 
 // Data store that is passed to all other stores
 var _filteredChartData = {};
+// all category data filtered by date
 _filteredChartData.category = [];
+// all merchant data filtered by date
 _filteredChartData.merchant = [];
 
 // default filter values
