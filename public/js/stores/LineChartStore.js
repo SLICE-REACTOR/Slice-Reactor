@@ -12,8 +12,20 @@ var CHANGE_EVENT = 'change';
 // DATA STORE
 var _lineChartData = [];
 
+// Variable set for line chart axis formatting
+var _maxPrice = 0;
+
 var _formatData = function(filteredData) {
   _lineChartData = chartHelpers.formatLineChartData(filteredData);
+  _maxPrice = 0;
+  setMaxPrice(_lineChartData);
+};
+
+var setMaxPrice = function(chartData) {
+  chartData.forEach(function(item) {
+    if (parseInt(item.price, 10) > parseInt(_maxPrice, 10))
+      _maxPrice = item.price;
+  });
 };
 
 var LineChartStore = assign({}, EventEmitter.prototype, {
@@ -28,6 +40,9 @@ var LineChartStore = assign({}, EventEmitter.prototype, {
   },
   getData: function() {
     return _lineChartData;
+  },
+  getMaxPrice: function() {
+    return _maxPrice;
   }
 });
 
@@ -62,7 +77,7 @@ LineChartStore.dispatchToken = AppDispatcher.register(function(payload) {
       var filteredData = DonutChartStore.sendDonutPieceData();
       _formatData(filteredData);
       LineChartStore.emitChange();
-      break;      
+      break;
 
     default:
       // do nothing
