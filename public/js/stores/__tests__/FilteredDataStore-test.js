@@ -5,11 +5,16 @@ describe('FilteredDataStore', function() {
   var Constants = require('../../constants/Constants');
 
   // mock actions inside dispatch payloads
-  var ordersPayload = {
+  var allChartDataPayload = {
     source: 'SERVER_ACTION',
     action: {
-      type: Constants.ActionTypes.RECEIVE_ORDERS,
-      allOrders: [{foo: 'foo'}]
+      type: Constants.ActionTypes.RECEIVE_CHART_DATA,
+      allChartData: [{
+        categoryName: 'category name',
+        Order: {Merchant: {name: 'merchant name'}},
+        price: 100,
+        purchaseDate: '2015-01-01'
+      }]
     }
   };
 
@@ -25,6 +30,11 @@ describe('FilteredDataStore', function() {
 
   it('registers a callback with the dispatcher', function() {
     expect(AppDispatcher.register.mock.calls.length).toBe(1);
+  });
+
+  it('intializes with no graph data', function() {
+    var graphData = FilteredDataStore.getData();
+    expect(graphData).toEqual([]);
   });
 
   it('contains emitChange function', function() {
@@ -43,14 +53,16 @@ describe('FilteredDataStore', function() {
     expect(typeof FilteredDataStore.getData).toEqual('function');
   });
 
-  it('intializes with no graph data', function() {
-    var graphData = FilteredDataStore.getData();
-    expect(graphData).toEqual({});
+  it('receives all chart data', function() {
+    callback(allChartDataPayload);
+    var chartData = FilteredDataStore.getData();
+    console.log('chartData: ', chartData);
+    expect(chartData[0]).toEqual({
+      primaryLabel: 'category name',
+      secondaryLabel: 'merchant name',
+      price: 100,
+      purchaseDate: '2014-01-01'
+    });
   });
 
-  it('receives orders', function() {
-    callback(ordersPayload);
-    var orders = FilteredDataStore.getData();
-    expect(orders[0]).toEqual({foo: 'foo'});
-  });
 });

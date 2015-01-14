@@ -24,9 +24,9 @@ var _filterValues = {
   category: 'active',
   merchant: '',
   minDate: '9999-12-30',
-  maxDate: dateFilterHelpers.getToday().string,
+  // maxDate: dateFilterHelpers.getToday().string,
   setMinDate: '',
-  setMaxDate: dateFilterHelpers.getToday().string
+  // setMaxDate: dateFilterHelpers.getToday().string
 };
 
 // add all data to data stores
