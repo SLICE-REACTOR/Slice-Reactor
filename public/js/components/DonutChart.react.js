@@ -11,7 +11,19 @@ var showDisplay = function(){
   return {display: currentDisplayState}
 };
 
+var findAmount = function(dataset, id){
+  dataset.forEach(function(item){
+    if(item[0] === id){
+      dollarAmount = item[1];
+    }
+  })
+  addColorToDiv(id);
+  donutPieceValue(id);
+  updateChartData(id);
+};
+
 var donutPieceValue = function(name, amount){
+  amount = amount || dollarAmount;
   currentDisplayState = 'inline-block';
   pieceName = name;
   dollarAmount = "$" + Math.floor(amount);
@@ -65,7 +77,12 @@ var DonutChart = React.createClass({
         }
       },
       legend: {
-        position: 'right'
+        position: 'right',
+        item : {
+          onclick: function(id){
+            findAmount(dataset, id);
+          }
+        }
       },
       donut: {
         label: {
