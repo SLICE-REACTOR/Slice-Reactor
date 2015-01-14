@@ -47,7 +47,11 @@ var LineChart = React.createClass({
           padding: {top: 20, bottom: 10},
           tick: {
             format: function(d) {
-              return Math.round(d / 50) * 50;
+              if (d > 100) {
+                return Math.round(d / 50) * 50;
+              } else {
+                return Math.round(d / 20) * 20;
+              }
             },
             values: [0, LineChartStore.getMaxPrice()/2, LineChartStore.getMaxPrice()]
           },
