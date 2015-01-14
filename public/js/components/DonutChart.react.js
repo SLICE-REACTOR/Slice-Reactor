@@ -11,10 +11,22 @@ var showDisplay = function(){
   return {display: currentDisplayState}
 };
 
+var findAmount = function(dataset, id){
+  dataset.forEach(function(item){
+    if(item[0] === id){
+      dollarAmount = item[1];
+    }
+  })
+  addColorToDiv(id);
+  donutPieceValue(id);
+  updateChartData(id);
+};
+
 var donutPieceValue = function(name, amount){
-  currentDisplayState = 'inline';
+  amount = amount || dollarAmount;
+  currentDisplayState = 'inline-block';
   pieceName = name;
-  dollarAmount = "$" + Math.floor(amount) + " spent"
+  dollarAmount = "$" + Math.floor(amount);
 };
 
 var addColorToDiv = function(pieceName){
@@ -65,7 +77,12 @@ var DonutChart = React.createClass({
         }
       },
       legend: {
-        position: 'right'
+        position: 'right',
+        item : {
+          onclick: function(id){
+            findAmount(dataset, id);
+          }
+        }
       },
       donut: {
         label: {
@@ -87,8 +104,8 @@ var DonutChart = React.createClass({
         </div>
         <div id="donutPieceName" style={showDisplay()}>
           <div id="donutPieceColor" style={addColorToDiv()}></div>
-          <li id="elementName">{pieceName}</li>
-          <li>{dollarAmount}</li>
+          <li id="elementName"><strong>{pieceName}</strong></li>
+          <li id="elementValue"><strong>{dollarAmount}</strong> spent</li>
         </div>
         <div id="chart_1"></div>
       </div>
