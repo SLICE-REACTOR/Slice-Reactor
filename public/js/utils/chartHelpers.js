@@ -48,7 +48,7 @@ var formatDonutChartData = function(filteredData) {
   return [donutChartData, donutChartDataOthers];
 };
 
-var lineGraphItemConstructor = function(year, month, existingDates) {
+var lineChartItemConstructor = function(year, month, existingDates) {
   var lineGraphItem = {};
   var monthString = month;
   if (monthString < 10) {
@@ -89,18 +89,17 @@ var formatLineChartData = function(filteredData) {
   }
   for (var year = parseInt(minYearMonthDay[0]); year <= parseInt(maxYearMonthDay[0]); year++) {
     for (var month = 1; month < 13; month ++) {
-      // if the
       if (minYearMonthDay[0] === maxYearMonthDay[0]) {
         if (month >= parseInt(minYearMonthDay[1]) && month <= parseInt(maxYearMonthDay[1])) {
-          lineChartData.push(lineGraphItemConstructor(year, month, sliceDataMonthly));
+          lineChartData.push(lineChartItemConstructor(year, month, sliceDataMonthly));
         }
       } else {
         if (year === parseInt(minYearMonthDay[0]) && month >= parseInt(minYearMonthDay[1])) {
-          lineChartData.push(lineGraphItemConstructor(year, month, sliceDataMonthly));
+          lineChartData.push(lineChartItemConstructor(year, month, sliceDataMonthly));
         } else if (year === parseInt(maxYearMonthDay[0]) && month <= parseInt(maxYearMonthDay[1])) {
-          lineChartData.push(lineGraphItemConstructor(year, month, sliceDataMonthly));
+          lineChartData.push(lineChartItemConstructor(year, month, sliceDataMonthly));
         } else if (year < parseInt(maxYearMonthDay[0]) && year > parseInt(minYearMonthDay[0])) {
-          lineChartData.push(lineGraphItemConstructor(year, month, sliceDataMonthly));
+          lineChartData.push(lineChartItemConstructor(year, month, sliceDataMonthly));
         }
       }
     }

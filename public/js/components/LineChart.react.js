@@ -40,13 +40,18 @@ var LineChart = React.createClass({
       axis: {
         x: {
           type: 'timeseries',
-          tick: {rotate: 75, format: '%b-%Y'}
+          tick: {rotate: 90, format: '%b-%Y', outer: false}
         },
         y : {
-          min: 0,
           label: {text: 'Dollars Spent', position: 'outer-middle'},
-          padding: {top: 15, bottom: 10}
-          // tick: {count: 3}
+          padding: {top: 20, bottom: 10},
+          tick: {
+            format: function(d) {
+              return Math.round(d / 50) * 50;
+            },
+            values: [0, LineChartStore.getMaxPrice()/2, LineChartStore.getMaxPrice()]
+          },
+          min: 0
         }
       },
       legend: {show: false},

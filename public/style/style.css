@@ -363,6 +363,11 @@ line {
   stroke-width: 0.7;
 }
 
+#chart_2 .c3-axis-x {
+  margin-top: 10px;
+  padding-top: 10px;
+}
+
 /****** Footer.react.js ******/
 
 footer {
@@ -392,8 +397,8 @@ footer {
   font-weight: bold;
   padding: 10px 20px 10px 20px;
   background-color: #24ACBF;
-  border: 1px solid #D3D3D3;
-  border-radius: 5px;
+  border: 1px solid #24ACBF;
+  border-radius: 3px;
 }
 
 .login-list, .login-list li {
