@@ -45,7 +45,7 @@ var LineChart = React.createClass({
         y : {
           min: 0,
           label: {text: 'Dollars Spent', position: 'outer-middle'},
-          padding: {top: 10, bottom: 10}
+          padding: {top: 15, bottom: 10}
           // tick: {count: 3}
         }
       },
