@@ -11,7 +11,9 @@ describe('FilteredDataStore', function() {
   var price = [50, 100, 300];
 
 
-  // mock actions inside dispatch payloads
+//***** mock actions inside dispatch payloads *****//
+
+  // mock payload containing raw data received from database
   var allChartDataPayload = {
     source: 'SERVER_ACTION',
     action: {
@@ -38,6 +40,7 @@ describe('FilteredDataStore', function() {
     }
   };
 
+  // mock payload containing 'merchant' filter selection
   var filterByMerchantPayload = {
     source: 'VIEW_ACTION',
     action: {
@@ -46,6 +49,7 @@ describe('FilteredDataStore', function() {
     }
   };
 
+  // mock payload containing 'category' filter selection
   var filterByCategoryPayload = {
     source: 'VIEW_ACTION',
     action: {
@@ -54,7 +58,7 @@ describe('FilteredDataStore', function() {
     }
   };
 
-  // selected date range to eliminate
+  // mock payload containing min and max date ranges (ranges selected to eliminate all but one order)
   var filterByDatePayload = {
     source: 'VIEW_ACTION',
     action: {
