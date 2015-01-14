@@ -1,8 +1,7 @@
 jest.dontMock('../FilteredDataStore');
 jest.dontMock('react/lib/merge');
 
-describe('GraphDataStore', function() {
-
+describe('FilteredDataStore', function() {
   var Constants = require('../../constants/Constants');
 
   // mock actions inside dispatch payloads
@@ -15,7 +14,7 @@ describe('GraphDataStore', function() {
   };
 
   var AppDispatcher;
-  var GraphDataStore;
+  var FilteredDataStore;
   var callback;
 
   beforeEach(function() {
@@ -45,13 +44,13 @@ describe('GraphDataStore', function() {
   });
 
   it('intializes with no graph data', function() {
-    var graphData = GraphDataStore.getData();
+    var graphData = FilteredDataStore.getData();
     expect(graphData).toEqual({});
   });
 
   it('receives orders', function() {
     callback(ordersPayload);
-    var orders = GraphDataStore.getData();
+    var orders = FilteredDataStore.getData();
     expect(orders[0]).toEqual({foo: 'foo'});
   });
 });
