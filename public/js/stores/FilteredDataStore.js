@@ -37,17 +37,17 @@ function _addFilteredData(chartData) {
   _filterByDate(_filterValues);
 };
 
-//
+// formats all raw data, organized by category, and finds min date
 function _filterByCategory(chartData) {
   return categories = chartData.map(function(item) {
-    // finds min date
+
+    // finds and sets min date
     if (new Date(item.purchaseDate) < new Date(_filterValues.minDate)) {
       _filterValues.minDate = item.purchaseDate;
       _filterValues.setMinDate = item.purchaseDate;
     }
-    _filterValues.maxDate = _getToday();
-    _filterValues.setMaxDate = _getToday();
 
+    // formats raw data, organized by category
     var categoryObj = {
       primaryLabel: item.categoryName,
       secondaryLabel: item.Order.Merchant.name,
@@ -58,7 +58,7 @@ function _filterByCategory(chartData) {
   });
 };
 
-//
+// formats all raw data, organized by merchant
 function _filterByMerchant(chartData) {
   return merchants = chartData.map(function(item) {
     var merchantObj = {
@@ -77,7 +77,7 @@ function _setDateRange(dates) {
   _filterValues.maxDate = dates.maxDate;
 };
 
-//
+// filters category and merchant data by date and returns objects to filteredChartData
 function _filterByDate(dates) {
   _filteredChartData.category = _allCategoryData.filter(function(item) {
     return new Date(dates.minDate) <= new Date(item.date) && new Date(item.date) <= new Date(dates.maxDate);
@@ -87,11 +87,13 @@ function _filterByDate(dates) {
   });
 };
 
+// returns a formatted string of today's date
 function _getToday() {
   var year = new Date().getFullYear();
   var month = new Date().getMonth() + 1;
   var day = new Date().getDate();
   var todayArray = [year, month, day];
+
   var todayString = todayArray.map(function(item) {
     var itemString = String(item);
     if (itemString.length === 1) {
@@ -99,10 +101,11 @@ function _getToday() {
     }
     return itemString;
   }).join('-');
+
   return todayString;
 };
 
-//
+// toggles the filter values
 function _toggleFilter(categoryOrMerchant) {
   if (categoryOrMerchant === 'merchant') {
     _filterValues.primary = 'Merchant',
@@ -145,6 +148,7 @@ FilteredDataStore.dispatchToken = AppDispatcher.register(function(payload) {
   switch(action.type) {
 
     case ActionTypes.RECEIVE_CHART_DATA:
+      _filterValues.maxDate = _filterValues.setMaxDate = _getToday();
       _addFilteredData(action.allChartData);
       FilteredDataStore.emitChange();
       break;

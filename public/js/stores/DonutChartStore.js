@@ -43,7 +43,7 @@ var DonutChartStore = assign({}, EventEmitter.prototype, {
   },
   sendDonutPieceData: function(){
     return _donutPieceData;
-  }   
+  }
 });
 
 DonutChartStore.dispatchToken = AppDispatcher.register(function(payload) {
@@ -64,18 +64,18 @@ DonutChartStore.dispatchToken = AppDispatcher.register(function(payload) {
       _formatData(filteredData);
       DonutChartStore.emitChange();
       break;
-  
-    case ActionTypes.FILTER_DONUT_PIECE_DATA:
-      var allOthersData = _donutAllOthers;
-      var filteredData = FilteredDataStore.getData();
-      _filterDonutPieceData(action.filterChart, filteredData, allOthersData);
-      DonutChartStore.emitChange();
-      break;
 
     case ActionTypes.FILTER_BY_DATE:
       AppDispatcher.waitFor([FilteredDataStore.dispatchToken]);
       var filteredData = FilteredDataStore.getData();
       _formatData(filteredData);
+      DonutChartStore.emitChange();
+      break;
+
+    case ActionTypes.FILTER_DONUT_PIECE_DATA:
+      var allOthersData = _donutAllOthers;
+      var filteredData = FilteredDataStore.getData();
+      _filterDonutPieceData(action.filterChart, filteredData, allOthersData);
       DonutChartStore.emitChange();
       break;
 

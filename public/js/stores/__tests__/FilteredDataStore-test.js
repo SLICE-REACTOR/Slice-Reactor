@@ -80,13 +80,10 @@ describe('FilteredDataStore', function() {
     callback = AppDispatcher.register.mock.calls[0][0];
   });
 
+//***** UNIT TESTS *****//
+
   it('registers a callback with the dispatcher', function() {
     expect(AppDispatcher.register.mock.calls.length).toBe(1);
-  });
-
-  it('intializes with no graph data', function() {
-    var graphData = FilteredDataStore.getData();
-    expect(graphData).toEqual([]);
   });
 
   it('contains emitChange function', function() {
@@ -103,6 +100,11 @@ describe('FilteredDataStore', function() {
 
   it('contains getData function', function() {
     expect(typeof FilteredDataStore.getData).toEqual('function');
+  });
+
+  it('intializes with no graph data', function() {
+    var graphData = FilteredDataStore.getData();
+    expect(graphData).toEqual([]);
   });
 
   it('gets filter values', function() {
