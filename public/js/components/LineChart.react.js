@@ -49,8 +49,12 @@ var LineChart = React.createClass({
             format: function(d) {
               if (d > 100) {
                 return Math.round(d / 50) * 50;
-              } else {
+              } else if (d > 20) {
                 return Math.round(d / 20) * 20;
+              } else if (d > 5) {
+                return Math.round(d / 5) * 5;
+              } else {
+                return Math.round(d);
               }
             },
             values: [0, LineChartStore.getMaxPrice()/2, LineChartStore.getMaxPrice()]
