@@ -14,7 +14,7 @@ var showDisplay = function(){
 var donutPieceValue = function(name, amount){
   currentDisplayState = 'inline';
   pieceName = name;
-  dollarAmount = "$" + Math.floor(amount) + " spent"
+  dollarAmount = "$" + Math.floor(amount);
 };
 
 var addColorToDiv = function(pieceName){
@@ -87,8 +87,8 @@ var DonutChart = React.createClass({
         </div>
         <div id="donutPieceName" style={showDisplay()}>
           <div id="donutPieceColor" style={addColorToDiv()}></div>
-          <li id="elementName">{pieceName}</li>
-          <li>{dollarAmount}</li>
+          <li id="elementName"><b>{pieceName}</b></li>
+          <li id="elementValue"><b>{dollarAmount}</b> spent</li>
         </div>
         <div id="chart_1"></div>
       </div>
