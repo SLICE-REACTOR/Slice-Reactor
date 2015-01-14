@@ -10,7 +10,6 @@ describe('FilteredDataStore', function() {
   var date = ['2013-01-01','2014-01-01','2015-01-01'];
   var price = [50, 100, 300];
 
-
 //***** mock actions inside dispatch payloads *****//
 
   // mock payload containing raw data received from database
