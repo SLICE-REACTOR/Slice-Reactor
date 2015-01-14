@@ -1,4 +1,4 @@
-jest.dontMock('../GraphDataStore');
+jest.dontMock('../FilteredDataStore');
 jest.dontMock('react/lib/merge');
 
 describe('GraphDataStore', function() {
@@ -20,7 +20,7 @@ describe('GraphDataStore', function() {
 
   beforeEach(function() {
     AppDispatcher = require('../../dispatcher/Dispatcher');
-    GraphDataStore = require('../GraphDataStore');
+    FilteredDataStore = require('../FilteredDataStore');
     callback = AppDispatcher.register.mock.calls[0][0];
   });
 
@@ -29,19 +29,19 @@ describe('GraphDataStore', function() {
   });
 
   it('contains emitChange function', function() {
-    expect(typeof GraphDataStore.emitChange).toEqual('function');
+    expect(typeof FilteredDataStore.emitChange).toEqual('function');
   });
 
   it('contains addChangeListener function', function() {
-    expect(typeof GraphDataStore.addChangeListener).toEqual('function');
+    expect(typeof FilteredDataStore.addChangeListener).toEqual('function');
   });
 
   it('contains removeChangeListener function', function() {
-    expect(typeof GraphDataStore.removeChangeListener).toEqual('function');
+    expect(typeof FilteredDataStore.removeChangeListener).toEqual('function');
   });
 
   it('contains getData function', function() {
-    expect(typeof GraphDataStore.getData).toEqual('function');
+    expect(typeof FilteredDataStore.getData).toEqual('function');
   });
 
   it('intializes with no graph data', function() {
