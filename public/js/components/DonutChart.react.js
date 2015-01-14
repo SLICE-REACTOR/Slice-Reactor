@@ -104,8 +104,8 @@ var DonutChart = React.createClass({
         </div>
         <div id="donutPieceName" style={showDisplay()}>
           <div id="donutPieceColor" style={addColorToDiv()}></div>
-          <li id="elementName"><b>{pieceName}</b></li>
-          <li id="elementValue"><b>{dollarAmount}</b> spent</li>
+          <li id="elementName"><strong>{pieceName}</strong></li>
+          <li id="elementValue"><strong>{dollarAmount}</strong> spent</li>
         </div>
         <div id="chart_1"></div>
       </div>
