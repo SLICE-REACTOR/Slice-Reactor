@@ -12,7 +12,7 @@ var showDisplay = function(){
 };
 
 var donutPieceValue = function(name, amount){
-  currentDisplayState = 'inline';
+  currentDisplayState = 'inline-block';
   pieceName = name;
   dollarAmount = "$" + Math.floor(amount);
 };
