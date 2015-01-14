@@ -24,9 +24,9 @@ var _filterValues = {
   category: 'active',
   merchant: '',
   minDate: '9999-12-30',
-  // maxDate: dateFilterHelpers.getToday().string,
+  maxDate: '',
   setMinDate: '',
-  // setMaxDate: dateFilterHelpers.getToday().string
+  setMaxDate: ''
 };
 
 // add all data to data stores
@@ -45,6 +45,9 @@ function _filterByCategory(chartData) {
       _filterValues.minDate = item.purchaseDate;
       _filterValues.setMinDate = item.purchaseDate;
     }
+    _filterValues.maxDate = _getToday();
+    _filterValues.setMaxDate = _getToday();
+
     var categoryObj = {
       primaryLabel: item.categoryName,
       secondaryLabel: item.Order.Merchant.name,
@@ -82,6 +85,21 @@ function _filterByDate(dates) {
   _filteredChartData.merchant = _allMerchantData.filter(function(item) {
     return new Date(dates.minDate) <= new Date(item.date) && new Date(item.date) <= new Date(dates.maxDate);
   });
+};
+
+function _getToday() {
+  var year = new Date().getFullYear();
+  var month = new Date().getMonth() + 1;
+  var day = new Date().getDate();
+  var todayArray = [year, month, day];
+  var todayString = todayArray.map(function(item) {
+    var itemString = String(item);
+    if (itemString.length === 1) {
+      return ('0').concat(itemString);
+    }
+    return itemString;
+  }).join('-');
+  return todayString;
 };
 
 //

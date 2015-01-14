@@ -11,7 +11,7 @@ var getToday = function() {
     }
     return itemString;
   }).join('-');
-  return _today;
+  return _today.string;
 };
 
 module.exports.getToday = getToday;
