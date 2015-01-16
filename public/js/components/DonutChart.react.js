@@ -8,6 +8,7 @@ var donutPieceColor, pieceName, dollarAmount, currentDisplayState;
 var currentItem = 'none';
 
 var showDisplay = function(){
+  //hides div if no donut piece is selected
   currentDisplayState = DonutChartStore.donutPieceNameDisplay();
   return {display: currentDisplayState}
 };
@@ -19,6 +20,7 @@ var updateChartData = function(id, value){
 };
   
 var findAmount = function(dataset, id){
+  //find amount from corresponding legend item since not transferred on click
   dataset.forEach(function(item){
     if(item[0] === id){
       dollarAmount = item[1];
@@ -28,14 +30,14 @@ var findAmount = function(dataset, id){
 };
 
 var donutPieceValue = function(name, amount){
+  //sets value to display donut drill down
   amount = amount || dollarAmount;
-  // currentDisplayState = 'inline-block';
   pieceName = name;
   dollarAmount = "$" + Math.floor(amount);
 };
 
 var addColorToDiv = function(pieceName){
-  console.log(pieceName)
+  //finds corresponding color from donut piece name to display in drill down
   colorArray.forEach(function(item){
     if(item[1] === pieceName){
       donutPieceColor = item[0];
