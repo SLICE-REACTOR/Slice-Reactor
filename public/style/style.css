@@ -320,13 +320,33 @@ td.ui-datepicker-current-day {
   width: 16em;
 }
 
-#donutPieceName {
+.donutPieceName {
   position: absolute;
+  z-index: 1;
   height: 3em;
   width: 16em;
 }
 
-#donutPieceName li {
+.closeDonutPiece {
+  width: 16em;
+}
+
+#xToClose {
+  float: right;
+  cursor: pointer;
+  text-align: center;
+  width: 2em;
+  display: inline-block;
+  color: gray;
+}
+
+#xToClose:hover {
+  border: gray;
+  width: 2em;
+  border-radius: 5px;
+}
+
+.donutPieceName li {
   list-style-type: none;
 }
 /****** LineGraph.react.js ******/

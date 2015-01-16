@@ -4,32 +4,38 @@ var FilteredDataStore = require('../stores/FilteredDataStore');
 var ChartActionCreators = require('../actions/ChartActionCreators');
 
 var colorArray = [];
-var donutPieceColor, pieceName,dollarAmount;
-var currentDisplayState = 'none';
+var donutPieceColor, pieceName, dollarAmount, currentDisplayState;
+var currentItem = 'none';
 
 var showDisplay = function(){
+  currentDisplayState = DonutChartStore.donutPieceNameDisplay();
   return {display: currentDisplayState}
 };
 
+var updateChartData = function(id, value){
+  addColorToDiv(id);
+  donutPieceValue(id, value);
+  sendChartData(id);
+};
+  
 var findAmount = function(dataset, id){
   dataset.forEach(function(item){
     if(item[0] === id){
       dollarAmount = item[1];
     }
   })
-  addColorToDiv(id);
-  donutPieceValue(id);
   updateChartData(id);
 };
 
 var donutPieceValue = function(name, amount){
   amount = amount || dollarAmount;
-  currentDisplayState = 'inline-block';
+  // currentDisplayState = 'inline-block';
   pieceName = name;
   dollarAmount = "$" + Math.floor(amount);
 };
 
 var addColorToDiv = function(pieceName){
+  console.log(pieceName)
   colorArray.forEach(function(item){
     if(item[1] === pieceName){
       donutPieceColor = item[0];
@@ -38,7 +44,8 @@ var addColorToDiv = function(pieceName){
   return {backgroundColor: donutPieceColor}
 };
 
-var updateChartData = function(item){
+var sendChartData = function(item){
+  item = item || currentItem;
   ChartActionCreators.filterDonutChartData(item);
 };
 
@@ -71,16 +78,16 @@ var DonutChart = React.createClass({
           return color;
         },
         onclick: function (d) { 
-          addColorToDiv(d.id);
-          donutPieceValue(d.id, d.value);
-          updateChartData(d.id);
+          currentItem = d.id;
+          updateChartData(currentItem, d.value);
         }
       },
       legend: {
         position: 'right',
         item : {
           onclick: function(id){
-            findAmount(dataset, id);
+            currentItem = id;
+            findAmount(dataset, currentItem);
           }
         }
       },
@@ -102,11 +109,7 @@ var DonutChart = React.createClass({
         <div className="graph-header">
           <h2>Spending by {FilteredDataStore.getFilterValue().primary}</h2>
         </div>
-        <div id="donutPieceName" style={showDisplay()}>
-          <div id="donutPieceColor" style={addColorToDiv()}></div>
-          <li id="elementName"><strong>{pieceName}</strong></li>
-          <li id="elementValue"><strong>{dollarAmount}</strong> spent</li>
-        </div>
+        <DonutDrillDown/>
         <div id="chart_1"></div>
       </div>
     );
@@ -116,5 +119,33 @@ var DonutChart = React.createClass({
     currentDisplayState = 'none';
   }
 });
+
+var DonutDrillDown = React.createClass({
+  _handleClick: function(){
+    sendChartData();
+  },
+  render: function(){
+    return (
+      <div className="donutPieceName" style={showDisplay()}>
+        <div id="donutPieceColor" style={addColorToDiv()}></div>
+        <CloseButton onButtonClicked={this._handleClick}/>
+        <li id="elementValue"><strong>{dollarAmount}</strong> spent</li>
+      </div>
+    )
+  }
+});
+
+var CloseButton = React.createClass({
+  render: function(){
+      return (
+        <div className="closeDonutPiece">
+          <li id="elementName"><strong>{pieceName}</strong> 
+            <span id="xToClose" onClick={this.props.onButtonClicked}> x </span>
+          </li>
+        </div>
+      )
+  }
+});
+
 
 module.exports = DonutChart;
