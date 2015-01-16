@@ -9,6 +9,7 @@ var crypto = require('crypto');
 var app = require('../server-config');
 
 describe('server routes', function () {
+  var testServer;
   before(function() {
     testServer = app.listen(8000);
   });
@@ -27,9 +28,9 @@ describe('server routes', function () {
 
 describe('helper functions', function () {
   describe('ensureAuthenticated function', function () {
+    var res = {'redirect': function(string) {res.test = string;}};
     it('calls next function if successful', function (done) {
       var req = {'isAuthenticated': function() {return true;}};
-      var res = {'redirect': function(string) {res.test = string;}};
       helper.ensureAuthenticated(req, res, function() {res.test = 27;});
       expect(res.test).to.equal(27);
       done();
@@ -37,7 +38,6 @@ describe('helper functions', function () {
 
     it('redirects to "/login" if user is not logged in', function (done) {
       var req = {'isAuthenticated': function() {return false;}};
-      var res = {'redirect': function(string) {res.test = string;}};
       helper.ensureAuthenticated(req, res, function() {res.test = 27;});
       expect(res.test).to.equal('/login');
       done();
@@ -76,6 +76,7 @@ describe('helper functions', function () {
   });
 
   describe('saveUpdatedTokens function', function () {
+    var dbStub;
     after(function() {
       dbStub.restore();
     });
