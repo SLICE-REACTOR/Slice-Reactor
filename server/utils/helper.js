@@ -254,3 +254,10 @@ module.exports.ensureAuthenticated = ensureAuthenticated;
 // exported for testing
 module.exports.sliceRefreshRequest = sliceRefreshRequest;
 module.exports.saveUpdatedTokens = saveUpdatedTokens;
+module.exports.sliceGetRequest = sliceGetRequest;
+module.exports.createItemObject = createItemObject;
+//untested
+module.exports.itemsHandler = itemsHandler;
+module.exports.createOrderObject = createOrderObject;
+module.exports.ordersHandler = ordersHandler;
+module.exports.merchantsHandler = merchantsHandler;

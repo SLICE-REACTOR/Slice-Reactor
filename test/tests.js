@@ -79,7 +79,7 @@ describe('helper functions', function () {
     after(function() {
       dbStub.restore();
     });
-    it('saveUpdatedTokens finds user', function(done) {
+    it('finds the user in the database', function(done) {
       dbStub = sinon
         .stub(db.Users, 'find')
         .returns({
@@ -137,4 +137,81 @@ describe('helper functions', function () {
       });
     });
   });
+  
+  describe('sliceGetRequest function', function () {
+    before(function() {
+      sinon
+        .stub(https, 'request')
+        .returns({on: function() {}, end: function() {}})
+        .yields({on: function(string, cb) {
+          if (string === 'data') {
+            cb(JSON.stringify({access_token: "access-token", refresh_token: "refresh-token"}));
+          } else if (string === 'end') {
+            cb();}}, end: function() {}
+          });
+    });
+    after(function() {
+      https.request.restore();
+    });
+
+    it('performs a secure request', function(done) {
+      helper.sliceGetRequest('merchants', 'access-token', function(data, userId, getRequestOrReq, response) {
+        expect(https.request.called).to.equal(true);
+        done();
+      }, 33, {limit: 1}, 'getRequestOrReq', 'response');
+    });
+    it('calls callback with returned data, "getRequestOrReq", and response', function(done) {
+      helper.sliceGetRequest('merchants', 'access-token', function(data, userId, getRequestOrReq, response) {
+        expect(data.refresh_token).to.equal('refresh-token');
+        expect(userId).to.equal(33);
+        expect(getRequestOrReq).to.equal('getRequestOrReq');
+        expect(response).to.equal('response');
+        done();
+      }, 33, {limit: 1}, 'getRequestOrReq', 'response');
+    });
+  });
+
+  describe('createItemObject function', function () {
+    it('receives an item from the API and returns an object formatted to insert into the database with a bulkCreate Sequelize query', function(done) {
+      var rawItem = {"updateTime": "updateTime",
+        "href": "href",
+        "order": {"href": "orderHref"},
+        "purchaseDate": "purchaseDate",
+        "price": 399,
+        "productUrl": "productUrl",
+        "returnByDate": "returnByDate",
+        "imageUrl": "imageUrl",
+        "quantity": 1,
+        "description": "description",
+        "category": {"name": "categoryName", "href": "categoryHref"}
+      };
+      var processedItem = helper.createItemObject(rawItem, 25);
+      expect(processedItem.UserId).to.equal(25);
+      expect(processedItem.price).to.equal(399);
+      expect(processedItem.imageUrl).to.equal('imageUrl');
+      expect(processedItem.categoryName).to.equal('categoryName');
+      done();
+    });
+    it('does not fail if category data is not in API response', function(done) {
+      var rawItem = {"updateTime": "updateTime",
+        "href": "href",
+        "order": {"href": "orderHref"},
+        "purchaseDate": "purchaseDate",
+        "price": 399,
+        "productUrl": "productUrl",
+        "returnByDate": "returnByDate",
+        "imageUrl": "imageUrl",
+        "quantity": 1,
+        "description": "description",
+        "category": null
+      };
+      var processedItem = helper.createItemObject(rawItem, 22);
+      expect(processedItem.UserId).to.equal(22);
+      expect(processedItem.quantity).to.equal(1);
+      expect(processedItem.description).to.equal('description');
+      expect(processedItem.categoryName).to.equal(undefined);
+      done();
+    });
+  });
+
 });
