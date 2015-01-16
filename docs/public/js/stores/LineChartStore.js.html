@@ -10,15 +10,13 @@
 <span class="kd">var</span> <span class="nx">ActionTypes</span> <span class="o">=</span> <span class="nx">Constants</span><span class="p">.</span><span class="nx">ActionTypes</span><span class="p">;</span>
 <span class="kd">var</span> <span class="nx">CHANGE_EVENT</span> <span class="o">=</span> <span class="s1">&#39;change&#39;</span><span class="p">;</span></pre></div></td></tr><tr id="section-2"><td class="docs"><div class="pilwrap"><a href="#section-2" class="pilcrow">&#182;</a></div><p>DATA STORE</p>
 </td><td class="code"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">_lineChartData</span> <span class="o">=</span> <span class="p">[];</span></pre></div></td></tr><tr id="section-3"><td class="docs"><div class="pilwrap"><a href="#section-3" class="pilcrow">&#182;</a></div><p>Variable set for line chart axis formatting</p>
-</td><td class="code"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">_maxPrice</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-
-<span class="kd">var</span> <span class="nx">_formatData</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">filteredData</span><span class="p">)</span> <span class="p">{</span>
+</td><td class="code"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">_maxPrice</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></pre></div></td></tr><tr id="section-4"><td class="docs"><div class="pilwrap"><a href="#section-4" class="pilcrow">&#182;</a></div><p>formats the data from the FIlteredDataStore for the line chart</p>
+</td><td class="code"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">_formatData</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">filteredData</span><span class="p">)</span> <span class="p">{</span>
   <span class="nx">_lineChartData</span> <span class="o">=</span> <span class="nx">chartHelpers</span><span class="p">.</span><span class="nx">formatLineChartData</span><span class="p">(</span><span class="nx">filteredData</span><span class="p">);</span>
   <span class="nx">_maxPrice</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
   <span class="nx">setMaxPrice</span><span class="p">(</span><span class="nx">_lineChartData</span><span class="p">);</span>
-<span class="p">};</span>
-
-<span class="kd">var</span> <span class="nx">setMaxPrice</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">chartData</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">};</span></pre></div></td></tr><tr id="section-5"><td class="docs"><div class="pilwrap"><a href="#section-5" class="pilcrow">&#182;</a></div><p>finds and sets the max price in the filtered data to help format the line chart y-axis</p>
+</td><td class="code"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">setMaxPrice</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">chartData</span><span class="p">)</span> <span class="p">{</span>
   <span class="nx">chartData</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">item</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="nb">parseInt</span><span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">price</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">_maxPrice</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
       <span class="nx">_maxPrice</span> <span class="o">=</span> <span class="nx">item</span><span class="p">.</span><span class="nx">price</span><span class="p">;</span>
@@ -74,12 +72,11 @@
       <span class="kd">var</span> <span class="nx">filteredData</span> <span class="o">=</span> <span class="nx">DonutChartStore</span><span class="p">.</span><span class="nx">sendDonutPieceData</span><span class="p">();</span>
       <span class="nx">_formatData</span><span class="p">(</span><span class="nx">filteredData</span><span class="p">);</span>
       <span class="nx">LineChartStore</span><span class="p">.</span><span class="nx">emitChange</span><span class="p">();</span>
-      <span class="k">break</span><span class="p">;</span>
-
-    <span class="k">default</span><span class="o">:</span></pre></div></td></tr><tr id="section-4"><td class="docs"><div class="pilwrap"><a href="#section-4" class="pilcrow">&#182;</a></div><p>do nothing</p>
-</td><td class="code"><div class="highlight"><pre>  <span class="p">}</span>
+      <span class="k">break</span><span class="p">;</span></pre></div></td></tr><tr id="section-6"><td class="docs"><div class="pilwrap"><a href="#section-6" class="pilcrow">&#182;</a></div><p>do nothing by default</p>
+</td><td class="code"><div class="highlight"><pre>    <span class="k">default</span><span class="o">:</span>
+  <span class="p">}</span>
 <span class="p">});</span>
 
 <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">LineChartStore</span><span class="p">;</span>
 
-</pre></div></td></tr></tbody></table><div id="generated">generated Fri Jan 16 2015 11:20:07 GMT-0800 (PST)  </div><div id="projectname"><a href="../../../index.html">Slice Reactor</a></div></div></body></html>
+</pre></div></td></tr></tbody></table><div id="generated">generated Fri Jan 16 2015 11:32:22 GMT-0800 (PST)  </div><div id="projectname"><a href="../../../index.html">Slice Reactor</a></div></div></body></html>

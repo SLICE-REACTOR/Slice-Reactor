@@ -18,7 +18,7 @@
   <span class="nx">componentWillMount</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
     <span class="nx">BarChartStore</span><span class="p">.</span><span class="nx">removeChangeListener</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">_onChange</span><span class="p">);</span>
   <span class="p">},</span>
-  <span class="nx">_renderChart</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">dataset</span><span class="p">)</span> <span class="p">{</span></pre></div></td></tr><tr id="section-2"><td class="docs"><div class="pilwrap"><a href="#section-2" class="pilcrow">&#182;</a></div><p>creates chart</p>
+  <span class="nx">_renderChart</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">dataset</span><span class="p">)</span> <span class="p">{</span></pre></div></td></tr><tr id="section-2"><td class="docs"><div class="pilwrap"><a href="#section-2" class="pilcrow">&#182;</a></div><p>creates bar chart using C3</p>
 </td><td class="code"><div class="highlight"><pre>    <span class="kd">var</span> <span class="nx">barChart</span> <span class="o">=</span> <span class="nx">c3</span><span class="p">.</span><span class="nx">generate</span><span class="p">({</span>
       <span class="nx">bindto</span><span class="o">:</span> <span class="s1">&#39;#chart_3&#39;</span><span class="p">,</span>
       <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
@@ -54,7 +54,7 @@
           <span class="nx">title</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="p">},</span>
           <span class="nx">value</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">value</span><span class="p">,</span> <span class="nx">ratio</span><span class="p">,</span> <span class="nx">id</span><span class="p">)</span> <span class="p">{</span>
             <span class="kd">var</span> <span class="nx">newValue</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
-            <span class="kd">var</span> <span class="nx">format</span> <span class="o">=</span> <span class="nx">d3</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="s1">&#39;$&#39;</span><span class="p">);</span>  
+            <span class="kd">var</span> <span class="nx">format</span> <span class="o">=</span> <span class="nx">d3</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="s1">&#39;$&#39;</span><span class="p">);</span>
               <span class="k">return</span> <span class="nx">format</span><span class="p">(</span><span class="nx">newValue</span><span class="p">);</span>
           <span class="p">}</span>
         <span class="p">}</span>
@@ -79,4 +79,4 @@
 
 <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">BarChart</span><span class="p">;</span>
 
-</pre></div></td></tr></tbody></table><div id="generated">generated Fri Jan 16 2015 11:20:03 GMT-0800 (PST)  </div><div id="projectname"><a href="../../../index.html">Slice Reactor</a></div></div></body></html>
+</pre></div></td></tr></tbody></table><div id="generated">generated Fri Jan 16 2015 11:32:19 GMT-0800 (PST)  </div><div id="projectname"><a href="../../../index.html">Slice Reactor</a></div></div></body></html>

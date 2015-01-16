@@ -109,8 +109,8 @@
   <span class="p">},</span>
   <span class="nx">getFilterValue</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">return</span> <span class="nx">_filterValues</span><span class="p">;</span>
-  <span class="p">},</span>
-  <span class="nx">getData</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="p">},</span></pre></div></td></tr><tr id="section-18"><td class="docs"><div class="pilwrap"><a href="#section-18" class="pilcrow">&#182;</a></div><p>returns filtered data sorted by category or merchant</p>
+</td><td class="code"><div class="highlight"><pre>  <span class="nx">getData</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="nx">_filterValues</span><span class="p">.</span><span class="nx">primary</span> <span class="o">===</span> <span class="s1">&#39;Category&#39;</span><span class="p">)</span>
       <span class="k">return</span> <span class="nx">_filteredChartData</span><span class="p">.</span><span class="nx">category</span><span class="p">;</span>
     <span class="k">else</span>
@@ -137,12 +137,11 @@
     <span class="k">case</span> <span class="nx">ActionTypes</span><span class="p">.</span><span class="nx">FILTER_BY_DATE</span><span class="o">:</span>
       <span class="nx">_setDateRange</span><span class="p">(</span><span class="nx">action</span><span class="p">.</span><span class="nx">dates</span><span class="p">);</span>
       <span class="nx">_filterByDate</span><span class="p">(</span><span class="nx">_filterValues</span><span class="p">);</span>
-      <span class="k">break</span><span class="p">;</span>
-
-    <span class="k">default</span><span class="o">:</span></pre></div></td></tr><tr id="section-18"><td class="docs"><div class="pilwrap"><a href="#section-18" class="pilcrow">&#182;</a></div><p>do nothing</p>
-</td><td class="code"><div class="highlight"><pre>  <span class="p">}</span>
+      <span class="k">break</span><span class="p">;</span></pre></div></td></tr><tr id="section-19"><td class="docs"><div class="pilwrap"><a href="#section-19" class="pilcrow">&#182;</a></div><p>do nothing by default</p>
+</td><td class="code"><div class="highlight"><pre>    <span class="k">default</span><span class="o">:</span>
+  <span class="p">}</span>
 <span class="p">});</span>
 
 <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">FilteredDataStore</span><span class="p">;</span>
 
-</pre></div></td></tr></tbody></table><div id="generated">generated Fri Jan 16 2015 11:20:07 GMT-0800 (PST)  </div><div id="projectname"><a href="../../../index.html">Slice Reactor</a></div></div></body></html>
+</pre></div></td></tr></tbody></table><div id="generated">generated Fri Jan 16 2015 11:32:22 GMT-0800 (PST)  </div><div id="projectname"><a href="../../../index.html">Slice Reactor</a></div></div></body></html>

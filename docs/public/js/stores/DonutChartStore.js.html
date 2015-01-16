@@ -7,19 +7,18 @@
 <span class="kd">var</span> <span class="nx">chartHelpers</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;../utils/chartHelpers&#39;</span><span class="p">);</span>
 
 <span class="kd">var</span> <span class="nx">ActionTypes</span> <span class="o">=</span> <span class="nx">Constants</span><span class="p">.</span><span class="nx">ActionTypes</span><span class="p">;</span>
-<span class="kd">var</span> <span class="nx">CHANGE_EVENT</span> <span class="o">=</span> <span class="s1">&#39;change&#39;</span><span class="p">;</span></pre></div></td></tr><tr id="section-2"><td class="docs"><div class="pilwrap"><a href="#section-2" class="pilcrow">&#182;</a></div><p>DATA STORE</p>
+<span class="kd">var</span> <span class="nx">CHANGE_EVENT</span> <span class="o">=</span> <span class="s1">&#39;change&#39;</span><span class="p">;</span></pre></div></td></tr><tr id="section-2"><td class="docs"><div class="pilwrap"><a href="#section-2" class="pilcrow">&#182;</a></div><p>DATA STORES</p>
 </td><td class="code"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">_donutChartData</span> <span class="o">=</span> <span class="p">[];</span>
 <span class="kd">var</span> <span class="nx">_donutPieceData</span> <span class="o">=</span> <span class="p">[];</span>
-<span class="kd">var</span> <span class="nx">_donutAllOthers</span> <span class="o">=</span> <span class="p">[];</span>
-
-<span class="kd">var</span> <span class="nx">_formatData</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">filteredData</span><span class="p">)</span> <span class="p">{</span>
-  <span class="kd">var</span> <span class="nx">chartData</span> <span class="o">=</span> <span class="nx">chartHelpers</span><span class="p">.</span><span class="nx">formatDonutChartData</span><span class="p">(</span><span class="nx">filteredData</span><span class="p">);</span></pre></div></td></tr><tr id="section-3"><td class="docs"><div class="pilwrap"><a href="#section-3" class="pilcrow">&#182;</a></div><p>gets data from individual catergory or merchant names</p>
-</td><td class="code"><div class="highlight"><pre>  <span class="nx">_donutChartData</span> <span class="o">=</span> <span class="nx">chartData</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span></pre></div></td></tr><tr id="section-4"><td class="docs"><div class="pilwrap"><a href="#section-4" class="pilcrow">&#182;</a></div><p>gets data from catergory or merchant names contained in all others</p>
+<span class="kd">var</span> <span class="nx">_donutAllOthers</span> <span class="o">=</span> <span class="p">[];</span></pre></div></td></tr><tr id="section-3"><td class="docs"><div class="pilwrap"><a href="#section-3" class="pilcrow">&#182;</a></div><p>formats the data from the FIlteredDataStore for the donut chart</p>
+</td><td class="code"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">_formatData</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">filteredData</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">chartData</span> <span class="o">=</span> <span class="nx">chartHelpers</span><span class="p">.</span><span class="nx">formatDonutChartData</span><span class="p">(</span><span class="nx">filteredData</span><span class="p">);</span></pre></div></td></tr><tr id="section-4"><td class="docs"><div class="pilwrap"><a href="#section-4" class="pilcrow">&#182;</a></div><p>gets data from individual catergory or merchant names</p>
+</td><td class="code"><div class="highlight"><pre>  <span class="nx">_donutChartData</span> <span class="o">=</span> <span class="nx">chartData</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span></pre></div></td></tr><tr id="section-5"><td class="docs"><div class="pilwrap"><a href="#section-5" class="pilcrow">&#182;</a></div><p>gets data from catergory or merchant names contained in all others</p>
 </td><td class="code"><div class="highlight"><pre>  <span class="nx">_donutAllOthers</span> <span class="o">=</span> <span class="nx">chartData</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
 <span class="p">};</span>
 
-<span class="kd">function</span> <span class="nx">_filterDonutPieceData</span><span class="p">(</span><span class="nx">categoryNameOrMerchantName</span><span class="p">,</span> <span class="nx">filteredData</span><span class="p">,</span> <span class="nx">allOthersData</span><span class="p">){</span></pre></div></td></tr><tr id="section-5"><td class="docs"><div class="pilwrap"><a href="#section-5" class="pilcrow">&#182;</a></div><p>clears data set received from donut piece</p>
-</td><td class="code"><div class="highlight"><pre>  <span class="nx">_donutPieceData</span> <span class="o">=</span> <span class="p">[];</span></pre></div></td></tr><tr id="section-6"><td class="docs"><div class="pilwrap"><a href="#section-6" class="pilcrow">&#182;</a></div><p>onclick of donut piece filters data set to be re-rendered by bar and line charts</p>
+<span class="kd">function</span> <span class="nx">_filterDonutPieceData</span><span class="p">(</span><span class="nx">categoryNameOrMerchantName</span><span class="p">,</span> <span class="nx">filteredData</span><span class="p">,</span> <span class="nx">allOthersData</span><span class="p">){</span></pre></div></td></tr><tr id="section-6"><td class="docs"><div class="pilwrap"><a href="#section-6" class="pilcrow">&#182;</a></div><p>clears data set received from donut piece</p>
+</td><td class="code"><div class="highlight"><pre>  <span class="nx">_donutPieceData</span> <span class="o">=</span> <span class="p">[];</span></pre></div></td></tr><tr id="section-7"><td class="docs"><div class="pilwrap"><a href="#section-7" class="pilcrow">&#182;</a></div><p>onclick of donut piece filters data set to be re-rendered by bar and line charts</p>
 </td><td class="code"><div class="highlight"><pre>  <span class="nx">_donutPieceData</span> <span class="o">=</span> <span class="nx">chartHelpers</span><span class="p">.</span><span class="nx">filterDonutChartPiece</span><span class="p">(</span><span class="nx">categoryNameOrMerchantName</span><span class="p">,</span> <span class="nx">filteredData</span><span class="p">,</span> <span class="nx">allOthersData</span><span class="p">);</span>
 <span class="p">};</span>
 
@@ -72,12 +71,11 @@
       <span class="kd">var</span> <span class="nx">filteredData</span> <span class="o">=</span> <span class="nx">FilteredDataStore</span><span class="p">.</span><span class="nx">getData</span><span class="p">();</span>
       <span class="nx">_filterDonutPieceData</span><span class="p">(</span><span class="nx">action</span><span class="p">.</span><span class="nx">filterChart</span><span class="p">,</span> <span class="nx">filteredData</span><span class="p">,</span> <span class="nx">allOthersData</span><span class="p">);</span>
       <span class="nx">DonutChartStore</span><span class="p">.</span><span class="nx">emitChange</span><span class="p">();</span>
-      <span class="k">break</span><span class="p">;</span>
-
-    <span class="k">default</span><span class="o">:</span></pre></div></td></tr><tr id="section-7"><td class="docs"><div class="pilwrap"><a href="#section-7" class="pilcrow">&#182;</a></div><p>do nothing</p>
-</td><td class="code"><div class="highlight"><pre>  <span class="p">}</span>
+      <span class="k">break</span><span class="p">;</span></pre></div></td></tr><tr id="section-8"><td class="docs"><div class="pilwrap"><a href="#section-8" class="pilcrow">&#182;</a></div><p>do nothing by default</p>
+</td><td class="code"><div class="highlight"><pre>    <span class="k">default</span><span class="o">:</span>
+  <span class="p">}</span>
 <span class="p">});</span>
 
 <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">DonutChartStore</span><span class="p">;</span>
 
-</pre></div></td></tr></tbody></table><div id="generated">generated Fri Jan 16 2015 11:20:06 GMT-0800 (PST)  </div><div id="projectname"><a href="../../../index.html">Slice Reactor</a></div></div></body></html>
+</pre></div></td></tr></tbody></table><div id="generated">generated Fri Jan 16 2015 11:32:22 GMT-0800 (PST)  </div><div id="projectname"><a href="../../../index.html">Slice Reactor</a></div></div></body></html>

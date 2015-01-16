@@ -32,7 +32,8 @@ var BarChart = React.createClass({
       axis: {
         rotated: true,
         x: {
-          type: 'categoryOrMerchantName' // this needed to load string x value
+          // this needed to load string x value
+          type: 'categoryOrMerchantName'
         }
       },
       color: {
