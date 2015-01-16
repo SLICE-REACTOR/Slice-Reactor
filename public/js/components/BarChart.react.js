@@ -18,6 +18,7 @@ var BarChart = React.createClass({
     BarChartStore.removeChangeListener(this._onChange);
   },
   _renderChart: function(dataset) {
+    // creates bar chart using C3
     var barChart = c3.generate({
       bindto: '#chart_3',
       data: {
@@ -55,7 +56,7 @@ var BarChart = React.createClass({
           value: function (value, ratio, id) {
             //removes decimals from number and adds '$' to price
             var newValue = Math.floor(value);
-            var format = d3.format('$');  
+            var format = d3.format('$');
               return format(newValue);
           }
         }

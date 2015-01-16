@@ -1,14 +1,36 @@
+jest.dontMock('../FilteredDataStore');
 jest.dontMock('../BarChartStore');
 jest.dontMock('react/lib/merge');
 
 describe('BarChartStore', function() {
   var Constants = require('../../constants/Constants');
 
-  // values used in mock payloads
+  // values used in filtered data
   var categoryName = ['category name 1','category name 2','category name 3'];
   var merchantName = ['merchant name 1','merchant name 2','merchant name 3'];
   var date = ['2013-01-01','2014-01-01','2015-01-01'];
   var price = [50, 100, 300];
+
+  // raw data from Database
+  var rawData = [
+  {
+    categoryName: categoryName[0],
+    Order: {Merchant: {name: merchantName[0]}},
+    price: price[0],
+    purchaseDate: date[0]
+  },
+  {
+    categoryName: categoryName[1],
+    Order: {Merchant: {name: merchantName[1]}},
+    price: price[1],
+    purchaseDate: date[1]
+  },
+  {
+    categoryName: categoryName[2],
+    Order: {Merchant: {name: merchantName[2]}},
+    price: price[2],
+    purchaseDate: date[2]
+  }];
 
   // returned data from FilteredDataStore
   var filteredData = [
@@ -31,18 +53,30 @@ describe('BarChartStore', function() {
       date: date[2]
     }];
 
+  var allChartDataPayload = {
+    source: 'SERVER_ACTION',
+    action: {
+      type: Constants.ActionTypes.RECEIVE_CHART_DATA,
+      allChartData: rawData
+    }
+  };
+
   var AppDispatcher;
+  var FilteredDataStore;
   var BarChartStore;
-  var callback;
+  var FilteredDataCallback;
+  var BarChartCallback;
 
   beforeEach(function() {
     AppDispatcher = require('../../dispatcher/Dispatcher');
+    FilteredDataStore = require('../FilteredDataStore');
     BarChartStore = require('../BarChartStore');
-    callback = AppDispatcher.register.mock.calls[0][0];
+    FilteredDataCallback = AppDispatcher.register.mock.calls[0][0];
+    BarChartCallback = AppDispatcher.register.mock.calls[1][0];
   });
 
   it('registers a callback with the dispatcher', function() {
-    expect(AppDispatcher.register.mock.calls.length).toBe(1);
+    expect(AppDispatcher.register.mock.calls.length).toBe(2);
   });
 
   it('contains emitChange function', function() {
@@ -67,10 +101,9 @@ describe('BarChartStore', function() {
   });
 
   it('gets data from the FilteredDataStore', function() {
-    var FilteredDataStore = require('../FilteredDataStore');
-    FilteredDataStore.getData.mockReturnValue({
-
-    });
-
+    FilteredDataCallback(allChartDataPayload);
+    console.log('FilteredDataStore.getData(): ', FilteredDataStore.getData());
+    BarChartCallback(allChartDataPayload);
+    console.log('BarChartStore.getData(): ', BarChartStore.getData());
   });
 });

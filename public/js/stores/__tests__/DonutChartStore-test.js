@@ -4,6 +4,14 @@ jest.dontMock('react/lib/merge');
 describe('DonutChartStore', function() {
   var Constants = require('../../constants/Constants');
 
+  var allChartDataPayload = {
+    source: 'SERVER_ACTION',
+    action: {
+      type: Constants.ActionTypes.RECEIVE_CHART_DATA,
+      allChartData: []
+    }
+  };
+
   // values used in mock payloads
   var categoryName = ['category name 1','category name 2','category name 3'];
   var merchantName = ['merchant name 1','merchant name 2','merchant name 3'];
