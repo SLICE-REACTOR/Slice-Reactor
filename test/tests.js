@@ -78,7 +78,7 @@ describe('server response', function () {
           }});
         }});
     helper.saveUpdatedTokens({access_token: "access-token", refresh_token: "refresh-token"}, 27, function(userId) {
-      db.Users.find.called.should.be.equal(true);
+      expect(db.Users.find.called).to.equal(true);
       expect(userId).to.equal(27);
       done();
     }, 7);
