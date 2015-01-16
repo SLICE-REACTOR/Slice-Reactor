@@ -1,5 +1,7 @@
+// mirrors the key as the value
 var keyMirror = require('keymirror');
 
+// actions used throughout the application
 module.exports = {
 
   ActionTypes: keyMirror({
