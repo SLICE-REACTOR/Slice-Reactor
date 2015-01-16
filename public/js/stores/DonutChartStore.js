@@ -12,6 +12,8 @@ var CHANGE_EVENT = 'change';
 var _donutChartData = [];
 var _donutPieceData = [];
 var _donutAllOthers = [];
+var currentDisplayState = 'none';
+var previousName;
 
 var _formatData = function(filteredData) {
   var chartData = chartHelpers.formatDonutChartData(filteredData);
@@ -21,11 +23,23 @@ var _formatData = function(filteredData) {
   _donutAllOthers = chartData[1];
 };
 
-function _filterDonutPieceData(categoryNameOrMerchantName, filteredData, allOthersData){
+var _filterDonutPieceData = function(categoryNameOrMerchantName, filteredData, allOthersData){
   //clears data set received from donut piece
   _donutPieceData = [];
-  //onclick of donut piece filters data set to be re-rendered by bar and line charts
-  _donutPieceData = chartHelpers.filterDonutChartPiece(categoryNameOrMerchantName, filteredData, allOthersData);
+  if(previousName === categoryNameOrMerchantName){
+    currentDisplayState = 'none'
+    _donutPieceData = filteredData;
+    previousName = '';
+  }else{
+    //onclick of donut piece filters data set to be re-rendered by bar and line charts
+    currentDisplayState = 'inline-block';
+    _donutPieceData = chartHelpers.filterDonutChartPiece(categoryNameOrMerchantName, filteredData, allOthersData);
+    previousName = categoryNameOrMerchantName;
+  }
+};
+
+var _showDisplay = function(){
+  return currentDisplayState;
 };
 
 var DonutChartStore = assign({}, EventEmitter.prototype, {
@@ -43,6 +57,9 @@ var DonutChartStore = assign({}, EventEmitter.prototype, {
   },
   sendDonutPieceData: function(){
     return _donutPieceData;
+  },
+  donutPieceNameDisplay: function(){
+    return currentDisplayState;
   }
 });
 
@@ -64,18 +81,19 @@ DonutChartStore.dispatchToken = AppDispatcher.register(function(payload) {
       _formatData(filteredData);
       DonutChartStore.emitChange();
       break;
+  
+    case ActionTypes.FILTER_DONUT_PIECE_DATA:
+      var allOthersData = _donutAllOthers;
+      var filteredData = FilteredDataStore.getData();
+      _filterDonutPieceData(action.filterChart, filteredData, allOthersData);
+      _showDisplay();
+      DonutChartStore.emitChange();
+      break;
 
     case ActionTypes.FILTER_BY_DATE:
       AppDispatcher.waitFor([FilteredDataStore.dispatchToken]);
       var filteredData = FilteredDataStore.getData();
       _formatData(filteredData);
-      DonutChartStore.emitChange();
-      break;
-
-    case ActionTypes.FILTER_DONUT_PIECE_DATA:
-      var allOthersData = _donutAllOthers;
-      var filteredData = FilteredDataStore.getData();
-      _filterDonutPieceData(action.filterChart, filteredData, allOthersData);
       DonutChartStore.emitChange();
       break;
 
