@@ -18,23 +18,22 @@ var BarChart = React.createClass({
     BarChartStore.removeChangeListener(this._onChange);
   },
   _renderChart: function(dataset) {
-    //creates chart
     var barChart = c3.generate({
       bindto: '#chart_3',
       data: {
         json: dataset,
-        keys: {
+        keys: { //name of keys in dataset to set axis valuses
           x : 'categoryOrMerchantName',
           value: ['price']
         },
           type: 'bar'
-        },
-        axis: {
-          rotated: true,
-          x: {
-            type: 'categoryOrMerchantName' // this needed to load string x value
-          }
-        },
+      },
+      axis: {
+        rotated: true,
+        x: {
+          type: 'categoryOrMerchantName' // this needed to load string x value
+        }
+      },
       color: {
         pattern: ['#24ACBF' , '#F16A4A' , '#FBC162' , '#AFD136' , '#923F96' , '#3B5E9F' , '#F8ED6B' , '#D74667' , '#3E784B']
       },
@@ -43,7 +42,7 @@ var BarChart = React.createClass({
       },
       grid: {
         y: {
-            show: true
+          show: true
         },
         x: {
           show: false
@@ -51,8 +50,10 @@ var BarChart = React.createClass({
       },
       tooltip: {
         format: {
+          //hides table title natively displayed
           title: function (d) { return },
           value: function (value, ratio, id) {
+            //removes decimals from number and adds '$' to price
             var newValue = Math.floor(value);
             var format = d3.format('$');  
               return format(newValue);
