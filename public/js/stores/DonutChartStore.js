@@ -26,8 +26,10 @@ var _formatData = function(filteredData) {
 var _filterDonutPieceData = function(categoryNameOrMerchantName, filteredData, allOthersData){
   //clears data set received from donut piece
   _donutPieceData = [];
+  //closes drill down if category or merchant name is already selected 
   if(previousName === categoryNameOrMerchantName){
     currentDisplayState = 'none'
+    //sends original filtered data to for re-rendering by bar and line charts
     _donutPieceData = filteredData;
     previousName = '';
   }else{

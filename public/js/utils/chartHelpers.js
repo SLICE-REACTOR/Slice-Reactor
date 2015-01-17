@@ -151,10 +151,12 @@ var formatBarChartData = function(filteredData) {
 };
 
 var filterDonutChartPiece = function(categoryOrMerchantName, filteredData, allOthers){
+  //responds to clicks on legend and donut piece filtering data only from specified merchant or category
   var donutPieceData = [];
   if(categoryOrMerchantName === 'All Others'){
     var allOthersData = [];
     allOthers.forEach(function(piece){
+      //extracts names from all others array to match dataset from filtered data 
       allOthersData.push(piece[0]);
     });
     filteredData.map(function(item){

@@ -37,7 +37,7 @@ var donutPieceValue = function(name, amount){
 };
 
 var addColorToDiv = function(pieceName){
-  //finds corresponding color from donut piece name to display in drill down
+  //finds corresponding color from donut piece name to display in drill down div
   colorArray.forEach(function(item){
     if(item[1] === pieceName){
       donutPieceColor = item[0];
@@ -47,6 +47,7 @@ var addColorToDiv = function(pieceName){
 };
 
 var sendChartData = function(item){
+  //uses currentItem if click is triggered by 'x' in item piece pop out
   item = item || currentItem;
   ChartActionCreators.filterDonutChartData(item);
 };
@@ -72,14 +73,16 @@ var DonutChart = React.createClass({
       data: {
         columns: dataset,
         type: 'donut',
-        order: null,
+        order: null, //allows for data to be displayed based on order in dataset
         color: function (color, d) {
           if (d.id){
+            //only adds colors with corresponding id's to array to match for drill down
             colorArray.push([color, d.id]);
           }
           return color;
         },
-        onclick: function (d) { 
+        onclick: function (d) {
+          //registers click from piece in donut chart
           currentItem = d.id;
           updateChartData(currentItem, d.value);
         }
@@ -88,6 +91,7 @@ var DonutChart = React.createClass({
         position: 'right',
         item : {
           onclick: function(id){
+            //registers click from legend
             currentItem = id;
             findAmount(dataset, currentItem);
           }
@@ -124,6 +128,7 @@ var DonutChart = React.createClass({
 
 var DonutDrillDown = React.createClass({
   _handleClick: function(){
+    //reponds to user click on 'x'
     sendChartData();
   },
   render: function(){
@@ -139,13 +144,13 @@ var DonutDrillDown = React.createClass({
 
 var CloseButton = React.createClass({
   render: function(){
-      return (
-        <div className="closeDonutPiece">
-          <li id="elementName"><strong>{pieceName}</strong> 
-            <span id="xToClose" onClick={this.props.onButtonClicked}> x </span>
-          </li>
-        </div>
-      )
+    return (
+      <div className="closeDonutPiece">
+        <li id="elementName"><strong>{pieceName}</strong> 
+          <span id="xToClose" onClick={this.props.onButtonClicked}> x </span>
+        </li>
+      </div>
+    )
   }
 });
 
