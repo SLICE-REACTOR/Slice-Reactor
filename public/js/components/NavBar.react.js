@@ -2,7 +2,6 @@ var React = require('react');
 // var graphDataStore = require('../stores/GraphDataStore');
 
 var NavBar = React.createClass({
-
   render: function() {
     return (
       <nav>

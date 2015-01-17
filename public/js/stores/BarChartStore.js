@@ -9,9 +9,9 @@ var chartHelpers = require('../utils/chartHelpers');
 var ActionTypes = Constants.ActionTypes;
 var CHANGE_EVENT = 'change';
 
-// DATA STORE
 var _barChartData = [];
 
+// formats the data from the FIlteredDataStore for the bar chart
 var _formatData = function(filteredData) {
   _barChartData = chartHelpers.formatBarChartData(filteredData);
 };
@@ -64,8 +64,8 @@ BarChartStore.dispatchToken = AppDispatcher.register(function(payload) {
       BarChartStore.emitChange();
       break;
 
+    // do nothing by default
     default:
-      // do nothing
   }
 });
 

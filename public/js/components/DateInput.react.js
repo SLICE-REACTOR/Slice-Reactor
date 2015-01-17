@@ -17,12 +17,14 @@ var DateInput = React.createClass({
   componentWillUnmount: function() {
     FilteredDataStore.removeChangeListener(this._onChange);
   },
+  // filter functions send category/merchant to action creators, telling the stores to sort the data
   _filterByCategory: function() {
     ChartActionCreators.filterData('category');
   },
   _filterByMerchant: function() {
     ChartActionCreators.filterData('merchant');
   },
+
   _resetDates: function() {
     this.setState({
       minDate: this.state.setMinDate,
@@ -31,6 +33,7 @@ var DateInput = React.createClass({
     var date = {}
     date.minDate = this.state.setMinDate;
     date.maxDate = this.state.setMaxDate;
+    // filterByDate requires an input with setMinDate & setMaxDate properties
     ChartActionCreators.filterByDate(date);
   },
   render: function() {
@@ -70,6 +73,7 @@ var DateInput = React.createClass({
       </div>
     );
   },
+  // the datepicker must change so that the date limits update
   _onChange: function() {
     $('#minDate').datepicker({
       dateFormat: 'yy-mm-dd',

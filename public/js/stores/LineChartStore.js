@@ -15,12 +15,14 @@ var _lineChartData = [];
 // Variable set for line chart axis formatting
 var _maxPrice = 0;
 
+// formats the data from the FIlteredDataStore for the line chart
 var _formatData = function(filteredData) {
   _lineChartData = chartHelpers.formatLineChartData(filteredData);
   _maxPrice = 0;
   setMaxPrice(_lineChartData);
 };
 
+// finds and sets the max price in the filtered data to help format the line chart y-axis
 var setMaxPrice = function(chartData) {
   chartData.forEach(function(item) {
     if (parseInt(item.price, 10) > parseInt(_maxPrice, 10))
@@ -79,8 +81,8 @@ LineChartStore.dispatchToken = AppDispatcher.register(function(payload) {
       LineChartStore.emitChange();
       break;
 
+    // do nothing by default
     default:
-      // do nothing
   }
 });
 

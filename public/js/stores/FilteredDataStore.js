@@ -137,6 +137,7 @@ var FilteredDataStore = assign({}, EventEmitter.prototype, {
   getFilterValue: function() {
     return _filterValues;
   },
+  // returns filtered data sorted by category or merchant
   getData: function() {
     if (_filterValues.primary === 'Category')
       return _filteredChartData.category;
@@ -166,8 +167,8 @@ FilteredDataStore.dispatchToken = AppDispatcher.register(function(payload) {
       _filterByDate(_filterValues);
       break;
 
+    // do nothing by default
     default:
-      // do nothing
   }
 });
 

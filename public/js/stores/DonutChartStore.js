@@ -8,13 +8,14 @@ var chartHelpers = require('../utils/chartHelpers');
 var ActionTypes = Constants.ActionTypes;
 var CHANGE_EVENT = 'change';
 
-// DATA STORE
+// DATA STORES
 var _donutChartData = [];
 var _donutPieceData = [];
 var _donutAllOthers = [];
 var currentDisplayState = 'none';
 var previousName;
 
+// formats the data from the FIlteredDataStore for the donut chart
 var _formatData = function(filteredData) {
   var chartData = chartHelpers.formatDonutChartData(filteredData);
   //gets data from individual catergory or merchant names
@@ -99,8 +100,8 @@ DonutChartStore.dispatchToken = AppDispatcher.register(function(payload) {
       DonutChartStore.emitChange();
       break;
 
+    // do nothing by default
     default:
-      // do nothing
   }
 });
 
