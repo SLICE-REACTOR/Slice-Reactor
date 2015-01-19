@@ -15,7 +15,7 @@ Slice & Dice generates interactive charts allowing you to explore your e-commerc
 1. [Requirements](#requirements)
 1. [Development](#development)
     1. [Installing Dependencies](#installing-dependencies)
-    1. [Roadmap](#roadmap)
+    1. [Documentation](#documentation)
 1. [Contributing](#contributing)
 1. [License](#license)
 
@@ -35,13 +35,13 @@ npm install
 npm run start
 ```
 
-### Roadmap
+### Documentation
 
-View the project roadmap [here][roadmap-url]
+Generate the project documentation [here][documentation-url]
 
 ## Contributing
 
 See [CONTRIBUTING.md][contributing-url] for contribution guidelines.
 
 [contributing-url]: https://github.com/SLICE-REACTOR/Slice-Reactor/blob/develop/CONTRIBUTING.md
-[roadmap-url]: https://github.com/SLICE-REACTOR/Slice-Reactor/wiki/Roadmap
+[documentation-url]: https://github.com/SLICE-REACTOR/Slice-Reactor/wiki/Documentation
