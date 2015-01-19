@@ -18,6 +18,7 @@ var LineChart = React.createClass({
     LineChartStore.removeChangeListener(this._onChange);
   },
   _renderChart: function(dataset){
+    // sets line chart settings using C3
     var lineChart = c3.generate({
       bindto: '#chart_2',
       padding: {
@@ -71,7 +72,7 @@ var LineChart = React.createClass({
           title: function (d) { return },
           value: function (value, ratio, id) {
             var newValue = Math.floor(value);
-            var format = d3.format('$');  
+            var format = d3.format('$');
               return format(newValue);
           }
         }

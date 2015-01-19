@@ -21,7 +21,8 @@ var formatDonutChartData = function(filteredData) {
   var donutChartDataOthers = [];
   var donutChartAllOthersItem = ['All Others', 0];
   for (var key in categoryOrMerchantData) {
-    if (categoryOrMerchantData[key] / totalSpent * 100 >= 3) {
+    // the chart should display all categories that will take up more than 3%
+    if (categoryOrMerchantData[key] / totalSpent * 100 >= 3 && key !== 'Other') {
       var donutChartItem = [key, categoryOrMerchantData[key].toFixed(2)];
       donutChartData.push(donutChartItem);
     } else {
@@ -29,22 +30,47 @@ var formatDonutChartData = function(filteredData) {
       donutChartDataOthers.push([key, categoryOrMerchantData[key].toFixed(2)])
     }
   }
+  // sort the array of categories from largest to smallest to set donut chart order
   donutChartData.sort(function(a, b) {
     return b[1] - a[1];
   });
   if (donutChartData.length < 8) {
+    // sort the array of Other categories from smallest to largest so that largest can be popped off
     donutChartDataOthers.sort(function(a, b) {
       return a[1] - b[1];
     });
     while (donutChartData.length < 8 && donutChartDataOthers.length > 0) {
-      donutChartAllOthersItem[1] -= donutChartDataOthers[donutChartDataOthers.length - 1][1];
-      donutChartData.push(donutChartDataOthers.pop())
+      if (donutChartDataOthers[donutChartDataOthers.length - 1][0] === "Other") {
+        if (donutChartDataOthers.length > 1) {
+          // if the largest category is Other then move the second largest category if it will be more than 1.5% of the chart
+          if (donutChartDataOthers[donutChartDataOthers.length - 2][1] / totalSpent * 100 >= 1.5) {
+            donutChartAllOthersItem[1] -= donutChartDataOthers[donutChartDataOthers.length - 2][1];
+            var OtherTemp = donutChartDataOthers.pop();
+            donutChartData.push(donutChartDataOthers.pop());
+            donutChartDataOthers.push(OtherTemp);
+          } else {
+            break;
+          }
+        } else {
+          break;
+        }
+      } else {
+        // move the largest category out of All Others if there are fewer than 8 categories and it's larger than 1.5% of chart
+        if (donutChartDataOthers[donutChartDataOthers.length - 1][1] / totalSpent * 100 >= 1.5) {
+          donutChartAllOthersItem[1] -= donutChartDataOthers[donutChartDataOthers.length - 1][1];
+          donutChartData.push(donutChartDataOthers.pop());
+        } else {
+          break;
+        }
+      }
     }
   }
+  // add All Others to the the donut chart if it exists so that it takes the last position in the chart
   if (donutChartAllOthersItem[1] > 0) {
     donutChartAllOthersItem[1] = donutChartAllOthersItem[1].toFixed(2);
     donutChartData.push(donutChartAllOthersItem);
   }
+  // return the chart data and the data for categories in all others so that a drill down into All Others can be performed
   return [donutChartData, donutChartDataOthers];
 };
 
@@ -151,10 +177,12 @@ var formatBarChartData = function(filteredData) {
 };
 
 var filterDonutChartPiece = function(categoryOrMerchantName, filteredData, allOthers){
+  //responds to clicks on legend and donut piece filtering data only from specified merchant or category
   var donutPieceData = [];
-  if(categoryOrMerchantName === 'All Others'){
+  if (categoryOrMerchantName === 'All Others'){
     var allOthersData = [];
     allOthers.forEach(function(piece){
+      //extracts names from all others array to match dataset from filtered data 
       allOthersData.push(piece[0]);
     });
     filteredData.map(function(item){
@@ -164,12 +192,12 @@ var filterDonutChartPiece = function(categoryOrMerchantName, filteredData, allOt
         }
       }
     })
-  }else{
+  } else{
     filteredData.map(function(item){
       if(categoryOrMerchantName === item.primaryLabel){
         donutPieceData.push(item);
       }
-    })
+    });
   }
   return donutPieceData;
 };
